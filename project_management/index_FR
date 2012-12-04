@@ -2,6 +2,8 @@
 Gestion de projet
 #################
 
+.. contents:: Sommaire
+
 Dans gestion de projet, on considère ici que le projet est limité dans le temps et 
 comporte toujours une notion de nouveauté ou de changement.
 Ainsi, l'ajout d'une fonctionnalité à un logiciel est un projet, 
@@ -35,7 +37,6 @@ LDAP : `openldap <http://www.openldap.org/doc/>`_,
 
 Documentation LDAP : `wikipedia <http://fr.wikipedia.org/wiki/LDAP>`_,
 `debian <http://wiki.debian.org/LDAP>`_.
-
 
 Authentification
 ----------------

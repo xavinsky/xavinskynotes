@@ -295,9 +295,9 @@ Initialisation du dépot
 github publication ::
 
     # créer un compte github et un depot sur github
+    # vous pouvez y mettre votre clef publique
     git remote add origin https://github.com/<user>/<depot>.git
     git push -u origin master
-
 
 ========
 Syntaxes
