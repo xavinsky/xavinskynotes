@@ -1,0 +1,21 @@
+###########
+Key for SSH
+###########
+
+For ssh connections without passwords with encrypted keys.
+
+genere a key::
+
+    ssh-keygen -t rsa -b 4096
+    # or
+    ssh-keygen -t dsa
+
+tape only one time your keypass::
+
+    ssh-add
+
+Push your public key in distant_machine::
+
+    ssh-copy-id <distant_machine>
+    # or
+    ssh-copy-id -i ~/.ssh/id_dsa.pub <distant_machine>

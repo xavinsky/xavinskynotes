@@ -1,0 +1,728 @@
+###
+Git
+###
+
+.. contents:: Sommaire
+
+============
+Terminologie
+============
+
+.. _version: 
+.. _versions: 
+
+Version
+    Traduction : version.
+    Snapshot du projet. Contient l'ensemble des fichiers du projet dans une certaine version.
+
+.. _`repertoire de travail`:
+
+Repertoire de travail
+    Traduction working directory. 
+    C'est le repertoire courrant ou vous travailler.
+
+.. _dépot:
+
+Dépot
+    Traduction : repository.
+    Espace de stockage de votre systeme de versions et des versions.
+    Le dépot distant duquel on a cloné notre dépot est nommé origin.
+
+.. _index:
+
+L'index
+    Traduction : staging area.
+    zone intermediaire entre le repertoire de travail et le depot.
+    Les fichiers indexé sont pret à etre versionné.
+
+Reserve
+    Traduction : stash stack.
+    Permet de mettre temporaire des modification en reserve, 
+    afin de pouvoir les appliquer plus tard.
+
+.. _suivi:
+
+Suivi
+    Traduction : tracked.
+    fichier ou un repertoire devient suivi lorsqu'il est indexé ou versionné.
+
+.. _indexé:
+.. _indexés:
+
+Indexé
+    Traduction : staged.
+    mis dans l'index.
+
+.. _Indexer:
+
+Indexer
+    Traduction : stage
+    mettre dans l'index
+
+.. _versionné:
+
+Versionné
+    Traduction : commited.
+    mis dans une version du dépot.
+
+.. _versionner:
+
+Versionner
+    Traduction : commit.
+    Creer une nouvelle version dans le dépôt à partir de l'index.
+
+.. _`mettre en reserve`:
+
+Mettre en reserve
+    Traduction : stash.
+    Mettre dans la reserve les modifications des elements suivis du repertoire de travail,
+    puis retourné à la dernière version.
+
+.. _`Extracter`:
+
+Extracter : 
+    Traduction : checkout.
+    Changer le repertoire de travail pour recuperer une version du dépot.
+
+.. _etiquette:
+
+Etiquette
+   Traduction : tag.
+   Nom donné a une version.
+
+.. _branche:
+
+Branche:
+   Traduction : branch.
+   Une branche est consitué de sa derniere version, et de toute ces versions précédentes.
+   La branche initiale est la branche master. 
+   HEAD est la branch courrante. 
+   HEAD^ est le parent de HEAD. 
+   HEAD-<X> : on remonte au parent X fois.
+
+.. _embranchement:
+    
+Embranchement:
+   Traduction : fork.
+   Creation d'une branche avec le même historique que le precedent.
+   On pourra basculer dans les espace de travail d'une branche a l'autre. 
+   Il sera alors possible d'effectuer des modifications sur chacune des branches independament.
+
+.. _ancetre:
+
+Ancetre commun.
+   Derniere version commune de deux branches.
+
+.. _fusionner:
+
+Fusionner:
+   Traduction : merge.
+   fussioner deux versions, c'est appliquer à partir de l'ancetre commun les modifications,
+   des deux dernieres versions des deux branches. Le resultat peut provoquer des conflits.
+
+.. _rebaser:
+
+Rebaser:
+   Traduction : rebase.
+   Deconseillons l'option rebase dans un premier temps car peu poser quelques problems.
+
+
+========
+Concepts
+========
+
+System de gestion de versions
+-----------------------------
+
+Il permet de gerer l'historique des fichiers, et de faire des versions_ sur l'ensemble du projet. 
+Il stoque les diférentes versions_ de documents (et non pas les différences) et fonctionne par instantanés (snapshot)
+
+.. image:: fig0105_fr.png
+
+
+Espaces de travail en local 
+---------------------------
+
+Les espaces de travail en local sont : le `repertoire de travail`_, le dépot_, l'index_ et la reserve_
+
+L'usage standard est : 
+
+    * Extracter_ les fichier depuis le dépot_ vers le `repertoire de travail`_.
+    * Editer des fichier dans le `repertoire de travail`_.
+    * Indexer_ les fichiers ajouter ou modifié dans l'index_.
+    * Versionner_ les fichiers indexés_ dans le dépot_.
+
+.. image:: fig0106_fr.png
+
+Vos fichiers peuvent donc être dans plusieurs états dans ces trois espaces. 
+Voici un tableau qui montre l'effet de certaines commandes sur les etats dans ces espaces.
+
+* -- : n'importe quel etat
+* == : inchangé
+* 00 : non indexé.
+* E1 : etat1
+* E2 : modifié depuis l'etat1
+* E3 : modifié depuis l'etat2
+
+======= ===== ==========  =================== ======= ===== ==========
+travail index depot                           travail index depot
+avant   avant avant       commande            apres   apres apres
+======= ===== ==========  =================== ======= ===== ==========
+E1      --    --          add                 E1      E1    ==
+--      E1    --          reset HEAD          ==      00    ==
+E3      E2    E1          checkout --         E2      E2    E1
+E2      00    E1          checkout --         E1      ==    E1
+--      E1    --          commit              ==      00    E1
+E2      00    E1          commit              E2      00    E1
+E2      E1    E1          commit -a           E2      00    E2
+======= ===== ==========  =================== ======= ===== ==========
+
+Systeme décentralisé
+--------------------
+
+Chaque personne peut cloner des depots.
+
+En local , il pourra creer des branches, faires des modifications, merger des branches.
+
+Ensuite il pourra proposer de publier ces branches sur d'autres depots.
+
+Il pourra aussi recuperer d'autres dépots et merger d'autres branches que le depot original.
+
+====================
+Mise en place de git
+====================
+
+Installation git
+----------------
+
+Installation sous debian ::
+
+    sudo aptitude install git-all
+
+`Installation sur d'autres systemes <http://git-scm.com/book/en/Getting-Started-Installing-Git>`_
+`Others install <http://git-scm.com/book/en/Getting-Started-Installing-Git>`_
+
+Configuration de git
+--------------------
+
+La premiere fois que vous utiliser git sur votre ordinateur, vous devez le configurer.
+The first time you will use git on your machine, you should configure your client git.
+
+Configuration de l'utilisateur::
+
+    # indispensable information utilisateur.
+    git config --global user.name "xavinsky"
+    git config --global user.email xav@tekio.org
+
+    # quelques options qui facilite la vie.
+
+    git config --global core.editor emacs
+    git config --global color.ui true
+    #git config --global merge.tool vimdiff
+
+    # configurer une signature texte a vos messages de versions.
+    git config --global commit.template $HOME/.gitmessage.txt
+
+    # pour signer numeriquement les commits ou les tags avec gpg
+    git config --global user.signingkey <gpg-key-id>
+
+    # possibilité de faire des alias sur certaines commandes :
+    git config --global alias.st status
+    git config --global alias.cia 'commit -a'
+    git config --global alias.unstage 'reset HEAD --'
+    git config --global alias.last 'log -1 HEAD'
+    git config --global alias.visual '!gitk'
+
+    # verifier votre configuration
+    git config --list
+    git config user.name
+
+    # configuration globale pour le systeme.
+    git config --systeme
+
+
+Fichiers de configuration::
+
+    # fichier de signature texte de vos messages de versions.
+    $HOME/.gitmessage.txt
+
+    # exclure de git automatiquement certains fichiers.
+    core.excludesfile
+    .gitignore
+
+    # configuration globale pour le system.
+    /etc/gitconfig
+
+    # configuration spécifique à votre utilisateur. 
+    ~/.gitconfig
+
+    # configuration spécifique à un repertoire (dans le dépot)
+    .git/config
+
+Exemples .gitignore::
+
+    *.pyc
+    *.a
+    *.o
+    *~
+
+
+
+Initialisation du dépot
+-----------------------
+
+::
+
+    # current folder.
+    # dans le repertoire courrant
+    git init
+
+    # new or existant folder
+    # creation ou utilisation d'un repertoire 
+    git init <repertoire>
+
+    # Recuperation d'un dépot distant existant : clone
+    git clone [url] <repertoire_a_creer>
+
+    # quelques exemples d'url avec différents protocoles.
+    # some samples
+    user@server:/path/testgit # protocol ssh par default.
+    http://user@server/path/testgit
+    https://user@server/path/testgit
+    ssh://user@server:/path/testgit
+    git:domaine/chemin/file.git
+
+github publication ::
+
+    # créer un compte github et un depot sur github
+    git remote add origin https://github.com/<user>/<depot>.git
+    git push -u origin master
+
+
+========
+Syntaxes
+========
+
+En locale
+---------
+
+`reference des syntaxes <http://git-scm.com/docs>`_
+
+Syntaxes simples ::
+
+    # ajout fichier dans le systeme de version = indexer + versionner.
+    git add file.txt                   # index le ficher et stage la version du fichier
+    git commit -m 'ajout de file.txt'  # commentaire
+
+    # attition editer un fichier tracké et l'enregistrer dans le systeme de version = editer + indexer de nouveau + versionner
+    edit file.txt
+    git add file.txt                   # stage the new version of file.
+    git commit -m 'modif de file.txt'  # commentaire
+
+    # indexe tout (add * est recursif)
+    git add *
+
+    # indexe tout les fichier tracké modifié
+    git add -u
+
+    # commiter tout les fichiers trackés modifié.
+    git commit -a 
+
+    # signer electroniquement sont commit
+    git commit -S
+
+    # signer textuelement sont commit
+    git commit -s
+
+    # move or rename a file, directory or symlink. 
+    # the move affect working and stage spaces.
+    git mv <source> <destination>
+
+    # DANGEROUS (cannot revert if not versionned)
+    # remove source from working space and from staging space
+    git rm <source>
+
+    # DANGEROUS (cannot revert)
+    # remove from working space all file and folder untracked
+    git clean
+
+    # unstage file
+    git reset HEAD <file>
+
+    # put in stage space the version before the last commit.
+    git reset --soft HEAD^
+
+    # Eliminate working space change for the source (file or folder). 
+    # revert to staged version if exist, or to last commit version.
+    git checkout <source>
+
+    # Eliminate working space change for the source (file or folder). 
+    # revert to <id_commit> version.
+    git checkout <id_commit> <source>
+
+
+    # Eliminate working space change for all files and folders tracked.
+    # revert to staged version if exist, or to last commit version.
+    git checkout --
+
+    # Eliminate working space change and stages version for all files and folders tracked.
+    # revert to last commit version.
+    git reset --hard
+
+    # Integrate changes in the given commit into the current branch.
+    git cherry-pick <id_commit>
+
+    # Reverse commit specified and commit the result.
+    git revert <id_commit>
+
+
+Amend est une option pratique lorsque 
+vous avez oublier quelque chose dans votre dernier
+commit et que vous voulez le rajouter.
+
+::
+
+    git commit --amend 
+
+    # sample utilisation --amend :
+    git commit -m 'mon commit'
+    git add file # commande oublié
+    git commit --amend # modifie le commit precedent en y integrant le add file.
+
+Introspection local
+-------------------
+
+`reference des syntaxes <http://git-scm.com/docs>`_
+
+::
+
+    # indique l'etat des différence dans le trois espaces, 
+    #   et les commandes pour deplacer les versions d'un espace a l'autre.
+    git status
+
+    # Afficher ce qui a été modifié mais non indexé
+    git diff
+
+    # Afficher ce qui a été indexé main pas commité
+    git diff --staged 
+
+    # Afficher les différences entre l'espace de travail et le dernier commit.
+    git diff HEAD
+
+    # Afficher les différences entre l'avant dernier commit et le dernier commit.
+    git diff HEAD^ HEAD
+
+    # Afficher les différences entre deux versions
+    # <version> can be ;
+    #  HEAD, dernoer commit
+    #  HEAD^ , avant dernier commit
+    #  <branch>, un nom de branch
+    git diff <version>..<version>
+
+
+    # changement effectue sur la branche 2 depuis l'ancetre commun aux deux branches.
+    git diff <branch1>...<branch2>
+
+    # Historique des commits :
+    git log
+
+    Options de selection des commits
+    -<nb>    N'affiche que les n derniers commits
+    --since ou --after    Limite l'affichage aux commits réalisés depuis/après la date spécifiée
+    --until ou --before   Limite l'affichage aux commits réalisés avant la date spécifiée
+    --author    Ne montre que les commits de cet auteur
+    --committer Ne montre que les commits de ce validateur
+
+    git log --since=30.minutes
+
+    Options de description des commits
+    -p  Affiche le patch appliqué par chaque commit
+    --show-signature Montre les commits signés.
+    --stat    nombre fichier modifier, nombre ligne modifiées/insérées/effacées
+    --shortstat npmbre ligne modifiées/insérées/effacées
+    --name-only Affiche la liste des fichiers modifiés après les informations du commit
+    --name-status   Affiche la liste des fichiers affectés accompagnés des informations d'ajout/modification/suppression
+    --abbrev-commit N'affiche que les premiers caractères de la somme de contrôle SHA-1
+    --relative-date Affiche la date en format relatif (par exemple "2 weeks ago" : il y a deux semaines) au lieu du format de date complet
+    --graph Affiche en caractère ASCII le graphe de branches et fusions en vis-à-vis de l'historique
+    --pretty=<format>   Formats possible  oneline, short, full, fuller, format:"<format_sur_mesure>"
+
+    # Know who made the change :
+    git blame <path_file>
+
+    # grep on git
+    git grep "<text>"
+
+    # check errors
+    git fsck
+
+
+Etiquettes
+----------
+
+`reference des syntaxes <http://git-scm.com/docs>`_
+
+::
+
+    #lister les tags :
+    git tag
+    git tag -l '<expression_avec_wilcard>'
+    # information tag
+    git show <tag>
+    # verifier signature du tag (necesite sa clef public PGP de l'utilisateur)
+    git tag -v <tag>
+    #creer tag sur l etat actuel:
+    git tag -a <tag> -m '<comment>'
+    #creer tag signe par PGP (necesite sa clef prive PGP)
+    git tag -s <tag> -m '<comment>'
+    #creer tag leger :
+    git tag <tag>
+    # on peut egalement specifie un commit 
+    git tag -a <tag> <identifiant_commit>
+
+Branches
+--------
+
+`reference des syntaxes <http://git-scm.com/docs>`_
+
+::
+
+    # lister les branches
+    git branch
+    git branch -v # affiche la derniere modif
+    git branch --merged # les branches déjà mergé.
+    git branch --no-merged # les branches par encore mergé.
+
+    # creer une branche sans basculer dedans
+    git branch <id_branche>
+
+    # basculer dans une branche
+    git checkout <id_branche>
+
+    # creer et basculer dans une branche
+    git checkout -b <id_branche>
+
+    # fusionner une branche
+    git merge <id_branche>
+
+    # Si il y a des conflits.
+    # Editier les fichiers avec conflits, indexer, et commiter.
+    git merge <id_branche>
+    edit <filewithconflit>
+    git add <filewithconflit>
+    git commit
+
+    # Voir les conflits.
+    git diff
+
+    # Detecter les fichier en conflits (marqués UU) :
+    git status -s
+
+    # Les conflits dans les fichiers sont marqués par :
+    # <<<<<<< HEAD
+    # version 1
+    # =======
+    # version A
+    # >>>>>>> <nom_branch>
+
+    # REBASE : DANGEROUS.
+    # only rebase rebaser seulement vos commits pas encore publié, sinon redondance possible.
+    git rebase <branch_cible> # reapplique tous les patchs de la branche courrante depuis l'ancetre commun sur la branche_cible.
+    # reappliquer tous les patchs de la branche_to_rebase depuis l'ancetre commun avec branche_base, sur la branche_cible.
+    git rebase --onto <branch_cible> <branche_base> <branche_to_rebase>
+    # apres un rebase, on peut alors merger facilement.
+    git checkout <branch_cible> 
+    git merge <branche_to_rebase>
+    git branch -d <branche_to_rebase> # detruire la branche rebasé.
+
+    # detruire une branche mergé
+    git branch -d <id_branche> 
+
+    # détruit une branche meme si elle a pas été mergé.
+    git branch -D <id_branche>
+
+Reserve
+-------
+
+`reference des syntaxes <http://git-scm.com/docs>`_
+
+::
+
+    # revert to last commit and save change in stashed space stack
+    git stash 
+
+    # apply the last stash in stashed space stack, and remove it from stack
+    git stash pop
+
+    # apply the last stash in stashed space stack, without remove it from stack
+    git stash apply pop
+
+    # remove all stash from stashed space stack, without apply them.
+    git stash clear
+
+    # create a branch from stashed space
+    git stash branch
+
+    # list stash in  stashed space stack
+    git stash list
+
+    # list stash in  stashed space stack
+    # saple id_stash : stash@{0}
+    git stash show -p <id_stash>
+
+Travail avec dépots distant
+---------------------------
+
+`reference des syntaxes <http://git-scm.com/docs>`_
+
+::
+
+    # recuperer un depot (initialise votre depot a partir d'un autre qui sera identifié comme origin
+    git clone <url>
+
+    # voir la liste des dépots liés.
+    git remote    # identifiant local seulement (bof)
+    git remote -v # avec les urls c'est mieux.
+    git remote show <identifiant> # voir les details sur un depot
+    git remote add <identifiant> <url> # ajouter un depot :
+    git remote rename <oldid> <newid> # changer l'identifiant d'un depot
+    git remote rm <identifiant> # elimner un depot
+
+    # recuperer et fusionner les modification d'un depot
+    git pull [<remote=origin>]
+    # recuperer sans fusionner les modification d'un depot
+    git fetch [<remote=origin>]
+
+    # creer un patch
+    git format-patch origin
+    # appliquer un patch
+    git am -3 <patch_file>
+    # marqué un confit de patch comme résolu.
+    git am --resolved
+
+    # envoyer ces modification sur un depot (sans les tags)
+    # (necessite droit configurer cote depot) 
+    git push [<remote=origin>]
+    # envoyer une branche
+    git push [<remote=origin>] <branch>
+    # envoyer une branche avec un nom différent.
+    git push [<remote=origin>] <localbranchname>:<remotebranchname>
+    # envoyer un tag.
+    git push [<remote=origin>] [nom-du-tag].
+    # envoyer tous les tags.
+    git push origin --tags
+
+    # DANGEROUS
+    # detruire une branche distante.
+    git push [<remote=origin>] :[branch]
+
+    # lister les branches distantes.
+    git branch -r [<remote=origin>]
+
+    # Reset localrepo and working tree to match a remote branch.
+    git reset --hard <remote>/<branch>
+    git reset --hard origin/master
+
+    # exporter une archive.
+    git archive HEAD > archive.tar
+
+
+===========
+Serveur git
+===========
+
+gitk
+----
+
+Before install a server for have a graphic interface, try the useful gitk.
+
+gitweb
+------
+
+install for Debian (root)
+
+Installation sur Debian (en administrateur): ::
+
+    aptitude install gitweb
+    # Donner les droits a votre utilisateurs sur le repertoire de publication.
+    chown -R <gituser>:<gituser> /var/cache/git/
+
+files config preset by debian
+
+Fichiers préconfigurés pas l'installation Debian : ::
+
+    # scripts et autres...
+    /usr/lib/cgi-bin/gitweb.cgi
+    /usr/share/gitweb/
+    /usr/share/doc/gitweb/
+
+    # configuration debian.
+    # alias /gitweb is enable for all virtualhosts.
+    # you can test it with the url : http://localhost/gitweb
+    /etc/apache2/conf.d/gitweb
+
+    # folder for publication repository git.
+    /var/cache/git/
+
+
+Creer un depot pour publication gitweb : :: 
+
+    # il faut dupliquer un depot sans workspace (grace a l'option --bare)
+    # par convention, utiliser *.git pour nommer le depot.
+    # on placera ce depot dans /var/cache/git/
+    git clone --bare <depot_initial> <depot_sans_workspace.git>
+
+    # Authoriser l'acces en ecriture sur un depot server : 
+    cd <depot>.git
+    git init --bare --shared
+
+    # limitation de ssh a git : dans /etc/password, indiquer le shell : /usr/bin/git-shell
+    git:x:1000:1000::/home/git:/usr/bin/git-shell
+    # on pourra mettre plusieurs authorisations key sur le meme user afin de faciliter l'admin.
+
+    # sample depot for test commands :
+    git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+
+
+==============
+Documentations
+==============
+
+::
+
+    # 3 syntaxe pour obtenir la meme doc sur une commande
+    $ git help <command>
+    $ git <command> --help
+    $ man git-<command>
+
+References :
+`[Git reference] <http://git-scm.com/docs>`_,
+`[Pro Git Book] <http://git-scm.com/book>`_,
+`[Pro Git Book French] <http://git-scm.com/book/fr>`_
+
+Cheatsheetes :
+`[htlm dynamic] <http://ndpsoftware.com/git-cheatsheet.html>`_,
+`[pdf 1] <https://na1.salesforce.com/help/doc/en/salesforce_git_developer_cheatsheet.pdf>`_,
+`[pdf 2] <http://zrusin.blogspot.fr/2007/09/git-cheat-sheet.html>`_,
+`[pdf 3] <http://jan-krueger.net/development/git-cheat-sheet-extended-edition>`_
+`[html static 1] <http://cheat.errtheblog.com/s/git>`_
+`[html static 2] <http://gitref.org/#log>`_
+
+Solutions git :
+`[git hostings] <https://git.wiki.kernel.org/index.php/GitHosting>`_,
+`[front end git] <https://git.wiki.kernel.org/index.php/InterfacesFrontendsAndTools>`_
+
+autres :
+
+https://git.wiki.kernel.org/index.php/Main_Page
+
+https://help.github.com/
+
+http://www-cs-students.stanford.edu/~blynn/gitmagic/intl/fr/index.html
+
+http://gitcasts.com/
+
+http://gitready.com/
+
+http://www.gitguys.com/topics/
+

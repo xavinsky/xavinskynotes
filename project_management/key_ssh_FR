@@ -1,0 +1,21 @@
+#############
+Clef pour SSH
+#############
+
+Pour une connections ssh sans mots de passe avec Clefs cryptés
+
+generer une clef : ::
+
+    ssh-keygen -t rsa -b 4096
+    # ou
+    ssh-keygen -t dsa
+
+taper une seule fois le keypass : ::
+
+    ssh-add
+
+Mettre en place la clef ssh sur machine distante : ::
+
+    ssh-copy-id <machine_distante>
+    # ou
+    ssh-copy-id -i ~/.ssh/id_dsa.pub <machine_distante>

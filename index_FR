@@ -1,0 +1,46 @@
+################
+Xavinsky's Notes
+################
+
+Ceci n'est *pas un blog*, je ne souhaites pas raconter ma vie ici, mais juste 
+un moyen de stocker et partager des *informations techniques utiles* sur divers
+sujets que je connais bien. Cela me servira donc principalement 
+d'*aide mémoire* et de *tutoriel* pour mes amis.
+Ce site est nouveau (décembre 2012), j'ai beaucoup de documentation technique 
+au format texte, accumulées depuis des années, j'ai décidé récemment de faire
+l'effort de les réactualiser et formater pour les publier. Un peu de patience 
+donc pour le contenu.
+
+Je suis français, par conséquents j'écris en français et traduit après coups sur
+demande quand j'ai le temps.
+
+========
+Rest2web
+========
+
+J'ai créé *Rest2web* pour ce site. C'est un serveur web de publication sans 
+prétention à usage personnel. Il me permet de mettre à jour le contenu de ce 
+site facilement à partir d'*Emacs* au format *ReStucturedText*.
+
+=============
+Qui suis-je ?
+=============
+
+Je suis un *spécialiste du logiciel libre* avec 14 ans d'expériences
+professionnelles.
+Mes activités recouvrent la conception, la réalisation et l'administration 
+technique.
+Mes spécialités sont *Linux*, *Debian*, les *bases de données*, *Python* et
+*Internet*.
+Voici mon `curriculum vitae </cv/CV_Manach_Xavier_2012_03.pdf>`_
+
+=======
+Contact
+=======
+
+N'hésitez pas à m'envoyer un email (xav@tekio.org) pour :
+
+* demander une page sur un *nouveau sujet*.
+* demander une *traduction* d'une page.
+* m'indiquer une *correction* : orthographe, technique, autre...
+

@@ -1,0 +1,168 @@
+#################
+Gestion de projet
+#################
+
+Dans gestion de projet, on considère ici que le projet est limité dans le temps et 
+comporte toujours une notion de nouveauté ou de changement.
+Ainsi, l'ajout d'une fonctionnalité à un logiciel est un projet, 
+le monitoring de serveur n'en est pas un.
+
+Equipe du projet
+================
+
+Un projet est avant tout une équipe. Il faut donc une organisation des membres.
+
+On mettra souvent en place un annuaire avec des systèmes d'identification, par exemple :
+
+* Mot de passe (code PIN, phrase secrète...)
+* Matériel (puce électronique, RFID, une clé USB)
+* Numérique (clef SSH, certificat SSL X509)
+* Biométrique
+
+Cela sert essentielement pour l'authentification et les signatures.
+
+On pourra également affecter des utilisateurs à des groupes,
+et donner des capacités et des accès personalisés selon les utilisateurs et les groups.
+
+Annuaire
+--------
+
+Le protocole le plus utilisé est LDAP.
+
+LDAP : `openldap <http://www.openldap.org/doc/>`_, 
+`Samba (pour s'interfacer avec Active Directory) <https://www.samba.org/>`_ ,
+`Apache Directory Server <http://directory.apache.org/>`_.
+
+Documentation LDAP : `wikipedia <http://fr.wikipedia.org/wiki/LDAP>`_,
+`debian <http://wiki.debian.org/LDAP>`_.
+
+
+Authentification
+----------------
+
+Elle donnera acces et certaine capacité à l'utilisateurs.
+
+Exemple de systemes d'identifications ssh avec clef : `key_ssh <key_ssh>`_
+
+Avec openssl on peu également créer des certificats 
+`X509 <http://fr.wikipedia.org/wiki/X.509>`_
+pour s'autentifier. Ce protocol est intégré aux navigateurs modernes.
+
+Signature
+---------
+
+Elle permet la tracabilité, la vérification d'intégrité.
+
+Exemple d'outil de signature electronique : `GnuPG <gnupg>`_
+
+Il est également possible de signer avec un certificat
+`X509 <http://fr.wikipedia.org/wiki/X.509>`_.
+
+Délais et Coûts
+===============
+
+Il est necessaire de connaître les disponibilités des autres acteurs,
+pour pouvoir planifiers un projet. Un planning partagé est donc très utiles.
+Le planning est également utiles pour partager des ressources matérieles.
+
+L'une des plus grandes difficultées est d'estimer en amont du projet 
+le temps necessaire à sa mise en place.
+Pour cela on découpe le projet en tâches, celle ci sont estimées et assignées.
+Une tâche est souvent composé de plusieurs taches. 
+Lorsque beaucoup de taches sont développé en parrallele, on parle de jalon ou milestone
+lorsqu'une série de tâches sont necessaire pour passer à l'étape suivante.
+
+On déduit donc du planing et le coût en temps humain 
+auquel on ajoute les autes coûts (matériels, licences ...)
+
+Exemple de logiciel de gestion de taches. `Trac <http://trac.edgewall.org/>`_
+
+Les Cycles
+==========
+
+Il y a deux grandes écoles pour la gestion de projet.
+
+Le cycle en V
+-------------
+
+C'est une méthode à cycle long.
+
+`Le Cycle en V <http://fr.wikipedia.org/wiki/Cycle_en_V>`_ adaptées a de grosses structures.
+On part de la demande fonctionnelle, 
+on en déduis une spécification, 
+on en déduit une architecture,
+on en déduit une conception détaillé, 
+on développe.
+Puis on remonte
+les test unitaires correspondant à la conception détaillée,
+puis les tests d'intégrations correspondant à l'architecture, 
+puis les test fonctionnels correspondants aux spécifications.
+
+Le principe est d'éviter de gros retour en arrière au maximum.
+
+Les méthodes agiles
+-------------------
+
+Le principe est d'avoir des cycles itératif, incrémental et adaptatif, 
+le plus court possible afin d'avoir une plus grande flexibilité et 
+une réactivité plus rapide. L'objectif etant d'avoir un intégration continue.
+
+Quelques méthodes agiles et quelques concepts :
+
+`XP : Extreme Programming <http://fr.wikipedia.org/wiki/Extreme_programming>`_,
+`Scrum <http://fr.wikipedia.org/wiki/Scrum_%28m%C3%A9thode%29>`_,
+`Programation orienté aspect <http://en.wikipedia.org/wiki/Aspect-oriented_programming>`_
+`BDD : Behavior Driven Development (développement piloté par la communication)
+<http://fr.wikipedia.org/wiki/Behavior_Driven_Development>`_,
+
+On y encourage le `refactoring <http://fr.wikipedia.org/wiki/Refactoring>`_, 
+l'utilisation des `Design Patterns <http://fr.wikipedia.org/wiki/Patron_de_conception>`_.
+le `TDD : Test Driven Development (développement piloté par les tests) <http://fr.wikipedia.org/wiki/Test_Driven_Development>`_
+et `les buildbots <http://trac.buildbot.net/>`_
+
+Environement de production
+==========================
+
+On utilisera généralement un environement de production qui contient :
+
+* Un editeur de code (et de documentation).
+* Un systeme de gestion de version.
+* Des systemes de test (unitaires et de performances).
+* Un débugueur, systeme de trace et de journal.
+
+Environement de test
+====================
+
+Si possible un environement le plus proche possible de l'environement de production.
+
+Livraison
+=========
+
+La phase de livraison, est la mise à disposition du logiciel.
+
+Documentation
+-------------
+Finalisation de la documentation générale (hors du code)
+
+Licences
+--------
+Ajout de la licence du votre programme ainsi que ceux des logiciels 
+liés ou inclus dans votre livraison de programme.
+
+Validation
+----------
+Passage de tests fonctionnels. Eventuelles certifications.
+
+Packaging
+---------
+Fichier finaux à livrer.
+Cela peut être une simple archive (zip, tgz...),
+un package pour une distribution linux (deb, rpm), une pubication sur github, 
+etc...
+
+Qualité
+-------
+
+Documentation, Tests, Optimisation, correction de bugs.
+
+

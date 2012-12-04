@@ -1,0 +1,129 @@
+#####
+GnuPG
+#####
+
+.. contents:: Sommaire
+
+Implémentation libre de PGP.
+Créer vos clef pour signer numériquement ce que vous voulez.
+
+Installation
+------------
+
+Installation avec Debian::
+
+    aptitude install gnupg signing-party
+
+Creation de cle PGP
+-------------------
+
+La commande a pas mal de question.
+
+Commande et interraction ::
+
+    # gpg --gen-key
+
+    Please select what kind of key you want:
+       (1) RSA and RSA (default)
+       (2) DSA and Elgamal
+       (3) DSA (sign only)
+       (4) RSA (sign only)
+    Your selection? 1
+    RSA keys may be between 1024 and 4096 bits long.
+    What keysize do you want? (2048) 4096
+    Requested keysize is 4096 bits
+    Please specify how long the key should be valid.
+	     0 = key does not expire
+	  <n>  = key expires in n days
+	  <n>w = key expires in n weeks
+	  <n>m = key expires in n months
+	  <n>y = key expires in n years
+    Key is valid for? (0) 
+    Key does not expire at all
+    Is this correct? (y/N) y
+
+    You need a user ID to identify your key; the software constructs the user ID
+    from the Real Name, Comment and Email Address in this form:
+	"Heinrich Heine (Der Dichter) <heinrichh@duesseldorf.de>"
+
+    Real name: <your name>
+    Email address: <your email>
+    Comment: <your pseudo>
+    You selected this USER-ID:
+	"<your name> (<yout pseudo) <<your email>>"
+
+    Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+    You need a Passphrase to protect your secret key.
+
+    We need to generate a lot of random bytes. It is a good idea to perform
+    some other action (type on the keyboard, move the mouse, utilize the
+    disks) during the prime generation; this gives the random number
+    generator a better chance to gain enough entropy.
+
+    gpg: /home/<your_user>/.gnupg/trustdb.gpg: trustdb created
+    gpg: key 12345678 marked as ultimately trusted
+    public and secret key created and signed.
+
+    gpg: checking the trustdb
+    gpg: 3 marginal(s) needed, 1 complete(s) needed, PGP trust model
+    gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+    pub   4096R/12345678 2012-11-19
+	  Key fingerprint = XXXX XXXX XXXX XXXX XXXX  XXXX XXXX XXXX XXXX XXXX
+    uid                  <your name> (<yout pseudo) <<your email>>
+    sub   4096R/12345678 2012-11-19
+
+
+J'ai changé le resultat avec une pseudo keyID 12345678 
+
+Ici, 12345678 est l'identifiant de votre clef pgp. 
+Vous pouvez avoir plusieurs clefs.
+
+Si vous utiliser un phrase secrete (Passphrase), 
+vous aurez besoin de l'utiliser à chaque fois que vous allez signer.
+C'est une protection de plus, mais cela peux être ennuyeux à la longue.
+
+Pour programmer, j'en utilise une sans phrase secrete, 
+et une autre avec pour les documents importants.
+
+les commandes gpg peuvent gere des couples clef privés et public, 
+et des clefs public seules.
+Elles sont stocker dans le repertoire ~/.gnupg
+
+Utiliser PGP
+------------
+
+Syntaxes ::
+
+    # list toutes les clef.
+    gpg --list-keys
+
+    # montre l'empreinte (fingerprint)
+    gpg -v --fingerprint 12345678
+
+    # utile pour les reunion de signature de clef debian.
+    # creer un tableau a imprimer avec vos indormation de clef public a
+    # distribuer
+    gpg-key2ps -p a4 12345678 > pgp_public_to_print.ps
+
+    # Publier votre clef sur le serveur pgp.net
+    # ATTENTION : vous ne pouvez pas enlever une cle 
+    # une fois mise sur wwwkeys.pgp.net .
+    gpg --keyserver wwwkeys.pgp.net --send-key 12345678
+    # les serveurs de clef pgp.net comminique entre eux
+    # afin de partager leurs clefs publics.
+
+    # importer une signature de votre clef 
+    # par une autre personnes dont le keyId est 87654321
+    # et la publier sur le server.
+    gpg --import 12345678-signedBy-87654321.asc
+    gpg --keyserver wwwkeys.pgp.net --send-key 12345678
+
+    # Recuperer une clef public dont le KeyID est AAAAAAAA.
+    gpg --keyserver wwwkeys.pgp.net --recv-keys AAAAAAAA 
+    # Vérifier son contenu
+    gpg --fingerprint AAAAAAAA 
+    # Signer la clef public.
+    gpg --sign-key AAAAAAAA 
+    # Exporter la signature dans un fichier ascii.
+    gpg --armor --output AAAAAAAA-signedBy-12345678.asc --export AAAAAAAA
+

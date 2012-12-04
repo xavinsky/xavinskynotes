@@ -1,0 +1,398 @@
+***************
+Licences Libres
+***************
+
+.. contents:: Sommaire
+
+Terminologies
+=============
+
+Logiciel libre 
+    Fournis 4 libertés essentielles à l'utilisateur : 
+    exécuter le programme,
+    étudier et modifier le programme sous forme de code source,
+    en redistribuer des copies exactes,
+    en redistribuer des versions modifiées.
+
+Copyleft
+    Etendre la licence libre aux versions modifiées ou étendues.
+    On parle aussi de Licence Héritable.
+
+Logiciel privateur
+    Logiciel qui n'est pas un logiciel libre.
+
+Lien privateur
+    Un lien (statique ou dynamique) d'un logiciel privateur vers une autre
+    librairie (en logiciel libre) sera appelé ici lien privateur.
+
+Travail derivé
+    Le résultant d'une compilation avec un lien privateur sera appelé ici 
+    travail dérivé.
+
+Utilisateur distant
+    Le logiciel est utilisé via le réseau. Seul le service est distribué à 
+    l'utilisateur distant et pas le réseau. 
+    Donc, sauf mention contraire, dans la plupart des licences, les sources 
+    n'ont donc pas a être dévoilée si elles on été modifiés à l'utilisateur
+    distant.
+
+Copyleft fort
+    Application totale du principe copyleft a un logiciel.
+    Celui interdit donc les lien privateur, et impose la licence libre
+    a tous travaux dérivés.
+
+Copyleft faible
+    Application diminuée du principe copyleft a un logiciel.
+    Le liens privateur sont permis lorsque le travail dérivé n'est pas 
+    considéré comme un tout.
+    La restribution d'un travail dérivé est permis a condition de fournir
+    le code source de la librairie libre avec ses modification éventuelles
+    sous licence libre.
+
+Sans copyleft
+    C'est les possibilités pour un logiciel privateur d'integrer un logiciel,
+    et de modifier son contenu comme bon lui semble sans contrainte.
+
+Copyleft distant
+    Certaines licences libre spécifie que l'utilisateur distant possede les 
+    mêmes droits de l'utilisateur standard.
+    Ansi, si un serveur modifie un logiciel qui respecte ce copyleft, les 
+    utilisateur distant doivent pouvoir étudier et modifier le programme sous 
+    forme de code source.
+
+Quelle licence libre choisir ?
+==============================
+
+Les conseils de gnu.org
+-----------------------
+
+Ce tableau résume les
+`conseils <http://www.gnu.org/licenses/license-recommendations.fr.html>`_ 
+de gnu.org_ que j'essaie de suivre autant que possible.
+
+====================================== ======================= ============
+**Votre code**                         **Licence Libre**       **Copyleft**
+contribution a un projet existant      La licence du projet
+moins de 300 lignes                    `Licence Apache 2.0`_   Sans
+protocol libre en concurence           `Licence Apache 2.0`_   Sans
+librairie sans copyleft en concurence  LGPLv3_                 Faible
+Protection contre utilisation distante AGPLv3_                 Distant
+Autres cas                             GPLv3_                  Fort
+**Votre documentation**                **Licence Libre**       **Copyleft**
+moins de 300 lignes                    |Permissive|_           Non
+Autres cas                             GFDL_                   Oui
+Code dans la documentation             CC0_                    Non
+**Autres (images, son...)**            **Licence Libre**       **Copyleft**
+si dans un projet                      La licence du projet
+si independant                         `CC BY-SA`_             Oui
+====================================== ======================= ============
+
+Les codes écrit en python
+-------------------------
+
+Le code quit doit être inclus dans la librairie standard de Python_ doit 
+utiliser la `Licence Apache 2.0`_. 
+
+Le reste peut utiliser la GPLv3_, mais il est preferable d'utiliser 
+`Licence Apache 2.0`_ pour tout code susceptible rentrer dans la librairie 
+standard.
+
+.. _Python : http://www.python.org/.
+
+Mise en place des licences libres
+=================================
+
+Général
+-------
+
+Le programme doit contenir :
+
+* Dans la livraison globale : Le ou les fichiers de licence.
+* sur chaque fichier :
+
+  * un avis de copyright
+  * un avis de licence 
+
+Syntaxe de l'avis de copyright : ::
+
+    [Copyright|©|Copyright ©] <year> <name of author> [email]
+
+Exemples : ::
+
+    Copyright © 2012 Xavier Manach <xav@tekio.org>
+    © 2011-2012 Xavier Manach
+    Copyright 2011 Xavier Manach
+
+
+Licence GPLv3, LGPLv3 et AGPLv3
+-------------------------------
+
+Syntaxe de l'avis de licence standard : ::
+
+    This file is part of <software name>.
+
+    <software name> is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    <software name> is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the [GNU|GNU Lesser|GNU Affero] 
+    General Public License along with <software name>. 
+    If not, see <http://www.gnu.org/licenses/>.
+
+Les fichiers a joindre dans la livraison global selon la licence :
+
+* Pour GPLv3 : gpl.txt_
+* Pour LGPLv3 : gpl.txt_ + lgpl.txt_
+* Pour AGPLv3 : gpl.txt_ + agpl.txt_
+
+.. _gpl.txt : http://www.gnu.org/licenses/gpl.txt
+.. _lgpl.txt : http://www.gnu.org/licenses/lgpl.txt
+.. _agpl.txt : http://www.gnu.org/licenses/agpl.txt
+
+Exemple de fichier ajouter dans chaque fichier : ::
+
+    Copyright © 2012 Xavier Manach <xav@tekio.org>
+
+    This file is part of Rest2Web.
+
+    Rest2Web is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Rest2Web is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License 
+    along with Rest2Web. If not, see <http://www.gnu.org/licenses/>.
+
+Apache Licence Version 2.0
+--------------------------
+
+Syntaxe de l'avis de licence : ::
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+Le fichier a joindre dans la livraison global : 
+`LICENSE-2.0.txt <http://www.apache.org/licenses/LICENSE-2.0.txt>`_
+
+GNU All-Permissive License
+--------------------------
+
+Cette licence ne necessite ni d'avis de copyright, ni fichier de licence.
+
+Seul est necessaire cet avis de copyright : ::
+
+    Copying and distribution of this file, with or without modification,
+    are permitted in any medium without royalty provided the copyright
+    notice and this notice are preserved.  This file is offered as-is,
+    without any warranty.
+
+GNU Free Documentation License
+------------------------------
+
+Le fichier de licence `fdl.txt <http://www.gnu.org/licenses/fdl.txt>`_
+contient la licence et un parragraphe Addendum en fin de document qui decrit 
+comment utiliser cette licence.
+
+1.  Pour une utilisation pour une documentation dans un fichier unique.
+
+    Enlever la partie addendum du fichier dfl.txt, et inserer cette licence 
+    dans votre document.
+ 
+    Puis sous le titre du document, ajouter l'avis de copyright et l'avis 
+    de licence
+
+    Syntaxe de l'avis de licence : ::
+
+        Permission is granted to copy, distribute and/or modify this document
+        under the terms of the GNU Free Documentation License, Version 1.3
+        or any later version published by the Free Software Foundation;
+        with [no Invariant Sections|Invariant Sections being <LIST>],
+        [no Front-Cover Texts|Front-Cover Texts being <LIST>] and
+        [no Back-Cover Texts|the Back-Cover Texts being <LIST>].
+        A copy of the license is included in the section entitled "GNU
+        Free Documentation License".
+
+    Exemple de text a inclure sous le titre : ::
+
+        Copyright © 2012 Xavier Manach <xav@tekio.org>
+
+        Permission is granted to copy, distribute and/or modify this
+        document under the terms of the GNU Free Documentation License,
+        Version 1.3 or any later version published by the Free Software
+        Foundation; with no Invariant Sections, no Front-Cover Texts and
+        no Back-Cover Texts.  A copy of the license is included in the
+        section entitled "GNU Free Documentation License".
+
+2.  Pour une utilisation pour une documentation dans plusieurs fichiers.
+
+    Creer un fichier licence-fdl.txt avec l'avis de licence et le contenu
+    du fichier fdl.txt (en retirant la partie Addedum).
+
+    Puis sur chaque fichier, ajouter le l'avis de copyright et la ligne 
+    suivante : ::
+
+        See the file licence-fdl.txt for copying conditions.
+
+    Par exemple à ajouter sur chaque fichier : ::
+
+        Copyright © 2012 Xavier Manach <xav@tekio.org>
+        See the file licence-fdl.txt for copying conditions.
+
+Creative Common Public Domain Dedication
+----------------------------------------
+
+Le fichier a joindre dans la livraison global : 
+http://creativecommons.org/publicdomain/zero/1.0/legalcode.txt
+
+Syntaxe d'avis de licence : ::
+
+    To the extent possible under law, the author(s) have dedicated all 
+    copyright and related and neighboring rights to this software to the 
+    public domain worldwide. This software is distributed without any warranty. 
+
+    You should have received a copy of the CC0 Public Domain Dedication along 
+    with this software. 
+    If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. 
+
+Creative Common Attribution-ShareAlike 2.0
+------------------------------------------
+
+Les instructions dependent du type de oeuvre.
+
+`Documentation officielle <http://wiki.creativecommons.org/Marking/Creators>`_
+
+Pour un text, utilisant la meme demarche que pour les autres licences.
+
+Syntaxe d'avis de licence : ::
+
+    This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 
+    Unported License. To view a copy of this license, 
+    visit http://creativecommons.org/licenses/by-sa/3.0/.
+
+
+Pour une page web, Inserer dans la page le code HTML suivant ::
+
+    <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"
+    ><img alt="Creative Commons License" style="border-width:0" 
+    src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" 
+    /></a><br />This work is licensed under a <a rel="license" 
+    href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"
+    >Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+
+L'apparence sera une image suivi d'un petit text avec un lien http vers `un 
+descriptf de la licence <http://creativecommons.org/licenses/by-sa/3.0/deed.en_US>`_ 
+
+Le text : ::
+
+    This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License
+
+L'image |logo1| ou |logo2| en changant l'url avec 80x15.png .
+
+.. |logo1| image:: http://i.creativecommons.org/l/by-sa/3.0/88x31.png
+
+
+.. |logo2| image:: http://i.creativecommons.org/l/by-sa/3.0/80x15.png
+
+Si l'image ne vous plait pas vous pouvez modifer le logo.
+Vous pouvez voir ici : http://creativecommons.org/about/downloads
+
+Les licences libre beaucoup utilisés
+====================================
+
+================== ===================== ==================
+Accronyme          Nom de la Licence     copyleft               
+================== ===================== ==================
+AGPLv3             |AGPLv3|_             Tres Fort
+GPLv3              |GPLv3|_              Fort
+LGPLv3             |LGPLv3|_             Faible
+GFDL               |GFDL|_               Oui
+GNU All-Permissive |Permissive|_         Non
+CC BY-SA           |CC BY-SA|_           Oui
+CC0                |CC0|_                Non
+Licence Apache 2.0 |Licence Apache 2.0|_ Sans
+BSD 3-Clause       |BSD 3-Clause|_       Sans
+BSD 2-Clause       |BSD 2-Clause|_       Sans
+MIT                |MIT|_                Sans
+CDDL-1.0           |CDDL-1.0|_           Sans
+MPL-2.0            |MPL-2.0|_            Tres Faible
+EPL-1.0            |EPL-1.0|_            Faible
+================== ===================== ==================
+
+.. |AGPLv3| replace:: GNU Affero General Public License
+.. _AGPLv3: http://www.gnu.org/licenses/agpl-3.0.html
+.. |GPLv3| replace:: GNU General Public License, Version 3
+.. _GPLv3: http://www.gnu.org/licenses/gpl.html
+.. |LGPLv3| replace:: GNU Lesser General Public License, Version 3
+.. _LGPLv3: http://www.gnu.org/licenses/lgpl.html
+.. |Licence Apache 2.0| replace:: Apache License, Version 2.0
+.. _Licence Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
+.. |Permissive| replace:: GNU All-Permissive License
+.. _Permissive: http://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html
+.. |GFDL| replace:: GNU Free Documentation License
+.. _GFDL: http://www.gnu.org/licenses/fdl.html
+.. |CC0| replace:: Creative Common Public Domain Dedication
+.. _CC0:  http://creativecommons.org/publicdomain/zero/1.0/
+.. |CC BY-SA| replace:: Creative Common Attribution-ShareAlike 2.0
+.. _CC BY-SA: http://creativecommons.org/licenses/by-sa/3.0/legalcode
+.. |BSD 3-Clause| replace:: BSD 3-Clause licenses
+.. _BSD 3-Clause : http://opensource.org/licenses/BSD-3-Clause
+.. |BSD 2-Clause| replace:: BSD 2-Clause licenses
+.. _BSD 2-Clause : http://opensource.org/licenses/BSD-2-Clause
+.. |MIT| replace:: MIT license
+.. _MIT : http://opensource.org/licenses/MIT
+.. |CDDL-1.0| replace:: Common Development and Distribution License
+.. _CDDL-1.0 : http://opensource.org/licenses/CDDL-1.0
+.. |MPL-2.0| replace:: Mozilla Public License 2.0
+.. _MPL-2.0 : http://opensource.org/licenses/MPL-2.0
+.. |EPL-1.0| replace:: Eclipse Public License
+.. _EPL-1.0 : http://opensource.org/licenses/EPL-1.0
+
+
+Quelques References
+===================
+
+Sites de références : `opensource.org <http://opensource.org/licenses/category>`_,
+`gnu.org <http://www.gnu.org/licenses/licenses.html>`_,
+`Free Software Foundation <http://www.fsf.org/>`_,
+`Article wikipedia <http://en.wikipedia.org/wiki/Free_software_licence>`_
+
+`Comment utiliser les licences GNU pour vos logiciels ? <http://www.gnu.org/licenses/gpl-howto.fr.html>`_
+
+Livre sous les licences libres sur les licences libre : |UOSFS|_
+
+.. |UOSFS| replace:: Understanding Open Source and Free Software Licensing (205 pages)
+
+.. _UOSFS: http://oreilly.com/openbook/osfreesoft/book/index.html
+
+Les licences libres vue par 
+`Debian <http://wiki.debian.org/DFSGLicenses>`_,
+`Fedora <https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing>`_.
+
+les licences applique au language : `Python Licence FAQ <http://wiki.python.org/moin/PythonSoftwareFoundationLicenseFaq>`_
+
+Les DRM `Articles wikipedia <http://fr.wikipedia.org/wiki/Gestion_des_droits_num%C3%A9riques>`_, 
+`Stallman oposition <http://www.gnu.org/philosophy/opposing-drm.html>`_,
+`GPLv3 et DRM <http://www.gnu.org/licenses/gpl-faq.html#DRMProhibited>`_
+
+`Logo officiels des Licences GNU <http://www.gnu.org/graphics/license-logos.html>`_
+
