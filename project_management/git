@@ -297,7 +297,7 @@ GitHub
 
 Creation de compte github, suivre les instruction sur github.
 
-`Creer une clef ssh <../key_ssh>`si vous souhaitez vous connecter sans mot de passe.
+`Creer une clef ssh <../key_ssh>`_ si vous souhaitez vous connecter sans mot de passe.
 
 Configuration de clef ssh, editer  ~/.ssh/config ::
 
