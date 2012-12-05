@@ -299,6 +299,14 @@ github publication ::
     git remote add origin https://github.com/<user>/<depot>.git
     git push -u origin master
 
+editer  ~/.ssh/config ::
+
+    Host github.com
+        HostName github.com
+        IdentityFile ~/.ssh/id_dsa
+        User <nom_user_github>
+
+
 ========
 Syntaxes
 ========

@@ -1,0 +1,151 @@
+######################
+Administration Système
+######################
+
+.. contents:: Sommaire
+
+Infrastructure
+==============
+
+Hardware
+--------
+Choisir les postes de travails, les telephones, les serveurs, les clusters, l'équipement réseau.
+
+Réseau
+------
+Internet, Intranet, vpn, mobilité...
+
+Les protocoles
+* TCP_IP
+* ethernet
+* X25
+* xDSL
+* ATM
+* wifi
+* telephonies
+* bluetooth
+
+Sécurite
+--------
+
+backup, 
+injections (nessus), 
+intrusion_detection (snort), 
+monitoring (nagios, zabbix), 
+network_analyzer (wireshark), 
+recovery_disaster, scan(nmap)
+routage, proxy, reverse proxy
+
+Virtualisation
+--------------
+xen, virtualbox, vmware, Openstack.
+
+Architecture
+------------
+Scalabilité, tolérence au pannes, disponibilités, supervision.
+Loadbalancing, caching.
+
+Systemes d'exploitations
+------------------------
+
+* linux et ses distributions :
+
+  * android
+  * debian
+  * NAS
+  * redhat
+  * ubuntu
+
+* autres unix
+
+  * openBSD
+  * netBSD
+  * AIX
+
+* les systemes privateurs 
+
+  * windows
+  * OSX
+
+Environements des utilisateurs
+==============================
+
+Postes de travails
+------------------
+
+Gestion des systemes des postes de travail.
+
+Applications
+------------
+
+L'installation, le paramétrage, la maintenance, la mise à jour des application.
+Le déploiement sur les postes de travail.
+
+Afin de faire communiquer tout le monde,
+on doit souvent mettre en place les outils de communications.
+gestionnaire de projets, gestion des poste de travails 
+
+Gestions des données
+--------------------
+
+Partage de fichiers, gestionnaire de sources, bases de données.
+Sauvegarde, restauration.
+
+Environements de projets
+========================
+
+Les projets utilisent différent environements selon leur cycle de projet.
+
+Developement
+------------
+
+On utilisera généralement un environement de production qui contient :
+
+* Un editeur de code (et de documentation).
+* Un systeme de gestion de version.
+* Des systemes de test (unitaires et de performances).
+* Un débugueur, systeme de trace et de journal.
+
+Test
+----
+
+Si possible un environement le plus proche possible de l'environement de production.
+
+On apréciera particulierement la possibiliter de rejouter des tests
+à partir de certains états. La gestion de version est donc particulierement
+importante dans cet environement.
+
+Production
+----------
+
+Ici, on n'a pas le droit à l'erreur.
+
+Les points important ici, plus qu'ailleur : 
+la sécurité, la supervision, la dispponibilité et les performances.
+
+Scripting system
+================
+
+* scripting shell standard
+  * bash 
+  * perl
+  * sh
+* scripting shell plus rare
+  * ksh
+  * zsh
+  * ash
+  * csh
+
+* developement system
+  * C
+
+Gestions de services
+====================
+
+* authentication, SSO
+* web (apache)
+* email
+* partage de fichier (samba, nfs, ftp, sftp)
+* CMS, CRM, GED
+* e_commerce
+

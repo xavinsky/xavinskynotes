@@ -22,6 +22,11 @@ Spécifications fonctionnelles
 
 Les cas d'utilisations (uses cases) c'est à dire la description des processus métier.
 
+Contraintes
+-----------
+En particulier dans le milieu de l'embarqué, les contraintes matérielles sont fortes,
+ce qui influence beaucoup l'architecture.
+
 Architecture
 ------------
 
@@ -45,7 +50,6 @@ Réalisation
 L'analyse fonctionnelle est le passage des spécifications à la creation du 
 logiciel.
 
-
 Algorithmique
 -------------
 
@@ -57,11 +61,27 @@ quantité de ressources necessaire proportionnelement au traitement.
 Implémentation
 --------------
 
-L'écriture ou modification de programme (code) à l'aide de languages de 
-programmation.
+L'écriture ou modification de programme (code) à l'aide de 
+`languages de programmation <languages>`
 
 Qualité
 -------
 
 Documentation, Tests, Optimisation, correction de bugs.
 
+Techniques
+----------
+
+* Developement de drivers
+* Reverse Engineering
+* MultiProcess, Multithread
+* Les sockets
+
+Performances
+------------
+
+* benchmark, tests de performance, tests au limites.
+* audits de codes
+* audits de protocoles
+* scalabilité
+* tolérance aux pannes

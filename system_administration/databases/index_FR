@@ -1,0 +1,44 @@
+################
+Bases de données
+################
+
+SQL
+===
+
+Bases de données relationnelle utilise la norme SQL.
+
+Ma préferé est PostgreSQL
+
+* Open source
+
+  * mysql
+  * postgreSQL
+  * sqlite
+
+* Logiciel Privateur
+
+  * oracle
+  * sybase
+
+NoSQL
+=====
+
+Nouvelles conceptions des bases de données,
+qui permette une plus grande scalabilité.
+
+Pour avoir fait de nombreux benchmarks nosql,
+ma préférée est membase.
+
+* bases consistantes
+
+  * membase
+  * cassandra
+  * mongoDB
+  * riak
+  * voldemort
+
+* bases memoire
+
+  * memcache
+  * redis
+

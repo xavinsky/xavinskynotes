@@ -1,0 +1,43 @@
+##############################
+Les languages de programmation
+##############################
+
+Python
+======
+
+Mon préféré.
+'Voir ici <python>'_
+
+C
+=
+
+Deux cas ou il est utile de programmer en C :
+
+* programation systemes (driver, kernel)
+* amélioration des performances.
+
+Le C est le language de haut niveau qui permet d'être le plus proche possible du matériel.
+Ensuite, il faut passer à de l'assembleur, ce qui prend beaucoup plus de temps.
+
+Java
+====
+
+Java est beaucoup utilisés.
+Son avantage principal est la sécurité entre les différentes parties d'un programme.
+Cela permet d'ajouter des modules fait par des tiers en toute sécurités.
+C'est également un language portable, comme pyhton.
+Le gros défault est sa structure et sa syntaxe qui est tres lourde.
+
+C++
+===
+
+C++ est un autre classique.
+Comme java et pyhton, c'est un language objet.
+C'est l'extension du C.
+
+autres
+======
+
+* ruby
+* lua
+
