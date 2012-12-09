@@ -4,7 +4,7 @@ Key for SSH
 
 For ssh connections without passwords with encrypted keys.
 
-genere a key::
+Generate a key::
 
     ssh-keygen -t rsa -b 4096
     # or

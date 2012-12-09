@@ -15,36 +15,36 @@ Version
     Traduction : version.
     Snapshot du projet. Contient l'ensemble des fichiers du projet dans une certaine version.
 
-.. _`repertoire de travail`:
+.. _`répertoire de travail`:
 
-Repertoire de travail
+Répertoire de travail
     Traduction working directory. 
-    C'est le repertoire courrant ou vous travailler.
+    C'est le répertoire courant ou vous travailler.
 
-.. _dépot:
+.. _dépôt:
 
-Dépot
+Dépôt
     Traduction : repository.
-    Espace de stockage de votre systeme de versions et des versions.
-    Le dépot distant duquel on a cloné notre dépot est nommé origin.
+    Espace de stockage de votre système de versions et des versions.
+    Le dépôt distant duquel on a cloné notre dépôt est nommé origin.
 
 .. _index:
 
 L'index
     Traduction : staging area.
-    zone intermediaire entre le repertoire de travail et le depot.
-    Les fichiers indexé sont pret à etre versionné.
+    zone intermédiaire entre le répertoire de travail et le dépôt.
+    Les fichiers indexé sont prêt à être versionné.
 
-Reserve
+Réserve
     Traduction : stash stack.
-    Permet de mettre temporaire des modification en reserve, 
+    Permet de mettre temporaire des modification en réserve, 
     afin de pouvoir les appliquer plus tard.
 
 .. _suivi:
 
 Suivi
     Traduction : tracked.
-    fichier ou un repertoire devient suivi lorsqu'il est indexé ou versionné.
+    fichier ou un répertoire devient suivi lorsqu'il est indexé ou versionné.
 
 .. _indexé:
 .. _indexés:
@@ -63,30 +63,30 @@ Indexer
 
 Versionné
     Traduction : commited.
-    mis dans une version du dépot.
+    mis dans une version du dépôt.
 
 .. _versionner:
 
 Versionner
     Traduction : commit.
-    Creer une nouvelle version dans le dépôt à partir de l'index.
+    Créer une nouvelle version dans le dépôt à partir de l'index.
 
-.. _`mettre en reserve`:
+.. _`mettre en réserve`:
 
-Mettre en reserve
+Mettre en réserve
     Traduction : stash.
-    Mettre dans la reserve les modifications des elements suivis du repertoire de travail,
+    Mettre dans la réserve les modifications des éléments suivis du répertoire de travail,
     puis retourné à la dernière version.
 
 .. _`Extracter`:
 
 Extracter : 
     Traduction : checkout.
-    Changer le repertoire de travail pour recuperer une version du dépot.
+    Changer le répertoire de travail pour récupérer une version du dépôt.
 
-.. _etiquette:
+.. _étiquette:
 
-Etiquette
+Étiquette
    Traduction : tag.
    Nom donné a une version.
 
@@ -94,9 +94,9 @@ Etiquette
 
 Branche:
    Traduction : branch.
-   Une branche est consitué de sa derniere version, et de toute ces versions précédentes.
+   Une branche est constituée de sa dernière version, et de toute ces versions précédentes.
    La branche initiale est la branche master. 
-   HEAD est la branch courrante. 
+   HEAD est la branch courante. 
    HEAD^ est le parent de HEAD. 
    HEAD-<X> : on remonte au parent X fois.
 
@@ -104,38 +104,38 @@ Branche:
     
 Embranchement:
    Traduction : fork.
-   Creation d'une branche avec le même historique que le precedent.
+   Création d'une branche avec le même historique que le précédent.
    On pourra basculer dans les espace de travail d'une branche a l'autre. 
-   Il sera alors possible d'effectuer des modifications sur chacune des branches independament.
+   Il sera alors possible d'effectuer des modifications sur chacune des branches indépendamment.
 
-.. _ancetre:
+.. _ancêtre:
 
-Ancetre commun.
-   Derniere version commune de deux branches.
+Ancêtre commun.
+   Dernière version commune de deux branches.
 
 .. _fusionner:
 
 Fusionner:
    Traduction : merge.
-   fussioner deux versions, c'est appliquer à partir de l'ancetre commun les modifications,
-   des deux dernieres versions des deux branches. Le resultat peut provoquer des conflits.
+   fusionner deux versions, c'est appliquer à partir de l'ancêtre commun les modifications,
+   des deux dernières versions des deux branches. Le résultat peut provoquer des conflits.
 
 .. _rebaser:
 
 Rebaser:
    Traduction : rebase.
-   Deconseillons l'option rebase dans un premier temps car peu poser quelques problems.
+   Déconseillons l'option rebase dans un premier temps car peu poser quelques problèmes.
 
 
 ========
 Concepts
 ========
 
-System de gestion de versions
+Système de gestion de versions
 -----------------------------
 
-Il permet de gerer l'historique des fichiers, et de faire des versions_ sur l'ensemble du projet. 
-Il stoque les diférentes versions_ de documents (et non pas les différences) et fonctionne par instantanés (snapshot)
+Il permet de gérer l'historique des fichiers, et de faire des versions_ sur l'ensemble du projet. 
+Il stoque les différentes versions_ de documents (et non pas les différences) et fonctionne par instantanés (snapshot)
 
 .. image:: fig0105_fr.png
 
@@ -143,30 +143,30 @@ Il stoque les diférentes versions_ de documents (et non pas les différences) e
 Espaces de travail en local 
 ---------------------------
 
-Les espaces de travail en local sont : le `repertoire de travail`_, le dépot_, l'index_ et la reserve_
+Les espaces de travail en local sont : le `répertoire de travail`_, le dépôt_, l'index_ et la réserve_
 
 L'usage standard est : 
 
-    * Extracter_ les fichier depuis le dépot_ vers le `repertoire de travail`_.
-    * Editer des fichier dans le `repertoire de travail`_.
+    * Extracter_ les fichier depuis le dépôt_ vers le `répertoire de travail`_.
+    * Editer des fichier dans le `répertoire de travail`_.
     * Indexer_ les fichiers ajouter ou modifié dans l'index_.
-    * Versionner_ les fichiers indexés_ dans le dépot_.
+    * Versionner_ les fichiers indexés_ dans le dépôt_.
 
 .. image:: fig0106_fr.png
 
 Vos fichiers peuvent donc être dans plusieurs états dans ces trois espaces. 
-Voici un tableau qui montre l'effet de certaines commandes sur les etats dans ces espaces.
+Voici un tableau qui montre l'effet de certaines commandes sur les états dans ces espaces.
 
-* -- : n'importe quel etat
+* -- : n'importe quel état
 * == : inchangé
 * 00 : non indexé.
-* E1 : etat1
-* E2 : modifié depuis l'etat1
-* E3 : modifié depuis l'etat2
+* E1 : état1
+* E2 : modifié depuis l'état1
+* E3 : modifié depuis l'état2
 
 ======= ===== ==========  =================== ======= ===== ==========
-travail index depot                           travail index depot
-avant   avant avant       commande            apres   apres apres
+travail index dépôt                           travail index dépôt
+avant   avant avant       commande            après   après après
 ======= ===== ==========  =================== ======= ===== ==========
 E1      --    --          add                 E1      E1    ==
 --      E1    --          reset HEAD          ==      00    ==
@@ -177,16 +177,16 @@ E2      00    E1          commit              E2      00    E1
 E2      E1    E1          commit -a           E2      00    E2
 ======= ===== ==========  =================== ======= ===== ==========
 
-Systeme décentralisé
+Système décentralisé
 --------------------
 
-Chaque personne peut cloner des depots.
+Chaque personne peut cloner des dépôts.
 
-En local , il pourra creer des branches, faires des modifications, merger des branches.
+En local , il pourra créer des branches, faires des modifications, merger des branches.
 
-Ensuite il pourra proposer de publier ces branches sur d'autres depots.
+Ensuite il pourra proposer de publier ces branches sur d'autres dépôts.
 
-Il pourra aussi recuperer d'autres dépots et merger d'autres branches que le depot original.
+Il pourra aussi récupérer d'autres dépôts et merger d'autres branches que le dépôt original.
 
 ====================
 Mise en place de git
@@ -195,17 +195,17 @@ Mise en place de git
 Installation git
 ----------------
 
-Installation sous debian ::
+Installation sous Debian ::
 
     sudo aptitude install git-all
 
-`Installation sur d'autres systemes <http://git-scm.com/book/en/Getting-Started-Installing-Git>`_
+`Installation sur d'autres systèmes <http://git-scm.com/book/en/Getting-Started-Installing-Git>`_
 `Others install <http://git-scm.com/book/en/Getting-Started-Installing-Git>`_
 
 Configuration de git
 --------------------
 
-La premiere fois que vous utiliser git sur votre ordinateur, vous devez le configurer.
+La première fois que vous utiliser git sur votre ordinateur, vous devez le configurer.
 The first time you will use git on your machine, you should configure your client git.
 
 Configuration de l'utilisateur::
@@ -233,11 +233,11 @@ Configuration de l'utilisateur::
     git config --global alias.last 'log -1 HEAD'
     git config --global alias.visual '!gitk'
 
-    # verifier votre configuration
+    # vérifier votre configuration
     git config --list
     git config user.name
 
-    # configuration globale pour le systeme.
+    # configuration globale pour le système.
     git config --systeme
 
 
@@ -250,13 +250,13 @@ Fichiers de configuration::
     core.excludesfile
     .gitignore
 
-    # configuration globale pour le system.
+    # configuration globale pour le système.
     /etc/gitconfig
 
     # configuration spécifique à votre utilisateur. 
     ~/.gitconfig
 
-    # configuration spécifique à un repertoire (dans le dépot)
+    # configuration spécifique à un répertoire (dans le dépôt)
     .git/config
 
 Exemples .gitignore::
@@ -268,25 +268,25 @@ Exemples .gitignore::
 
 
 
-Initialisation du dépot
+Initialisation du dépôt
 -----------------------
 
 ::
 
     # current folder.
-    # dans le repertoire courrant
+    # dans le répertoire courant
     git init
 
     # new or existant folder
-    # creation ou utilisation d'un repertoire 
+    # création ou utilisation d'un répertoire 
     git init <repertoire>
 
-    # Recuperation d'un dépot distant existant : clone
+    # Récupération d'un dépôt distant existant : clone
     git clone [url] <repertoire_a_creer>
 
     # quelques exemples d'url avec différents protocoles.
     # some samples
-    user@server:/path/testgit # protocol ssh par default.
+    user@server:/path/testgit # protocole ssh par défaut.
     http://user@server/path/testgit
     https://user@server/path/testgit
     ssh://user@server:/path/testgit
@@ -295,7 +295,7 @@ Initialisation du dépot
 GitHub
 ------
 
-Creation de compte github, suivre les instruction sur github.
+Création de compte github, suivre les instruction sur github.
 
 `Creer une clef ssh <../key_ssh>`_ si vous souhaitez vous connecter sans mot de passe.
 
@@ -306,7 +306,7 @@ Configuration de clef ssh, editer  ~/.ssh/config ::
         IdentityFile ~/.ssh/<fichier_clef_privé__exemple_id_dsa>
         User <nom_user_github>
 
-Se connecter sans login mot de passe (necessite clef ssh) ::
+Se connecter sans login mot de passe (nécessite clef ssh) ::
 
     # pour vous connecter avec une clef publique ssh
     git remote add origin git@github.com:/<user>/<depot>.git
@@ -324,7 +324,7 @@ Syntaxes
 En locale
 ---------
 
-`reference des syntaxes <http://git-scm.com/docs>`_
+`référence des syntaxes <http://git-scm.com/docs>`_
 
 Syntaxes simples ::
 
@@ -332,24 +332,24 @@ Syntaxes simples ::
     git add file.txt                   # index le ficher et stage la version du fichier
     git commit -m 'ajout de file.txt'  # commentaire
 
-    # attition editer un fichier tracké et l'enregistrer dans le systeme de version = editer + indexer de nouveau + versionner
+    # attention editer un fichier traqué et l'enregistrer dans le systeme de version = editer + indexer de nouveau + versionner
     edit file.txt
     git add file.txt                   # stage the new version of file.
     git commit -m 'modif de file.txt'  # commentaire
 
-    # indexe tout (add * est recursif)
+    # indexe tout (add * est récursif)
     git add *
 
-    # indexe tout les fichier tracké modifié
+    # indexe tout les fichier traqué modifié
     git add -u
 
-    # commiter tout les fichiers trackés modifié.
+    # commiter tout les fichiers traqué modifié.
     git commit -a 
 
-    # signer electroniquement sont commit
+    # signer électroniquement sont commit
     git commit -S
 
-    # signer textuelement sont commit
+    # signer textuellement sont commit
     git commit -s
 
     # move or rename a file, directory or symlink. 
@@ -405,17 +405,17 @@ commit et que vous voulez le rajouter.
     # sample utilisation --amend :
     git commit -m 'mon commit'
     git add file # commande oublié
-    git commit --amend # modifie le commit precedent en y integrant le add file.
+    git commit --amend # modifie le commit précédent en y intégrant le add file.
 
 Introspection local
 -------------------
 
-`reference des syntaxes <http://git-scm.com/docs>`_
+`référence des syntaxes <http://git-scm.com/docs>`_
 
 ::
 
-    # indique l'etat des différence dans le trois espaces, 
-    #   et les commandes pour deplacer les versions d'un espace a l'autre.
+    # indique l'état des différence dans le trois espaces, 
+    #   et les commandes pour déplacer les versions d'un espace a l'autre.
     git status
 
     # Afficher ce qui a été modifié mais non indexé
@@ -432,19 +432,19 @@ Introspection local
 
     # Afficher les différences entre deux versions
     # <version> can be ;
-    #  HEAD, dernoer commit
+    #  HEAD, dernier commit
     #  HEAD^ , avant dernier commit
     #  <branch>, un nom de branch
     git diff <version>..<version>
 
 
-    # changement effectue sur la branche 2 depuis l'ancetre commun aux deux branches.
+    # changement effectue sur la branche 2 depuis l'ancêtre commun aux deux branches.
     git diff <branch1>...<branch2>
 
     # Historique des commits :
     git log
 
-    Options de selection des commits
+    Options de sélection des commits
     -<nb>    N'affiche que les n derniers commits
     --since ou --after    Limite l'affichage aux commits réalisés depuis/après la date spécifiée
     --until ou --before   Limite l'affichage aux commits réalisés avant la date spécifiée
@@ -457,7 +457,7 @@ Introspection local
     -p  Affiche le patch appliqué par chaque commit
     --show-signature Montre les commits signés.
     --stat    nombre fichier modifier, nombre ligne modifiées/insérées/effacées
-    --shortstat npmbre ligne modifiées/insérées/effacées
+    --shortstat nombre ligne modifiées/insérées/effacées
     --name-only Affiche la liste des fichiers modifiés après les informations du commit
     --name-status   Affiche la liste des fichiers affectés accompagnés des informations d'ajout/modification/suppression
     --abbrev-commit N'affiche que les premiers caractères de la somme de contrôle SHA-1
@@ -478,7 +478,7 @@ Introspection local
 Etiquettes
 ----------
 
-`reference des syntaxes <http://git-scm.com/docs>`_
+`référence des syntaxes <http://git-scm.com/docs>`_
 
 ::
 
@@ -487,27 +487,27 @@ Etiquettes
     git tag -l '<expression_avec_wilcard>'
     # information tag
     git show <tag>
-    # verifier signature du tag (necesite sa clef public PGP de l'utilisateur)
+    # verifier signature du tag (nécessite sa clef public PGP de l'utilisateur)
     git tag -v <tag>
-    #creer tag sur l etat actuel:
+    #creer tag sur l état actuel:
     git tag -a <tag> -m '<comment>'
-    #creer tag signe par PGP (necesite sa clef prive PGP)
+    #creer tag signe par PGP (nécessite sa clef prive PGP)
     git tag -s <tag> -m '<comment>'
-    #creer tag leger :
+    #creer tag léger :
     git tag <tag>
-    # on peut egalement specifie un commit 
+    # on peut également spécifier un commit 
     git tag -a <tag> <identifiant_commit>
 
 Branches
 --------
 
-`reference des syntaxes <http://git-scm.com/docs>`_
+`référence des syntaxes <http://git-scm.com/docs>`_
 
 ::
 
     # lister les branches
     git branch
-    git branch -v # affiche la derniere modif
+    git branch -v # affiche la dernière modif
     git branch --merged # les branches déjà mergé.
     git branch --no-merged # les branches par encore mergé.
 
@@ -533,7 +533,7 @@ Branches
     # Voir les conflits.
     git diff
 
-    # Detecter les fichier en conflits (marqués UU) :
+    # Détecter les fichier en conflits (marqués UU) :
     git status -s
 
     # Les conflits dans les fichiers sont marqués par :
@@ -545,24 +545,24 @@ Branches
 
     # REBASE : DANGEROUS.
     # only rebase rebaser seulement vos commits pas encore publié, sinon redondance possible.
-    git rebase <branch_cible> # reapplique tous les patchs de la branche courrante depuis l'ancetre commun sur la branche_cible.
-    # reappliquer tous les patchs de la branche_to_rebase depuis l'ancetre commun avec branche_base, sur la branche_cible.
+    git rebase <branch_cible> # réapplique tous les patchs de la branche courante depuis l'ancêtre commun sur la branche_cible.
+    # reappliquer tous les patchs de la branche_to_rebase depuis l'ancêtre commun avec branche_base, sur la branche_cible.
     git rebase --onto <branch_cible> <branche_base> <branche_to_rebase>
-    # apres un rebase, on peut alors merger facilement.
+    # après un rebase, on peut alors merger facilement.
     git checkout <branch_cible> 
     git merge <branche_to_rebase>
-    git branch -d <branche_to_rebase> # detruire la branche rebasé.
+    git branch -d <branche_to_rebase> # détruire la branche rebasé.
 
-    # detruire une branche mergé
+    # détruire une branche mergé
     git branch -d <id_branche> 
 
-    # détruit une branche meme si elle a pas été mergé.
+    # détruit une branche mémé si elle a pas été mergé.
     git branch -D <id_branche>
 
-Reserve
+Réserve
 -------
 
-`reference des syntaxes <http://git-scm.com/docs>`_
+`référence des syntaxes <http://git-scm.com/docs>`_
 
 ::
 
@@ -588,27 +588,27 @@ Reserve
     # saple id_stash : stash@{0}
     git stash show -p <id_stash>
 
-Travail avec dépots distant
+Travail avec dépôts distant
 ---------------------------
 
-`reference des syntaxes <http://git-scm.com/docs>`_
+`référence des syntaxes <http://git-scm.com/docs>`_
 
 ::
 
-    # recuperer un depot (initialise votre depot a partir d'un autre qui sera identifié comme origin
+    # récupérer un depot (initialise votre depot a partir d'un autre qui sera identifié comme origin
     git clone <url>
 
-    # voir la liste des dépots liés.
+    # voir la liste des dépôts liés.
     git remote    # identifiant local seulement (bof)
     git remote -v # avec les urls c'est mieux.
-    git remote show <identifiant> # voir les details sur un depot
+    git remote show <identifiant> # voir les détails sur un depot
     git remote add <identifiant> <url> # ajouter un depot :
     git remote rename <oldid> <newid> # changer l'identifiant d'un depot
-    git remote rm <identifiant> # elimner un depot
+    git remote rm <identifiant> # éliminer un depot
 
-    # recuperer et fusionner les modification d'un depot
+    # récupérer et fusionner les modification d'un depot
     git pull [<remote=origin>]
-    # recuperer sans fusionner les modification d'un depot
+    # récupérer sans fusionner les modification d'un depot
     git fetch [<remote=origin>]
 
     # creer un patch
@@ -619,7 +619,7 @@ Travail avec dépots distant
     git am --resolved
 
     # envoyer ces modification sur un depot (sans les tags)
-    # (necessite droit configurer cote depot) 
+    # (nécessite droit configurer cote depot) 
     git push [<remote=origin>]
     # envoyer une branche
     git push [<remote=origin>] <branch>
@@ -631,7 +631,7 @@ Travail avec dépots distant
     git push origin --tags
 
     # DANGEROUS
-    # detruire une branche distante.
+    # détruire une branche distante.
     git push [<remote=origin>] :[branch]
 
     # lister les branches distantes.
@@ -685,18 +685,18 @@ Fichiers préconfigurés pas l'installation Debian : ::
 
 Creer un depot pour publication gitweb : :: 
 
-    # il faut dupliquer un depot sans workspace (grace a l'option --bare)
+    # il faut dupliquer un depot sans workspace (grâce a l'option --bare)
     # par convention, utiliser *.git pour nommer le depot.
     # on placera ce depot dans /var/cache/git/
     git clone --bare <depot_initial> <depot_sans_workspace.git>
 
-    # Authoriser l'acces en ecriture sur un depot server : 
+    # Autoriser l'accès en écriture sur un depot server : 
     cd <depot>.git
     git init --bare --shared
 
     # limitation de ssh a git : dans /etc/password, indiquer le shell : /usr/bin/git-shell
     git:x:1000:1000::/home/git:/usr/bin/git-shell
-    # on pourra mettre plusieurs authorisations key sur le meme user afin de faciliter l'admin.
+    # on pourra mettre plusieurs clef d'authentification sur le même utilisateur afin de faciliter l'admin.
 
     # sample depot for test commands :
     git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
@@ -708,13 +708,13 @@ Documentations
 
 ::
 
-    # 3 syntaxe pour obtenir la meme doc sur une commande
+    # 3 syntaxe pour obtenir la même doc sur une commande
     $ git help <command>
     $ git <command> --help
     $ man git-<command>
 
-References :
-`[Git reference] <http://git-scm.com/docs>`_,
+Références :
+`[Git référence] <http://git-scm.com/docs>`_,
 `[Pro Git Book] <http://git-scm.com/book>`_,
 `[Pro Git Book French] <http://git-scm.com/book/fr>`_
 

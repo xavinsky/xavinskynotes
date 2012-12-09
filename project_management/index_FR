@@ -7,27 +7,27 @@ Gestion de projet
 Délais et Coûts
 ===============
 
-Il est necessaire de connaître les disponibilités des autres acteurs,
-pour pouvoir planifiers un projet. Un planning partagé est donc très utiles.
-Le planning est également utiles pour partager des ressources matérieles.
+Il est nécessaire de connaître les disponibilités des autres acteurs,
+pour pouvoir planifier un projet. Un planning partagé est donc très utiles.
+Le planning est également utiles pour partager des ressources matérielles.
 
-L'une des plus grandes difficultées est d'estimer en amont du projet 
-le temps necessaire à sa mise en place.
+L'une des plus grandes difficultés est d'estimer en amont du projet 
+le temps nécessaire à sa mise en place.
 Pour cela on découpe le projet en tâches, celle ci sont estimées et assignées.
 Une tâche est souvent composé de plusieurs taches. 
-Lorsque beaucoup de taches sont développé en parrallele, on parle de jalon ou milestone
-lorsqu'une série de tâches sont necessaire pour passer à l'étape suivante.
+Lorsque beaucoup de taches sont développé en parallèle, on parle de jalon ou milestone
+lorsqu'une série de tâches sont nécessaire pour passer à l'étape suivante.
 
-On déduit donc du planing et le coût en temps humain 
-auquel on ajoute les autes coûts (matériels, licences ...)
+On déduit donc du planning et le coût en temps humain 
+auquel on ajoute les autres coûts (matériels, licences ...)
 
-Les etapes classiques
+Les étapes classiques
 =====================
 
 * L'audit du projet
 * L'étude
 * La spécification, norme UML
-* L'implementation
+* L'implémentation
 * La qualification
 * La livraison
 * La maintenance
@@ -62,13 +62,13 @@ Les méthodes agiles
 
 Le principe est d'avoir des cycles itératif, incrémental et adaptatif, 
 le plus court possible afin d'avoir une plus grande flexibilité et 
-une réactivité plus rapide. L'objectif etant d'avoir un intégration continue.
+une réactivité plus rapide. L'objectif étant d'avoir un intégration continue.
 
 Quelques méthodes agiles et quelques concepts :
 
 `XP : Extreme Programming <http://fr.wikipedia.org/wiki/Extreme_programming>`_,
 `Scrum <http://fr.wikipedia.org/wiki/Scrum_%28m%C3%A9thode%29>`_,
-`Programation orienté aspect <http://en.wikipedia.org/wiki/Aspect-oriented_programming>`_
+`Programmation orienté aspect <http://en.wikipedia.org/wiki/Aspect-oriented_programming>`_
 `BDD : Behavior Driven Development (développement piloté par la communication)
 <http://fr.wikipedia.org/wiki/Behavior_Driven_Development>`_,
 
@@ -89,10 +89,10 @@ On mettra souvent en place un annuaire avec des systèmes d'identification, par 
 * Numérique (clef SSH, certificat SSL X509)
 * Biométrique
 
-Cela sert essentielement pour l'authentification et les signatures.
+Cela sert essentiellement pour l'authentification et les signatures.
 
 On pourra également affecter des utilisateurs à des groupes,
-et donner des capacités et des accès personalisés selon les utilisateurs et les groups.
+et donner des capacités et des accès personnalisés selon les utilisateurs et les groups.
 
 Annuaire
 --------
@@ -109,20 +109,20 @@ Documentation LDAP : `wikipedia <http://fr.wikipedia.org/wiki/LDAP>`_,
 Authentification
 ----------------
 
-Elle donnera acces et certaine capacité à l'utilisateurs.
+Elle donnera accès et certaine capacité à l'utilisateur.
 
-Exemple de systemes d'identifications ssh avec clef : `key_ssh <key_ssh>`_
+Exemple de systèmes d'identifications ssh avec clef : `key_ssh <key_ssh>`_
 
 Avec openssl on peu également créer des certificats 
 `X509 <http://fr.wikipedia.org/wiki/X.509>`_
-pour s'autentifier. Ce protocol est intégré aux navigateurs modernes.
+pour s'authentifier. Ce protocole est intégré aux navigateurs modernes.
 
 Signature
 ---------
 
 Elle permet la tracabilité, la vérification d'intégrité.
 
-Exemple d'outil de signature electronique : `GnuPG <gnupg>`_
+Exemple d'outil de signature électronique : `GnuPG <gnupg>`_
 
 Il est également possible de signer avec un certificat
 `X509 <http://fr.wikipedia.org/wiki/X.509>`_.
@@ -146,14 +146,14 @@ mais on rencontre souvent d'autres alternatives :
 `bazaar <http://bazaar.canonical.com/en/>`_,
 `darcs <http://darcs.net/>`_,
 
-Il y a égamement les ancêtres : 
+Il y a également les ancêtres : 
 `subversion <http://subversion.tigris.org/>`_,
 `cvs <http://cvs.nongnu.org/>`_
 
 Validation
 ----------
 
-Passage de tests fonctionnels. Eventuelles certifications.
+Passage de tests fonctionnels. Éventuelles certifications.
 
 Qualité
 -------
@@ -181,7 +181,7 @@ Packaging
 
 Fichier finaux à livrer.
 Cela peut être une simple archive (zip, tgz...),
-un package pour une distribution linux (deb, rpm), une pubication sur github, 
+un paquet pour une distribution linux (deb, rpm), une publication sur github, 
 etc...
 
 Solutions open source

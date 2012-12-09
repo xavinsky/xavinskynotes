@@ -18,9 +18,9 @@ Install on Debian::
 Create PGP keys
 ---------------
 
-The command have a lot of anwser.
+The command have a lot of answer.
 
-Command and interraction ::
+Command and interaction ::
 
     # gpg --gen-key
 
@@ -51,7 +51,7 @@ Command and interraction ::
     Email address: <your email>
     Comment: <your pseudo>
     You selected this USER-ID:
-	"<your name> (<yout pseudo) <<your email>>"
+	"<your name> (<your pseudo) <<your email>>"
 
     Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
     You need a Passphrase to protect your secret key.
@@ -70,17 +70,17 @@ Command and interraction ::
     gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
     pub   4096R/12345678 2012-11-19
 	  Key fingerprint = XXXX XXXX XXXX XXXX XXXX  XXXX XXXX XXXX XXXX XXXX
-    uid                  <your name> (<yout pseudo) <<your email>>
+    uid                  <your name> (<your pseudo) <<your email>>
     sub   4096R/12345678 2012-11-19
 
 
 I changed the result with a pseudo keyID : 12345678.
 
-Here, 12345678 is the identifiant for pgp key. You can have multiple keys.
+Here, 12345678 is the identifier for pgp key. You can have multiple keys.
 
 I you use a Passphrase, you will need use it each time you will sign.
 Then it's a protection more, but can be quickly boring.
-For coding, I use one without passphrase, and other with for importants documents.
+For coding, I use one without passphrase, and other with for important documents.
 
 gpg command can store public and private key, or public only key.
 they are stored in the ~/.gnupg folder.
@@ -88,7 +88,7 @@ they are stored in the ~/.gnupg folder.
 Use PGP
 -------
 
-Syntaxes ::
+Syntax ::
 
     # list all keys.
     gpg --list-keys
@@ -96,7 +96,7 @@ Syntaxes ::
     # show fingerprint
     gpg -v --fingerprint 12345678
 
-    # useful for signing party debian.
+    # useful for signing party Debian.
     # prepare a page with a lot of cell with your public key information.
     gpg-key2ps -p a4 12345678 > pgp_public_to_print.ps
 

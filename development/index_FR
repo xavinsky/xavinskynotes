@@ -12,10 +12,10 @@ la conception de programme qui est généralement entouré d'une
 L'analyse
 =========
 
-L'analyse est le passage de la comprehension des exigences à la 
+L'analyse est le passage de la compréhension des exigences à la 
 formulation des spécifications.
 Lorsque la taille de l'équipe du projet est importante, j'utilise souvent UML.
-Sinon, de simples fichiers textes explicatif et schemas sont suffisant.
+Sinon, de simples fichiers textes explicatif et schémas sont suffisant.
 
 Spécifications fonctionnelles
 -----------------------------
@@ -33,36 +33,36 @@ Architecture
 * matériel (serveurs, composants réseaux...)
 * réseau (zones, ouvertures de ports)
 * services accessible via le réseaux.
-* systemes d'exploitations
-* composants logicieles externes
-* composants logicieles interne
+* systèmes d'exploitations
+* composants logiciels externes
+* composants logicielle interne
 * interfaces des composants et des services
 
 Structure de données
 --------------------
 
-Les données necessaires au projets.
+Les données nécessaire au projets.
 
 ===========
 Réalisation
 ===========
 
-L'analyse fonctionnelle est le passage des spécifications à la creation du 
+L'analyse fonctionnelle est le passage des spécifications à la création du 
 logiciel.
 
 Algorithmique
 -------------
 
-La partie algorithmique est mathematique et conceptuelle qui cherchera la
-maniere optimale de résoudre les spécifications. 
+La partie algorithmique est mathématique et conceptuelle qui cherchera la
+manière optimale de résoudre les spécifications. 
 On essayera de diminuer au maximum la complexité algorithmique, c'est à dire la
-quantité de ressources necessaire proportionnelement au traitement.
+quantité de ressources nécessaire proportionnellement au traitement.
 
 Implémentation
 --------------
 
 L'écriture ou modification de programme (code) à l'aide de 
-`languages de programmation <languages>`_
+`langages de programmation <languages>`_
 
 Qualité
 -------
@@ -72,7 +72,7 @@ Documentation, Tests, Optimisation, correction de bugs.
 Techniques
 ----------
 
-* Developement de drivers
+* Développement de drivers
 * Reverse Engineering
 * MultiProcess, Multithread
 * Les sockets
