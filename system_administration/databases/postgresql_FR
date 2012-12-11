@@ -1,0 +1,433 @@
+##########
+PostgreSQL
+##########
+
+Il y a deux grandes communauté open source pour les bases de données SQL : Mysql et PostgreSQL.
+
+* PostgreSQL n'appartient pas à Oracle, qui fourni un logiciel privateur de bases de données SQL.
+* PostgreSQL est souvent plus complexe à configurer.
+
+
+============
+Installation
+============
+
+Installation via paquets pour Debian ::
+
+    # Serveur
+    aptitude install postgresql
+    # ACID, FK, views, séquences, triggers, MCC etc...
+    aptitude install postgresql-contrib
+    # Client
+    aptitude install postgresql-client
+
+======
+Outils
+======
+
+Plus de 150 autres paquets postgresql dans le dépôt officiel Debian.
+Ceux que j'utilise le plus sont ::
+
+    # Web interface
+    aptitude install phppgadmin
+    # GUI interface
+    aptitude install pgadmin3
+    # PL/SQL en Python, binding python 2 et 3.
+    aptitude install postgresql-plpython python-psycopg2 python3-psycopg2
+    # analyser de log, analyse performance.
+    aptitude install pgfouine pgsnap
+    # Système d'information géographique
+    aptitude install postgis
+    # ETL : Pour charger des données issues d'autres sources.
+    aptitude install pgloader
+    # Documentation
+    aptitude install postgresql-doc
+    # Génération automatique représentation HTML des schémas. 
+    aptitude install postgresql-autodoc
+
+
+=============
+Documentation
+=============
+
+Officielle : http://docs.postgresqlfr.org/9.2/
+
+Dans le paquet postgresql-doc : /usr/share/doc/postgresql-common/README.Debian.gz
+
+Livres en ligne :
+
+* Practical PostgreSQL (2001) : http://www.commandprompt.com/ppbook/
+
+
+Postgis : http://wiki.debian.org/DebianGis/UpdatingPostGIS , http://postgis.refractions.net/documentation/
+
+========
+Sécurité
+========
+
+Remarque sécurité : Avec SELinux, sepgsql (selinux-policy-default) fournis l'option SECURITY LABEL.
+
+Certificats ssl : http://docs.postgresqlfr.org/9.2/ssl-tcp.html
+
+Tunnel ssl : http://docs.postgresqlfr.org/9.2/ssh-tunnels.html
+
+Alerte de sécurité : http://www.postgresql.org/support/security/
+
+===========
+Performance
+===========
+
+Configuration du noyau Linux
+----------------------------
+
+SHMMAX : Taille maximum pour un segment de mémoire.
+SHMALL : Taille de mémoire partagée disponible.
+
+exemple de valeurs 
+SHMMAX = 16Go => 17179869184.
+SHMALL = 4Mo => 4194304
+
+en ligne de commande (temporaire) ::
+
+    $ sysctl -w kernel.shmmax=<valeur_SHMMAX>
+    $ sysctl -w kernel.shmall=<valeur_SHMALL>
+
+éditer le fichier de configuration /etc/sysctl.conf ::
+
+    kernel.shmall = <valeur_SHMMAX>
+    kernel.shmmax = <valeur_SHMALL>
+
+http://www.postgresql.org/docs/current/static/kernel-resources.html
+
+http://docs.postgresqlfr.org/9.2/monitoring.html
+
+http://docs.postgresqlfr.org/9.2/diskusage.html
+
+
+Configuration Postgresql
+------------------------
+
+Dans le fichier  /etc/postgresql/9.1/main/postgresql.conf
+
+* shared_buffers est la mémoire utilisé pour la cache interne de PostgreSQL. On conseille 1/4 de la mémoire disponible pour PostgreSQL.
+* effective_cache_size est le cache disque. On conseille 1/2 de la mémoire disponible pour PostgreSQL.
+Pour des performances correctes, les fichiers index doivent pouvoir être contenu dans cette taille.
+Pour des performances optimales, toutes les données doivent pouvoir être contenu dans cette taille.
+* work_mem est la mémoire par connexion client.
+Il est souvent plus rentable de ne modifier ce paramètre qu'en SQL (set work_mem = '1GB';) lors des gros traitements.
+* sort_mem est la mémoire utilisé par requête de tri. Souvent utile de le monter (selon mémoire disponible). 
+Par exemple 50MB * 30 connections donneront 1.5 Go.
+* max_fsm_pages et max_fsm_relations sont utilisé pour effectuer les opérations de VACCUM.
+* random_page_cost : a réduire pour les disques rapides pour encourage l'utilisation de "random access index scans".
+
+* synchronous_commit : Est ce que l'écriture disque doit être faite a chaque requête ? (dépend des contraintes SLA)
+
+
+Maintenance des indexes
+-----------------------
+
+Utiliser ANALYZE fréquemment pour actualiser vos indexes (de préférence dans un cron).
+
+Utiliser VACCUM ANALYZE (ou VACUUM FULL) lors de gros updates. Mais attention, impact sur les performances lors du traitement,
+donc a ne pas faire régulièrement.
+
+Utiliser EXPLAIN ANALYZE sur les gros traitements pour vérifier le fonctionnement.
+
+
+Références
+----------
+
+http://docs.postgresqlfr.org/9.2/kernel-resources.html
+
+http://www.westnet.com/~gsmith/content/postgresql/pg-5minute.htm
+
+
+======
+Charge
+======
+
+Pour gérer la monter en charge avec postgreSQL il n'y a pas encore une solution qui se détache réellement des autres.
+
+
+Répartiteurs de charge ::
+ 
+    aptitude install pgpool2
+    # ou
+    aptitude install pgbouncer
+
+Pour la réplication : 
+
+Les réplications natives :
+* http://docs.postgresqlfr.org/9.2/warm-standby.html#streaming-replication
+* http://docs.postgresqlfr.org/9.2/warm-standby.html#cascading-replication
+
+* Hot Standby ( PostgreSQL 8.4 )
+
+* maître/maître :
+
+    * Bucardo
+    * XC (extensive cluster) : http://postgres-xc.sourceforge.net/
+
+* maître esclave :
+
+    * Slony
+    * Londiste
+
+==========
+Conception
+==========
+
+Ça fait longtemps que je n'ai pas tester un outils d'architecture de données spécial postgres.
+pgadmin3 a quelques notions mais incomplètes. Le projet interne postgresql étant : http://pgmodeler.com.br/
+Ceux revenant souvent dans les critiques sont : Power*Architect, Druid III et  WaveMaker Visual Ajax Studio
+Liste de logiciel a tester : http://wiki.postgresql.org/wiki/GUI_Database_Design_Tools
+Autres programme a tester : http://wiki.postgresql.org/wiki/Community_Guide_to_PostgreSQL_GUI_Tools
+
+PostgreSQL vient de faire un dépôt apt (j'ai pas encore testé) : http://www.postgresql.org/about/news/1432/
+
+=============
+Configuration
+=============
+
+Authentification
+----------------
+
+http://www.postgresql.org/docs/9.2/static/auth-pg-hba-conf.html
+
+Configuration de : /etc/postgresql/9.1/main/pg_hba.conf ::
+
+    # Cette ligne sert a laisser les droits a un user postgres 
+    # utilise pour la maintenance automatique (autovacuum and cie),
+    local   all         postgres                          ident sameuser
+
+    # nom_utilisateur utilise les bases sans password en local uniquement.
+    local   all         nom_utilisateur                                        trust
+    host    all         nom_utilisateur    127.0.0.1         255.255.255.255   trust
+
+    #nécessite un /etc/init.d/postgres restart pour la prise en compte de modif
+
+
+Gestion d'utilisateur
+---------------------
+
+Créer et Déduire un utilisateur ::
+
+    createuser nom_utilisateur
+    createuser -d -a nom_utilisateur -P # demande un mot de passe, man pour plus d'info
+    dropuser nom_utilisateur 
+
+
+
+Commandes
+=========
+
+Utiliser psql : 
+
+    liste des bases de données
+
+    psql -l
+
+    créer base :
+
+    createdb base -O owner -E UNICODE
+
+    insérer un script sql
+
+    psql -d base < script
+
+    se connecter
+
+    psql -d base 
+
+    Après s'être connecté, on peut utiliser des requêtes sql ou des
+    commandes psql
+
+    Quelques commandes dans psql :
+
+    \?   /* aide psql */
+    \h   /* aide sql */
+    \dt  /* liste des tables */
+    \di  /* liste des indexes */
+    \ds  /* liste des séquences */
+    \du  /* liste des utilisateurs */
+    \l  /* liste des bases */
+
+    \d objet /*description objet (table, index, séquence...)
+
+    \dS /* liste des tables systèmes  */
+    \df /* liste des fonctions*/
+    \dd /* liste des commentaires (entre autre pour les fonctions)*/
+    \do /* liste des opérateurs*/
+    \dT+ /* liste des types*/
+
+    \timing /* active le chronométrage des commandes */
+
+    \i file /*exécuter les commande du fichier */
+    \o file /*écrire les résultats dans le fichier */
+
+    \q  /* ou ctr-D pour quitter */
+
+
+Exemples de commande SQL de base:
+
+    SELECT * FROM MA_TABLE;
+    SELECT * FROM MA_TABLE WHERE MON_CHAMP = 0;
+    UPDATE MA_TABLE SET MON_CHAMP = 1;
+    INSERT INTO MA_TABLE VALUES (1, 'text');
+
+    Exemple de commande SQL de manipulation de table
+
+    CREATE TABLE ma_table (
+	champ_old text,
+	champ_autre integer
+    );
+
+    ALTER TABLE ma_table ADD COLUMN mon_champ integer;
+    UPDATE ma_table set mon_champ = 0;
+    ALTER TABLE ma_table ALTER COLUMN mon_champ SET NOT NULL;
+
+    ALTER TABLE ma_table ALTER COLUMN mon_champ DROP NOT NULL;
+    ALTER TABLE ma_table DROP COLUMN mon_champ;
+    ALTER TABLE ma_table RENAME COLUMN champ_old TO champ_new;
+
+    ALTER TABLE ma_table ADD CHECK (mon_champ <> 5);
+    ALTER TABLE ma_table ADD CONSTRAINT autre_nom UNIQUE (no_produit);
+    ALTER TABLE ma_table ADD FOREIGN KEY (id_produit) REFERENCES produits;
+    ALTER TABLE ma_table DROP CONSTRAINT autre_nom;
+
+    DROP TABLE ma_table;
+    DROP TABLE ma_table CASCADE;
+
+    ALTER TABLE table_old RENAME TO table_new;
+
+    /* exemple augmentation taille de colonne */
+    ALTER TABLE ma_table ADD COLUMN name2 character varying(300);
+    update ma_table set name2=name;
+    ALTER TABLE ma_table DROP COLUMN name;
+    ALTER TABLE ma_table rename COLUMN name2 to name;
+    ALTER TABLE ma_table ALTER COLUMN name SET NOT NULL;
+
+
+Sauvegarde et restauration
+--------------------------
+
+archivage d'une base posgressql avec ::
+
+    pg_dump nombase -f nomfichier
+
+remplissage base avec ::
+
+    $ psql -d nombase -f nomfichier
+
+même chose en compressé archivage ::
+
+    pg_dump -Ft -b mydb > db.tar
+
+rechargement ::
+
+    pg_restore -d newdb db.tar
+
+ 
+Sequences
+---------
+
+    Quelques requêtes sql.
+    Creation de compteur :
+
+    CREATE SEQUENCE moncompteur;
+
+    Incrément et renvoie la valeur du compteur :
+
+    SELECT nextval('moncompteur');
+
+    Renvoie la valeur du compteur :
+
+    SELECT currval('moncompteur');
+
+    Réinitialise un compteur :
+
+    SELECT setval('moncompteur',valeur);
+
+    Destruction du compteur :
+
+    DROP SEQUENCE moncompteur;
+
+    Destruction du compteur (ne provoque pas d'erreur si le
+    compteur n'existe pas) :
+
+    delete from pg_type where typname='myseq';
+    delete from pg_class where relname='myseq';
+
+
+------------------------------------------------------------
+
+Documentation Obsolète : Pour PostgreSQL 8.1. qui n'avait pas encore la recherche full texte.
+
+Indexation de texte
+===================
+
+Cette documentation est actuellement périmée car depuis 8.3, la recherche full texte est intégré a postgresql.
+
+J'utilise ici tsearch 2 :
+
+http://www.sai.msu.su/~megera/postgres/gist/tsearch/V2/
+
+http://www.sai.msu.su/~megera/postgres/gist/tsearch/V2/docs/tsearch-V2-intro.html
+
+
+
+SYSTEM
+------
+
+Installation ::
+
+    aptitude install postgresql-contrib-8.1 ifrench-gut wfrench
+
+
+Initialisation ::
+
+    psql pressblog < /usr/share/postgresql/8.1/contrib/tsearch2.sql
+
+
+SQL Index simple ::
+
+    ALTER TABLE ma_table ADD COLUMN mon_index_fti tsvector;
+    UPDATE ma_table SET mon_index_fti=to_tsvector('default', mon_champ);
+    VACUUM FULL ANALYZE;
+    CREATE INDEX mon_index_fti_idx ON ma_table USING gist(mon_index_fti);
+    VACUUM FULL ANALYZE;
+
+    Trigger pour indexation a la volée
+
+    CREATE TRIGGER mon_trigger BEFORE UPDATE OR INSERT ON ma_table
+    FOR EACH ROW EXECUTE PROCEDURE tsearch2(mon_index_fti, mon_champ);
+
+
+Index multiple sur une table ::
+
+    ALTER TABLE ma_table ADD COLUMN mon_index_fti tsvector;
+    UPDATE ma_table SET mon_index_fti=to_tsvector('default', coalesce(champ_1,'') ||' '|| coalesce(champ_2,''));
+    VACUUM FULL ANALYZE;
+    CREATE INDEX mon_index_fti_idx ON ma_table USING gist(mon_index_fti);
+    VACUUM FULL ANALYZE;
+
+Trigger pour indexation a la volée ::
+
+    CREATE TRIGGER mon_trigger BEFORE UPDATE OR INSERT ON ma_table
+    FOR EACH ROW EXECUTE PROCEDURE tsearch2(mon_index_fti, champ_1, champ_2);
+
+Pour que le trigger fonctionne, avant un UPDATE ou INSERT,
+il faudra lancer la requête suivante ::
+
+    select set_curcfg('default');  
+
+Recherches ::
+
+    SELECT * FROM ma_table WHERE mon_index_fti @@ to_tsquery('texteachercher')::tsquery;
+
+    SELECT * FROM ma_table WHERE mon_index_fti @@ to_tsquery('mot1 | mot2')::tsquery;
+
+    SELECT * FROM ma_table WHERE mon_index_fti @@ to_tsquery('mot1 & mot2')::tsquery;
+
+    SELECT * FROM ma_table WHERE mon_champ ~* '.*phrase a chercher.*';
+

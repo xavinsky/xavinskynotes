@@ -25,7 +25,7 @@ Lien privateur
     Un lien (statique ou dynamique) d'un logiciel privateur vers une autre
     librairie (en logiciel libre) sera appelé ici lien privateur.
 
-Travail derivé
+Travail dérive
     Le résultant d'une compilation avec un lien privateur sera appelé ici 
     travail dérivé.
 
@@ -45,18 +45,18 @@ Copyleft faible
     Application diminuée du principe copyleft a un logiciel.
     Le liens privateur sont permis lorsque le travail dérivé n'est pas 
     considéré comme un tout.
-    La restribution d'un travail dérivé est permis a condition de fournir
+    La redistribution d'un travail dérivé est permis a condition de fournir
     le code source de la librairie libre avec ses modification éventuelles
     sous licence libre.
 
 Sans copyleft
-    C'est les possibilités pour un logiciel privateur d'integrer un logiciel,
+    C'est les possibilités pour un logiciel privateur d'intégrer un logiciel,
     et de modifier son contenu comme bon lui semble sans contrainte.
 
 Copyleft distant
-    Certaines licences libre spécifie que l'utilisateur distant possede les 
+    Certaines licences libre spécifie que l'utilisateur distant possède les 
     mêmes droits de l'utilisateur standard.
-    Ansi, si un serveur modifie un logiciel qui respecte ce copyleft, les 
+    Ainsi, si un serveur modifie un logiciel qui respecte ce copyleft, les 
     utilisateur distant doivent pouvoir étudier et modifier le programme sous 
     forme de code source.
 
@@ -74,8 +74,8 @@ de gnu.org_ que j'essaie de suivre autant que possible.
 **Votre code**                         **Licence Libre**       **Copyleft**
 contribution a un projet existant      La licence du projet
 moins de 300 lignes                    `Licence Apache 2.0`_   Sans
-protocol libre en concurence           `Licence Apache 2.0`_   Sans
-librairie sans copyleft en concurence  LGPLv3_                 Faible
+protocole libre en concurrence         `Licence Apache 2.0`_   Sans
+librairie sans copyleft en concurrence LGPLv3_                 Faible
 Protection contre utilisation distante AGPLv3_                 Distant
 Autres cas                             GPLv3_                  Fort
 **Votre documentation**                **Licence Libre**       **Copyleft**
@@ -84,16 +84,16 @@ Autres cas                             GFDL_                   Oui
 Code dans la documentation             CC0_                    Non
 **Autres (images, son...)**            **Licence Libre**       **Copyleft**
 si dans un projet                      La licence du projet
-si independant                         `CC BY-SA`_             Oui
+si indépendant                         `CC BY-SA`_             Oui
 ====================================== ======================= ============
 
 Les codes écrit en python
 -------------------------
 
-Le code quit doit être inclus dans la librairie standard de Python_ doit 
+Le code qui doit être inclus dans la librairie standard de Python_ doit 
 utiliser la `Licence Apache 2.0`_. 
 
-Le reste peut utiliser la GPLv3_, mais il est preferable d'utiliser 
+Le reste peut utiliser la GPLv3_, mais il est préférable d'utiliser 
 `Licence Apache 2.0`_ pour tout code susceptible rentrer dans la librairie 
 standard.
 
@@ -197,9 +197,9 @@ Le fichier a joindre dans la livraison global :
 GNU All-Permissive License
 --------------------------
 
-Cette licence ne necessite ni d'avis de copyright, ni fichier de licence.
+Cette licence ne nécessite ni d'avis de copyright, ni fichier de licence.
 
-Seul est necessaire cet avis de copyright : ::
+Seul est nécessaire cet avis de copyright : ::
 
     Copying and distribution of this file, with or without modification,
     are permitted in any medium without royalty provided the copyright
@@ -210,12 +210,12 @@ GNU Free Documentation License
 ------------------------------
 
 Le fichier de licence `fdl.txt <http://www.gnu.org/licenses/fdl.txt>`_
-contient la licence et un parragraphe Addendum en fin de document qui decrit 
+contient la licence et un paragraphe Addendum en fin de document qui décrit 
 comment utiliser cette licence.
 
 1.  Pour une utilisation pour une documentation dans un fichier unique.
 
-    Enlever la partie addendum du fichier dfl.txt, et inserer cette licence 
+    Enlever la partie addendum du fichier dfl.txt, et insérer cette licence 
     dans votre document.
  
     Puis sous le titre du document, ajouter l'avis de copyright et l'avis 
@@ -232,7 +232,7 @@ comment utiliser cette licence.
         A copy of the license is included in the section entitled "GNU
         Free Documentation License".
 
-    Exemple de text a inclure sous le titre : ::
+    Exemple de texte a inclure sous le titre : ::
 
         Copyright © 2012 Xavier Manach <xav@tekio.org>
 
@@ -245,7 +245,7 @@ comment utiliser cette licence.
 
 2.  Pour une utilisation pour une documentation dans plusieurs fichiers.
 
-    Creer un fichier licence-fdl.txt avec l'avis de licence et le contenu
+    Créer un fichier licence-fdl.txt avec l'avis de licence et le contenu
     du fichier fdl.txt (en retirant la partie Addedum).
 
     Puis sur chaque fichier, ajouter le l'avis de copyright et la ligne 
@@ -277,7 +277,7 @@ Syntaxe d'avis de licence : ::
 Creative Common Attribution-ShareAlike 2.0
 ------------------------------------------
 
-Les instructions dependent du type de oeuvre.
+Les instructions de pendent du type de oeuvre.
 
 `Documentation officielle <http://wiki.creativecommons.org/Marking/Creators>`_
 
@@ -299,10 +299,10 @@ Pour une page web, Inserer dans la page le code HTML suivant ::
     href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_US"
     >Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
 
-L'apparence sera une image suivi d'un petit text avec un lien http vers `un 
+L'apparence sera une image suivi d'un petit texte avec un lien http vers `un 
 descriptf de la licence <http://creativecommons.org/licenses/by-sa/3.0/deed.en_US>`_ 
 
-Le text : ::
+Le texte : ::
 
     This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License
 
@@ -396,3 +396,5 @@ Les DRM `Articles wikipedia <http://fr.wikipedia.org/wiki/Gestion_des_droits_num
 
 `Logo officiels des Licences GNU <http://www.gnu.org/graphics/license-logos.html>`_
 
+
+LocalWords:  Ansi
