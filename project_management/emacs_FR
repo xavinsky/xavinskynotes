@@ -1,0 +1,257 @@
+#####
+Emacs
+#####
+
+.. contents:: Sommaire
+
+Mon editeur de texte préféré. Fonctionne en console.
+
+=============
+Configuration
+=============
+
+Installation basique ::
+
+    aptitude install emacs23-nox 
+
+=======
+Modules
+=======
+
+Certain que j'installe régulierement : 
+pep8, pylint, highlight-80+, aspell, text-translator...
+
+Installation de paquets debian ::
+
+    aptitude install aspell-fr aspell-es auto-complete-el yasnippet anything-el
+    aptitude install python-mode pep8 python-ropemacs pyflakes pylint
+
+Pour l'utilisation de modules emacs, il faut 
+
+* les installer si besoin dans un repertoires lisp
+* les activer dans son fichier de config, 
+
+les repertoires pour les package lisp (.el) ::
+
+    /etc/emacs/site-start.d/
+    /etc/emacs23/site-start.d/
+    /usr/share/emacs/site-lisp/
+    /usr/share/emacs23/site-lisp/
+    /usr/local/share/emacs/23.4/site-lisp/ (celui que j'utilise)
+
+On peut également ajouter un repertoire perso dans son fichier de config emacs par ::
+
+    (require 'load-directory)
+    (load-directory "~/.emacs.d/my-lisp")
+
+
+Installation de text-translator ::
+
+    cd /usr/local/share/emacs/23.4/site-lisp/
+    wget http://www.emacswiki.org/emacs/text-translator.el
+    wget http://www.emacswiki.org/emacs/text-translator-vars.el
+    wget http://www.emacswiki.org/emacs/text-translator-load.el
+    # J'ajoute dans text-translator-vars.el traduction fr<->es pour google.
+    #   ("es" . "fr") ("fr" . "es")
+
+
+fichier de config  ~/.emacs ::
+
+    ; classique
+    (require 'highlight-80+)
+    ; python
+    (require 'ipython)
+    (require 'tramp)
+    ; correction orthographe
+    (setq-default ispell-program-name "aspell")
+    ; traduction
+    (setq-default text-translator-default-engine "google.com_fren")
+    (global-set-key "\C-x\C-t" 'text-translator)
+    (global-set-key "\C-x\C-y" 'text-translator-translate-last-string)
+    ; codding python correction
+    (require 'python-pep8)
+    (require 'python-pylint)
+    (require 'pymacs)
+    (pymacs-load "ropemacs" "rope-")
+    (setq ropemacs-enable-autoimport t)
+    ;shortcuts goto-line
+    (global-set-key "\M-g" 'goto-line)
+
+==================
+Raccourcis Clavier
+==================
+
+* C-  touche controle
+* M-  touche meta (soit alt sous pc)
+* SPC  barre espace
+* ESC touche escape
+* RET touche return
+
+Lorsque qu'il y a un espace, cela signifie (contrairement au "-")
+qu'il faut lacher les précédentes touches pour la suite de la combinaison.
+
+Stop
+----
+
+::
+
+    # Quitter Emacs
+    C-x C-c
+    # Aide
+    C-h C-h
+    # Abandonner l'action en cours
+    C-g
+
+
+Edition
+-------
+
+::
+
+    # chercher en avant
+    C-s
+    # chercher en arriere
+    C-r
+    # chercher / remplacer
+    M-%
+
+    # bloc : 
+    # debut de bloc
+    C-SPC    
+    # Couper
+    C-w
+    # Coller
+    C-y
+
+    # completion
+    C-M-/
+
+    # intentation 4 espaces
+    C-u C-x TAB
+
+    #Toutes les commande peut être trouvé (puis lancer) par 
+    M-x TAB  
+
+
+Fichier
+-------
+
+::
+
+    # Ouverture de fichier
+    C-x C-f
+
+    # sauvegarder fichier
+    C-x C-s 
+
+    # sauvegarder fichier sous un autre nom
+    C-x C-w
+    
+
+Macros
+------
+
+::
+
+
+    # macro
+    # debut
+    C-x (
+    # fin
+    C-x )
+    # executer
+    C-x e
+
+    # undo (annuler derniere action) :
+    C-x u
+
+    # executer <n> fois la derniere commande
+    ESC <n> RET
+
+Buffers
+-------
+
+::
+
+    # buffers
+    # Tuer un buffer
+    C-x k
+    # Changer de buffer
+    C-x b
+    # Lister les buffers
+    C-x C-b
+
+Fenêtres
+--------
+
+::
+
+    # fenetres
+    # diviser horizontalement
+    C-x 2
+    # diviser verticalement
+    C-x 3
+    # revenir a une feneter
+    C-x 0
+    # Changer de fenêtre : 
+    C-x o
+
+
+python
+------
+
+::
+
+    # indentation de bloc en python :
+    C-c >
+    C-c <
+    # python shell
+    C-c python-shell
+
+    # quand shell ouvert, on peut chercher la doc :
+    M-x python-describe-symbol
+
+    # verif code.
+    M-x highlight-80+
+    M-x pep8
+    M-x pylint
+
+Correction d'orthographe
+------------------------
+
+::
+
+    # choisir le dictionnaire (anglais par default)
+    M-x ispell-change-dictionary RET
+    # lancer la correction
+    M-x ispell
+    # mode correction à la volée.
+    M-x flyspell-mode RET
+
+Traduction
+----------
+
+::
+
+    C-x C-t : fait une traduction 
+    C-x C-y : refait la traduction avec un autre dictionnaire (on doit faire \C-x\C-t avant)
+
+http://www.emacswiki.org/emacs/TextTranslator
+
+
+
+==========
+Références
+==========
+
+http://www.emacswiki.org
+
+http://www.linux-france.org/article/appli/emacs/
+
+http://emacswiki.org/emacs/PythonProgrammingInEmacs
+
+http://pedrokroger.net/2010/07/configuring-emacs-as-a-python-ide-2/
+
+http://www.saltycrane.com/blog/2010/05/my-emacs-python-environment/
+
+http://www.linux-france.org/article/appli/cfg/index.html

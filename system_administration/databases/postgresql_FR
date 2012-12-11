@@ -51,22 +51,23 @@ Ceux que j'utilise le plus sont ::
 Documentation
 =============
 
-Officielle : http://docs.postgresqlfr.org/9.2/
-
 Dans le paquet postgresql-doc : /usr/share/doc/postgresql-common/README.Debian.gz
+
+Sites internet :
+
+* Documentation officielle : http://docs.postgresqlfr.org/9.2/
+* Wiki Performance : http://wiki.postgresql.org/wiki/Performance_Optimization
+* Wiki Documentations : http://wiki.postgresql.org/wiki/Community_Generated_Articles,_Guides,_and_Documentation
+* Wiki Français : http://wiki.postgresql.org/wiki/Fran%C3%A7ais
+* Forum Français : http://forum.postgresql.fr
+* Planet postgresql : http://planet.postgresql.org/
+* Liste de diffusions : http://archives.postgresql.org/
+* Postgis : http://postgis.refractions.net/documentation/
 
 Livres en ligne :
 
 * Livres : http://www.postgresql.org/docs/books/
 * Practical PostgreSQL (2001) : http://www.commandprompt.com/ppbook/
-
-
-Postgis : http://wiki.debian.org/DebianGis/UpdatingPostGIS , http://postgis.refractions.net/documentation/
-
-Wiki Performance : http://wiki.postgresql.org/wiki/Performance_Optimization
-Wiki Documentations : http://wiki.postgresql.org/wiki/Community_Generated_Articles,_Guides,_and_Documentation
-Wiki Français : http://wiki.postgresql.org/wiki/Fran%C3%A7ais
-Forum Français : http://forum.postgresql.fr
 
 ========
 Sécurité
