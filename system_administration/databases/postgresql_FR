@@ -57,10 +57,16 @@ Dans le paquet postgresql-doc : /usr/share/doc/postgresql-common/README.Debian.g
 
 Livres en ligne :
 
+* Livres : http://www.postgresql.org/docs/books/
 * Practical PostgreSQL (2001) : http://www.commandprompt.com/ppbook/
 
 
 Postgis : http://wiki.debian.org/DebianGis/UpdatingPostGIS , http://postgis.refractions.net/documentation/
+
+Wiki Performance : http://wiki.postgresql.org/wiki/Performance_Optimization
+Wiki Documentations : http://wiki.postgresql.org/wiki/Community_Generated_Articles,_Guides,_and_Documentation
+Wiki Français : http://wiki.postgresql.org/wiki/Fran%C3%A7ais
+Forum Français : http://forum.postgresql.fr
 
 ========
 Sécurité
