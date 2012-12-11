@@ -2,11 +2,12 @@
 PostgreSQL
 ##########
 
-Il y a deux grandes communauté open source pour les bases de données SQL : Mysql et PostgreSQL.
+.. contents:: Sommaire
 
-* PostgreSQL n'appartient pas à Oracle, qui fourni un logiciel privateur de bases de données SQL.
+Il y a deux grandes communautés open source pour les bases de données SQL : Mysql et PostgreSQL.
+
+* PostgreSQL contrairement a MySQL n'appartient pas à Oracle, qui fourni un logiciel privateur concurent.
 * PostgreSQL est souvent plus complexe à configurer.
-
 
 ============
 Installation
@@ -111,15 +112,14 @@ Dans le fichier  /etc/postgresql/9.1/main/postgresql.conf
 
 * shared_buffers est la mémoire utilisé pour la cache interne de PostgreSQL. On conseille 1/4 de la mémoire disponible pour PostgreSQL.
 * effective_cache_size est le cache disque. On conseille 1/2 de la mémoire disponible pour PostgreSQL.
-Pour des performances correctes, les fichiers index doivent pouvoir être contenu dans cette taille.
-Pour des performances optimales, toutes les données doivent pouvoir être contenu dans cette taille.
+  Pour des performances correctes, les fichiers index doivent pouvoir être contenu dans cette taille.
+  Pour des performances optimales, toutes les données doivent pouvoir être contenu dans cette taille.
 * work_mem est la mémoire par connexion client.
-Il est souvent plus rentable de ne modifier ce paramètre qu'en SQL (set work_mem = '1GB';) lors des gros traitements.
+  Il est souvent plus rentable de ne modifier ce paramètre qu'en SQL (set work_mem = '1GB';) lors des gros traitements.
 * sort_mem est la mémoire utilisé par requête de tri. Souvent utile de le monter (selon mémoire disponible). 
-Par exemple 50MB * 30 connections donneront 1.5 Go.
+  Par exemple 50MB * 30 connections donneront 1.5 Go.
 * max_fsm_pages et max_fsm_relations sont utilisé pour effectuer les opérations de VACCUM.
 * random_page_cost : a réduire pour les disques rapides pour encourage l'utilisation de "random access index scans".
-
 * synchronous_commit : Est ce que l'écriture disque doit être faite a chaque requête ? (dépend des contraintes SLA)
 
 
@@ -142,26 +142,25 @@ http://docs.postgresqlfr.org/9.2/kernel-resources.html
 http://www.westnet.com/~gsmith/content/postgresql/pg-5minute.htm
 
 
-======
-Charge
-======
+=================================
+Répartiteur de charge et Failover
+=================================
 
-Pour gérer la monter en charge avec postgreSQL il n'y a pas encore une solution qui se détache réellement des autres.
-
-
-Répartiteurs de charge ::
+pgpool ou pgbouncer ::
  
     aptitude install pgpool2
     # ou
     aptitude install pgbouncer
 
-Pour la réplication : 
+===========
+Réplication
+===========
 
-Les réplications natives :
-* http://docs.postgresqlfr.org/9.2/warm-standby.html#streaming-replication
-* http://docs.postgresqlfr.org/9.2/warm-standby.html#cascading-replication
+* Les réplications natives :
 
-* Hot Standby ( PostgreSQL 8.4 )
+    * http://docs.postgresqlfr.org/9.2/warm-standby.html#streaming-replication
+    * http://docs.postgresqlfr.org/9.2/warm-standby.html#cascading-replication
+    * Hot Standby ( PostgreSQL 8.4 )
 
 * maître/maître :
 
@@ -219,30 +218,23 @@ Créer et Déduire un utilisateur ::
 
 
 Commandes
-=========
+---------
 
-Utiliser psql : 
+Utiliser psql ::
 
-    liste des bases de données
-
+    #liste des bases de données
     psql -l
-
-    créer base :
-
+    #créer base :
     createdb base -O owner -E UNICODE
-
-    insérer un script sql
-
+    #insérer un script sql
     psql -d base < script
-
-    se connecter
-
+    #se connecter
     psql -d base 
 
-    Après s'être connecté, on peut utiliser des requêtes sql ou des
-    commandes psql
+    #Après s'être connecté, on peut utiliser des requêtes sql ou des
+    #commandes psql
 
-    Quelques commandes dans psql :
+    #Quelques commandes dans psql :
 
     \?   /* aide psql */
     \h   /* aide sql */
@@ -268,14 +260,14 @@ Utiliser psql :
     \q  /* ou ctr-D pour quitter */
 
 
-Exemples de commande SQL de base:
+Exemples de commande SQL de base::
 
     SELECT * FROM MA_TABLE;
     SELECT * FROM MA_TABLE WHERE MON_CHAMP = 0;
     UPDATE MA_TABLE SET MON_CHAMP = 1;
     INSERT INTO MA_TABLE VALUES (1, 'text');
 
-    Exemple de commande SQL de manipulation de table
+Exemple de commande SQL de manipulation de table ::
 
     CREATE TABLE ma_table (
 	champ_old text,
@@ -328,43 +320,34 @@ rechargement ::
     pg_restore -d newdb db.tar
 
  
-Sequences
+Séquences
 ---------
 
-    Quelques requêtes sql.
-    Creation de compteur :
+Quelques requêtes sql ::
 
+    # Creation de compteur :
     CREATE SEQUENCE moncompteur;
-
-    Incrément et renvoie la valeur du compteur :
-
+    # Incrément et renvoie la valeur du compteur :
     SELECT nextval('moncompteur');
-
-    Renvoie la valeur du compteur :
-
+    # Renvoie la valeur du compteur :
     SELECT currval('moncompteur');
-
-    Réinitialise un compteur :
-
+    # Réinitialise un compteur :
     SELECT setval('moncompteur',valeur);
-
-    Destruction du compteur :
-
+    # Destruction du compteur :
     DROP SEQUENCE moncompteur;
-
-    Destruction du compteur (ne provoque pas d'erreur si le
-    compteur n'existe pas) :
-
+    # Destruction du compteur (ne provoque pas d'erreur si le
+    # compteur n'existe pas) :
     delete from pg_type where typname='myseq';
     delete from pg_class where relname='myseq';
 
+======================
+Documentation Obsolète
+======================
 
-------------------------------------------------------------
+Tsearch 2
+---------
 
-Documentation Obsolète : Pour PostgreSQL 8.1. qui n'avait pas encore la recherche full texte.
-
-Indexation de texte
-===================
+Indexation de texte pour PostgreSQL 8.1. qui n'avait pas encore la recherche full texte.
 
 Cette documentation est actuellement périmée car depuis 8.3, la recherche full texte est intégré a postgresql.
 
@@ -373,11 +356,6 @@ J'utilise ici tsearch 2 :
 http://www.sai.msu.su/~megera/postgres/gist/tsearch/V2/
 
 http://www.sai.msu.su/~megera/postgres/gist/tsearch/V2/docs/tsearch-V2-intro.html
-
-
-
-SYSTEM
-------
 
 Installation ::
 
