@@ -112,6 +112,10 @@ Edition
     C-s
     # chercher en arriere
     C-r
+    # chercher en avant avec expression reguliere
+    C-M-s
+    # chercher en arriere avec expression reguliere
+    C-M-r
     # chercher / remplacer
     M-%
 

@@ -132,7 +132,7 @@ Concepts
 ========
 
 Système de gestion de versions
------------------------------
+------------------------------
 
 Il permet de gérer l'historique des fichiers, et de faire des versions_ sur l'ensemble du projet. 
 Il stoque les différentes versions_ de documents (et non pas les différences) et fonctionne par instantanés (snapshot)
