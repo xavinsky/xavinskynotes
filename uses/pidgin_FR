@@ -1,0 +1,10 @@
+######
+PIDGIN
+######
+
+Le plugin otr (off the record) est très utile pour s'assuré la confidentialité des communications avec jabber.
+
+::
+
+    aptitude install pidgin pidgin-otr
+

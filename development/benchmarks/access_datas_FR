@@ -1,0 +1,34 @@
+#############
+Acces données
+#############
+
+Quelques mesures en python pour l'acces au données.
+
+Cout d'accès a une information en millisecondes ::
+
+    3.693 : shell commande
+    1.172 : access postgresql
+
+Programme maison pour gère la concurrence a base de socket python
+
+    1.109 : socket python + sqlite file
+    0.971 : socket python + sqlite memory
+    0.755 : socket python + dico.
+
+acces sqllite (pas d'access concurent possible)
+
+    84.302: acces a divers elements d'une base de 100000 elements non indexés.
+    0.425 : acces a divers elements d'une base de 100000 elements indexés.
+    0.242 : acces sqlite no concurence base 100000 elements 1 data
+    0.222 : acces sqlite no concurence base vide
+
+Autres methodes d'acces aux données.
+
+    0.167 : Import Module
+    0.128 : lecture fichier
+    0.001 : lecture memoire
+
+Remarque, psycopg2 (le plus rapide des connecteur python a postgres)
+met 1.172 ms a retourner une valeur, alors que postgres la calcule en 0.186 ms.
+Près d'un facteur 10.
+

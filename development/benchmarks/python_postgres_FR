@@ -1,0 +1,118 @@
+#####################
+PostgresSQL et Python
+#####################
+
+Test driver postgres en python
+==============================
+
+L'objectif est de voir quelle est le driver postgres le plus rapide en python.
+Debian Etch, python 2.4.4 recompilé, postgres8.1
+
+postgres-python : psycopg2 plus rapide.
+
+Benchmark ::
+
+    0.001107 secondes : psycopg2
+    0.001264 secondes : pg
+    0.001269 secondes : libpq
+    0.001276 secondes : pgdb
+    0.001751 secondes : sqlalchemy
+    0.003254 secondes : PgSQL
+
+Référence psql ::
+
+    0.000186 secondes : Requête explain analyse en psql
+
+1er : psycopg2 : module psycopg2
+http://www.initd.org/
+http://www.initd.org/pub/software/psycopg/psycopg2-2.0.5.1.tar.gz
+
+2e et 4e : pygresql : module pg (et pgdb plus lent)
+http://www.pygresql.org/
+ftp://ftp.pygresql.org/pub/distrib/PyGreSQL.tgz
+
+3 et 6e :  pypgsql : modules libpq (et PgSQL plus lent)
+http://pypgsql.sourceforge.net/
+http://downloads.sourceforge.net/pypgsql/pyPgSQL-2.5.1.tar.gz
+
+5e : sqlalchemy : module sqlalchemy
+http://www.sqlalchemy.org/
+http://sourceforge.net/project/downloading.php?groupname=sqlalchemy&filename=SQLAlchemy-0.3.3.tar.gz
+
+Mon critère de choix : le select le plus rapide.
+
+Ma méthode :
+
+Structure minimale.
+Une base , une table, une valeur.
+Une connexion
+1 select pour initialiser.
+boucle sur select pour mesure le temps de réaction.
+Une deconnection.
+
+Pourquoi cette mesure :
+
+    * la durée de la requête importe peu (elle sera la même pour tous)
+    * la durée de la connexion m'importe peu (elle sera en cache dans un pool)
+    * la durée du premier select peut contenir des éléments non fini de 
+      la connexion.
+
+
+ZPsycopgDA
+==========
+
+ZPsycopgDA est un produit zope pour faire du sql
+
+
+::
+
+    # preparation table et user dans postgresql
+
+    su
+    su postgres
+    createdb mybase
+    createuser -d -a nomuserquilancelezope
+
+    # creer une instance
+    # dbname=localhost
+
+    # Install psycopg
+
+    aptitude install python-psycopg
+
+    # Install Product
+
+    mkdir tmp
+    cd tmp
+    apt-get source python-psycopg
+    chown -R myuserzope *
+    mv psycopg-<numversion>/ZPsycopgDA <chemininstance>/Products
+    cd ..
+    rm -Rf tmp
+
+    # restarter zope.
+
+    # Installation instance dans zmi (zope management interface)
+
+    # ajouter un Z Psycopg Database Connection
+    # id : sqlconnection
+    # title  : sqlconnection
+    # dbname=mybase
+    # (le user par default est le user qui lance le zope,
+    # il doit alors exister dans postgres)
+
+    # on peut alors tester par zmi une requete dans l'onglet test
+    # par exemple : select * from pg_type
+
+
+Creer un script externe ::
+
+    def send_requete(connection,requete)
+        return connection.query(requete)
+
+
+Exemple script python dans zope ::
+
+    connection=context.sqlconnection()
+    return context.send_requete(connection,'select * from pg_type')
+

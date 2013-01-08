@@ -1,0 +1,74 @@
+####
+BIOS
+####
+
+.. contents:: Sommaire
+
+Bips BIOS
+=========
+
+Bios Award
+----------
+
+::
+
+    Nombre de bips     Origine du problème
+    1     mémoire vive
+    2     erreur de parité dans le 1er bloc de mémoire de 64 Ko
+    3     erreur fatal dans le 1er bloc de mémoire de 64 Ko
+    5     processeur
+    7     impossible de passer en mode protégé
+    8     adaptateur vidéo
+    10     mémoire CMOS
+    11     cache externe de 2nd niveau
+    1 long     aucune erreur
+
+Bios Ami
+--------
+
+::
+
+    Nombre de bips     Origine du problème
+    1 long + 2 courts     carte graphique
+    1     mémoire vive
+    2     premiers 64 Ko de mémoire
+    3     mémoire conventionnelle
+    5     processeur
+    6     clavier
+    8     impossible d'effectuer le test d'affichage
+
+Bios Phoenix
+------------
+
+::
+
+    Nombre de bips     Origine du problème
+    1-1-3     mémoire CMOS ou horloge interne
+    1-1-4     rom bios
+    1-3-1     mémoire vive
+    3-2-4     clavier
+    3-3-4     initialisation de l'écran
+    3-4-2     rom vidéo
+    4-2-2     impossible d'effectuer le test de mise hors tension
+    4-3-4     date système
+    4-4-1     port série
+    4-4-2     port parallèle
+    4-4-3     coprocesseur mathématique
+
+
+Config BIOS
+===========
+
+Bios pour le serial ATA
+-----------------------
+
+::
+
+    Configuration du bios pour le serial ATA (AMIBIOS 1002.002 v2.51)
+    (compatible avec le noyau 2.6)
+    Main -> Configuration IDE :
+    OnBoard IDE Operate Mode [Enhanced Mode]
+    Enhanced Mode Support On [S-ATA]
+    Configure S-ATA as RAIS [Non]
+    Delai Détection IDE (sec) [35]
+

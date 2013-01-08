@@ -92,6 +92,10 @@ Syntax ::
 
     # list all keys.
     gpg --list-keys
+    # list all sigs
+    gpg --list-sigs
+    # list all secret keys
+    gpg --list-secret-keys
 
     # show fingerprint
     gpg -v --fingerprint 12345678
@@ -116,4 +120,35 @@ Syntax ::
     gpg --sign-key AAAAAAAA 
     # export the signature in a ascii file.
     gpg --armor --output AAAAAAAA-signedBy-12345678.asc --export AAAAAAAA
+
+    # delete keys
+    gpg --delete-key <info-key>
+    gpg --delete-secret-key 
+
+    # edit key public information
+    gpg --edit-key <info-key>
+    * 1 = I Don't know
+    * 2 = I do NOT trust
+    * 3 = I trust marginally
+    * 4 = I trust fully
+
+    # revoke key :
+    gpg --gen-revoke <info-key>
+
+    # Messages
+
+    # Crypt without sign
+    gpg -e destinataire [message]
+    # Sign amessage (return sign)
+    gpg --detach-sign [message]
+    # Sign a message (return message + sign)
+    gpg --clearsign [message]
+    # Sign a message (return message + compressed sign)
+    gpg --sign [message]
+    # crypt + sign
+    gpg [-u expéditeur] [-r destinataire] [--armor] --sign --encrypt [message]
+    # verify sign
+    gpg --verify [message]
+    # Uncrypt
+    gpg [-d] [message]
 

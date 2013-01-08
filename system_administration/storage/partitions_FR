@@ -1,0 +1,114 @@
+##########
+Partitions
+##########
+
+::
+
+    fdisk
+    gpart
+
+avec interface graphique ::
+
+    gparted
+    qtparted
+
+Restauration de tables de partitions en devinant les partitions. ::
+
+    gpart /dev/xxx -W /dev/xxx
+
+Quelques outils de diagnostique de dique selon constructeur ::
+
+    http://www.tacktech.com/display.cfm?ttid=287
+
+Vider la clef sur /dev/sda ::
+
+    dd if=/dev/zero of=/dev/sda bs=512
+
+
+Mount
+-----
+
+::
+
+    mount
+    fuse
+
+Exemples montage manuelle clef USB ::
+
+    mkdir /mnt/cle_usb
+    mount -t vfat /dev/sda1 /mnt/cle_usb
+    mount /dev/sda1 /mnt/cle_usb
+
+fichier de montage automatique :
+
+::
+
+    /etc/fstab
+
+Obtenir la liste des UUID des partitions ::
+
+    tree /dev/disk/by-uuid
+   
+Exemple ligne /etc/fstab pour un automout d'un disque ::
+
+    UUID=12341234-1234-1234-1234-123412341234       /mnt/disk     ext3    user,noauto,sync        1       0
+
+Syntaxe de chaque ligne de /etc/fstab ::
+
+    [Device] [Repertoire] [File System] [Options] [Dump] [Fsck]
+    # [Device] : /dev/[nom_dev] ou UUID=[uuid_dev]
+    # [Repertoire] : le point de montage /mnt/disk ...
+    # [File System] : iso9660 (cd), ext2, ext3, ext4, ntfs(win), fat32(win), hfsplus(mac).
+    # [Options] : Les options séparés par des virgules.
+    # [Dump] indique si l'on doit dump la partitions par default
+    # [Fsck] indique l'ordre des tests fsck (0 = pas de test)
+
+exemples de device :
+
+    * /hda1 : hd = ide, a=premier IDE, 1=1ere partition
+    * /sdb3 : sd = sata, b=second SATA, 3=3e partition
+
+Liste des options :
+
+    * ro / rw : lecture seule ou lecture/ecriture
+    * auto : monter automatiquement en root
+    * noauto : non monter automatiquement en root
+    * user/nouser : autorise l'user a monter la partition 
+      (automatisé ensuite par le system)
+    * defaults : rw, suid, dev, exec, auto, nouser, async.
+    * sync/async : synchrone (besoin de securité des données 
+      en cas d'extraction du disque), asynchrone (plus performant)
+    * exec/noexec : Permet ou non l'execution des fichiers binaires.
+    * suid/nosuid : Permet ou non suid et sgit.
+    * iocharset : encodage patition : exemple pour windaube 
+      iocharset=iso8859-15
+    * dev/nodev : accepte ou non les device char ou vloc spéciaux.
+    * _netdev : pour partition reseau nfs, indique qui faut attendre le
+      attendre reseau pour monter la partition.
+    * sw : swap
+
+exemples typique d'options :
+partition racine linux : defaults,errors=remount-ro
+partiton normale linux : defaults
+partiton swap : sw
+cdrom : udf,iso9660 user,noauto
+disque externe : user,noauto,sync
+
+
+Images Partitions
+-----------------
+
+Outils ::
+
+    partimage
+    mondo
+
+Commandes basiques ::
+
+    # Sauvegarde binaire de la partition
+    dd if=/dev/<partition> | gzip | dd of=<file.gz>
+
+    # Restauration de la sauvegarde
+    gzip -dc <file.gz> | dd of=/dev/<partition>
+
+

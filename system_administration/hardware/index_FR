@@ -1,0 +1,137 @@
+########
+Matériel
+########
+
+.. contents:: Sommaire
+
+Clavier
+=======
+
+bonne documentation sur la gestion du clavier : 
+http://wiki.mandriva.com/fr/Personnaliser_le_clavier
+
+Souris
+======
+
+Activation de la molette :
+Dans le fichier de config XFree, PS est souvent insufisant, mettre ImPS à la place.
+
+Exemple ::
+
+    Section "InputDevice"
+        Identifier      "Configured Mouse"
+        Driver          "mouse"
+        Option          "CorePointer"
+        Option          "Device"                "/dev/psaux"
+        Option          "Protocol"              "ImPS/2"
+        Option          "Emulate3Buttons"       "true"
+        Option          "ZAxisMapping"          "4 5"
+    EndSection
+
+lors s'un changement de noyau, ma souris ps2 a cessé de fonctionné,
+le module psmouse n'était plus charger au demarage.
+commande pour charger le module : modprobe psmouse
+pour charger ce module au redemarage (noyau 2.6.8 / debian) , je l'ai
+rajouter dans la liste des modules /etc/modules
+
+Imprimantes
+===========
+
+Site de reference :
+http://www.linuxprinting.org
+
+Install cups sur debian.
+http://www.debian.org/doc/manuals/reference/ch-install.fr.html#s-cups
+
+
+HP laserjet 1018
+----------------
+
+Site du driver avec note d'install.
+http://foo2zjs.rkkda.com/
+
+Note pour 1018 :
+http://www.linuxprinting.org/show_printer.cgi?recnum=HP-LaserJet_1018
+
+une solution pour le script a lancer au demarage est de modifier
+/etc/init.d/cupsys ::
+
+    chmod 3775 /usr/share/cups/model 2>/dev/null || true
+    cat /usr/share/foo2zjs/firmware/sihp1018.dl >  /dev/usb/lp0
+    start-stop-daemon --start --quiet --background -m --pidfile ... 
+
+webcam
+======
+
+logitech
+--------
+
+Compile, install et test le driver spca5xx ::
+
+    wget http://mxhaard.free.fr/spca50x/Download/spca5xx-20051105.tar.gz
+    tar zxvf spca5xx-20051105.tar.gz
+    cd spca5xx-20051105
+    make clean
+    make
+    make install
+    modprobe modprobe spca5xx
+    xawtv
+
+msn + webcam
+------------
+
+http://www.adella.org/spip/article.php3?id_article=43
+
+Carte Graphique
+===============
+
+radeon 9800 pro
+---------------
+
+paquet necessaire ::
+
+    aptitude install libstdc++5
+
+Method utilisé :
+
+Recompilation du noyaux avec les options suivantes :
+http://www.komite.net/florimond/driver_ati_pour_debian.html
+
+Puis telechargement du dernier installer driver ati proprio sur le site ati.com : 
+ati-driver-installer-8.31.5-x86.x86_64.run
+
+::
+
+    wget https://a248.e.akamai.net/f/674/9206/0/www2.ati.com/drivers/linux/ati-driver-installer-8.31.5-x86.x86_64.run
+    chmod u+x ati-driver-installer-8.31.5-x86.x86_64.run
+    ./ati-driver-installer-8.31.5-x86.x86_64.run
+
+on fait l'installation, mais elle plante suite a un probleme d'include.
+on doit alors faire ::
+
+    cd /lib/modules/fglrx/build_mod/2.6.x/
+    ln -s /usr/include/linux linux
+    cd ..
+    ./make.sh
+    cd ..
+    ./make_install.sh
+    aticonfig
+
+pour desinstallé ::
+
+    cd /usr/share/ati
+    ./fglrx-uninstall.sh
+
+Quelques notes utilise precedement...
+driver proprio ati : radeon 9800 pro
+
+driver ati download <http://www.ati.com/support/drivers/linux/radeon-linux.html>
+howto
+
+radeon [anglais] <http://www.rage3d.com/content/articles/atilinuxhowto>
+
+paquet debian <http://xoomer.virgilio.it/flavio.stanchina/debian/fglrx-installer.html>
+
+doc que j'avais utilisé <http://www.trustonme.net/didactels/260.html>
+
+

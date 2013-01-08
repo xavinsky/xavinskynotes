@@ -1,0 +1,25 @@
+###
+IRC
+###
+
+Quelques commande irc :
+
+rejoindre un canal
+
+/join #<canal>
+
+
+enregistrer son pseudo
+
+/msg nickserv register <pass> <email>
+
+
+puis recuperer le code d'activation dans le mail :
+
+/msg NickServ confirm <codeacivation>
+
+
+tentative enregistrement de canal
+
+/msg channserv register #<canal>
+

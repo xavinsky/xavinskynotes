@@ -1,0 +1,79 @@
+###
+LVM
+###
+
+Logical Volume Manager
+
+Gestion des disques en volumes :
+
+    * VP : Volumes physiques : disques.
+    * GV : Groupe de volumes physiques.
+    * LV : Volumes logiques (partitions).
+
+Commandes de visualisation :: 
+
+    lvdisplay
+    pvdisplay
+    vgdisplay
+
+    lvscan
+    pvscan
+    vgscan
+
+Etendre un volume ::
+
+    umount /<dir_mount>
+    vgextend rootvg /dev/sdb1 # ajout d'un disque au VG
+    lvextend -L +300G /dev/rootvg/lv_users 
+    e2fsck -f /dev/rootvg/lv_users 
+    resize2fs /dev/rootvg/lv_users 
+    mount /<dir_mount>
+
+Réduire un volume ::
+
+    umount /<dir_mount>
+    lvreduce -L -300G /dev/rootvg/lv_users
+    vgreduce rootvg /dev/sdb1 # elimine un disque au VG
+    mke2fs /dev/rootvg/lv_users 
+    tune2fs -j /dev/rootvg/lv_users
+    mount /<dir_mount>
+
+Exemple de /etc/fstab ::
+
+    /dev/san1vg/lv_datas            /datas                  ext3    defaults,nodev,nosuid   1 2
+    /dev/san1vg/lv_logs             /logs                   ext3    defaults,nodev,nosuid   1 2
+
+Creation de volumes ::
+
+    vgcreate san1vg /dev/sdb1 # creation d'un VG avec un disque
+    lvcreate -L 250G -n lv_datas san1vg
+    mke2fs /dev/san1vg/lv_datas 
+    tune2fs -j /dev/san1vg/lv_datas
+    lvcreate -L 49.9G -n lv_logs san1vg
+    mke2fs /dev/san1vg/lv_logs
+    tune2fs -j /dev/san1vg/lv_logs
+    mkdir /datas
+    mkdir /logs
+    mount /datas
+    mount /logs
+
+Destruction de volumes ::
+
+    lvremove /dev/san1vg/lv_datas
+    lvremove /dev/san1vg/lv_logs
+    vgremove san1vg
+
+test performance ::
+
+    hdparm -tT /dev/mapper/san1vg-lv_datas
+    hdparm -tT /dev/mapper/san1vg-lv_logs
+
+    time dd if=BIGFILE1 of=/dev/null bs=4k count=100000
+    time dd if=BIGFILE2 of=toto bs=4k count=100000
+    rm -Rf toto
+
+    # test with iozone
+    aptitude install iozone3
+    iozone -a
+
+

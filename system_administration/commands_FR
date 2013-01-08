@@ -1,0 +1,108 @@
+##################
+Quelques commandes
+##################
+
+.. contents:: Sommaire
+
+
+Commandes
+=========
+
+Chercher
+--------
+
+::
+
+    grep
+    awk
+    ack
+    sed
+    sort
+    uniq
+    head
+    tail
+    multitail
+
+
+Transfert
+---------
+
+::
+
+    scp
+    wget
+    curl
+    rtorrent
+    aria2
+    lftp
+    ncftp
+    sftp
+
+
+Synchro
+-------
+
+::
+
+    rsync
+    duplicity
+    rsyncrypto
+    backuppc
+
+Versions
+--------
+
+::
+
+    diff
+    patch
+    git
+
+
+Outils
+======
+
+pipes 
+-----
+
+::
+
+    xargs 
+    parallel
+
+
+todo tool
+---------
+
+::
+
+    taskwarrior
+
+
+
+Restrict
+--------
+
+::
+
+    chroot
+    ulimit
+
+
+Monitoring tools
+----------------
+
+::
+
+    sysstat ?!
+    sadf
+    sar
+    sysreport ?!
+
+
+Debug et trace
+--------------
+
+::
+
+    strace

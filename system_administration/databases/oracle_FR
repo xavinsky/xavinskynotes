@@ -1,0 +1,10 @@
+######
+Oracle
+######
+
+Note pour installer oracle sur debian,
+si le boutton suivant ou next ne marche pas dans l'interface graphique
+java, désactiver verr num et ca passe !
+
+http://download.oracle.com/otn/linux/oracle10g/10201/10201_database_linux32.zip
+

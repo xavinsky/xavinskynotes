@@ -1,0 +1,36 @@
+#####
+MYSQL
+#####
+
+Installation :: 
+
+    aptitude install mysql-server mysql-admin mysql-client
+
+Quelques utilitaires ::
+
+    mytop
+    mtop
+    innotop
+
+
+Changer le mot de passe root ::
+
+    mysqladmin password "motdepasse"
+
+
+Ajout d'un administateur, en console mysql ::
+
+    mysql
+    mysql> use mysql;
+    mysql> GRANT ALL PRIVILEGES ON *.* TO 'mylogin'@'localhost' IDENTIFIED BY 'pass' WITH GRANT OPTION;
+    mysql> FLUSH PRIVILEGES;
+
+Création de base de données ::
+
+    mysql> create database mybase;
+    mysql> use mybase;
+
+Se connecter en console avec ::
+
+    mysql -u mylogin -p mybase
+

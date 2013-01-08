@@ -1,0 +1,18 @@
+########################
+Systèmes d'exploitations
+########################
+
+Connaître la version du systeme
+===============================
+
+:: 
+
+    # connaitre la version de debian
+    cat /etc/debian_version
+
+    # connaitre la version de redhat
+    cat /etc/redhat-release
+
+    # connaitre la version de mandrake
+    cat /etc/mandrake-release
+

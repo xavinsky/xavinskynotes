@@ -1,0 +1,240 @@
+#####
+Linux
+#####
+
+Demarrage
+=========
+
+Grub est le chargeur de démarrage actuel (lilo est l'ancien).
+
+configuration des options dans grub : /boot/grub/menu.lst
+
+ou dans lilo : /etc/lilo.conf
+
+Les option de démarrage du noyau utilisé par le grub ou lilo est .
+visible ici ::
+
+    cat /proc/cmdline
+
+
+Fichier contenant les options de compilation du noyau packagé par défault ::
+
+    /boot/config-<version>-<arch>
+
+
+RC
+--
+
+le process init lance les différents service selon son niveau d'initialisation rc.
+Les script se trouves dans /etc/init.d/* .
+et les liens (activable par la commande update-rc.d) sont dans /etc/rc*.d/* .
+
+
+Logs demarrage
+--------------
+
+Cette manip peut causer plantage du demarrage ::
+
+    Ctrl-S pour arrêter
+    Ctrl-Q pour redémarrer
+
+/etc/default/bootlogd doit contenir ::
+
+    BOOTLOGD_ENABLE=Yes
+
+
+Fichier de logs de demarrage ::
+
+    * /var/log/boot : avant que syslog démarre.
+    * /var/log/syslog
+    * /var/log/messages
+
+Après le boot ::
+
+    dmesg
+
+
+Noyau
+=====
+
+Documentations : 
+
+Install noyau à la sauce debian <http://guide.andesi.org/html/kkernel.html>
+http://people.via.ecp.fr/~alexis/formation-linux/noyau-debian.html
+
+Install alsa <http://guide.andesi.org/html/dcartesonalsa.html>  
+
+Option kernel <http://guide.andesi.org/html/moptions-noyau.html>
+
+
+Compilation de noyau
+--------------------
+
+Sauce debian allégé
+~~~~~~~~~~~~~~~~~~~
+
+Récupération des outils ::
+
+    aptitude install build-essential kernel-package fakeroot libncurses5-dev
+    cd /usr/src
+    aptitude install linux-tree-2.6.8 alsa-source
+    tar jxfv linux-source*
+    mv linux-source* linux
+    cp /boot/config-* /usr/src/linux/.config
+    make menuconfig
+    # (choisir ses options puis choisir exit et yes)
+    make-kpkg clean
+    make-kpkg --append-to-version=-test001 kernel_image
+
+    # installer le paquet :
+    dpkg -i linux-image-2.6.8-test001_10.00.Custom_i386.deb
+    # desintaller le paquet :
+    apt-get remove --purge linux-image-2.6.8-test001
+
+
+noyau de kernel.org sur debian
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Recompilation dernier noyau (kernel.org) sur une debian stable (17/11/2005) ::
+
+    aptitude install debhelper modutils kernel-package libncurses5-dev 
+    wget http://kernel.org/pub/linux/kernel/v2.6/linux-2.6.19.2.tar.bz2
+    cp linux-2.6.19.2.tar.bz2 /usr/src
+    cd /usr/scr
+    tar jxvfp linux-2.6.19.2.tar.bz2
+    mv linux-2.6.19.2 linux
+    cd linux
+    cp /boot/config-* .config
+    make menuconfig
+    # (choisir ses options puis choisir exit et yes)
+    make-kpkg clean
+    export v=versionX
+    time make-kpkg --initrd --revision $v --append-to-version $v kernel_image
+    # (puis taper sur entree pour N)
+    # (duree 48 min)
+    cd ..
+    dpkg -i kernel-image-*$v*
+    shutdown -r now
+
+
+Gestion de modules
+==================
+
+::
+
+    # liste tous les modules installé
+    modprobe -l
+
+    # liste des module du noyau activé
+    lsmod
+
+    # active le module
+    modprobe nommodule
+
+    # désactive un module du noyau
+    rmmod nommodule  
+
+    # force la désactivation
+    rmmod -f nommodule  
+
+    # Infomations sur le module
+    modinfo nommodule
+
+    # Forcer chargement au démarrage :
+    /etc/modules
+
+    # modules à ne pas charger au démarrage :
+    /etc/modprobe.d/blacklist
+
+    # Fichiers de reglage des options des modules :
+    /etc/modprobe.d/*
+    /etc/modules.conf
+
+
+
+Activation de l'ACPI
+====================
+
+::
+
+    modprobe ac
+    modprobe battery
+    modprobe button
+    modprobe fan
+    modprobe processor
+    modprobe thermal
+
+remarque, si l'ordinateur ne s'etaint pas apres le power off,
+modifier le power_off de 0 à 1 dans /etc/modules ::
+
+    apm power_off=1
+
+Regler le bouton power pour éteindre proprement avec un shutdown ::
+
+    aptitude install acpid
+    echo "button" >> /etc/modules
+
+Pour regler une action pour le bouton power, modifier les fichiers ::
+
+    /etc/acpi/events/powerbtn
+    /etc/acpi/powerbtn.sh
+
+Pour redemarer avec les boutons de la tour :
+retourcher /etc/acpi, et activer CONFIG_ACPI_BUTTON dans le noyau.
+
+Spécifique
+==========
+
+notes pour ati : la liste des options du noyaux pour
+permettre l'utilisation du driver proprietaire d'ati
+http://www.komite.net/florimond/driver_ati_pour_debian.html
+
+correctif bug : pour vieux driver ati driver 2006/01.
+http://kerneltrap.org/node/6074
+
+Option du noyau pour ma tour ::
+
+    choisir le proc pentium 4
+    activer etx3 en dur.
+    activer le serial ata. pixx + promise
+    desactiver le frame buffer dane le device/graphics
+    desactiver le Direct Rendering Manager 
+               (XFree86 4.1.0 and higher DRI support)
+               (device drivers / character devices)
+
+
+Bloque and suspend
+==================
+
+Bugfix : sound
+--------------
+
+Une fois activé les modules acpi
+L'option bien pratique 'bloque and suspend' apparaît dans klaptop.
+Elle permet de mettre en veille son ordinateur.
+Bien pratique pour les portables.
+Cependant, le son ne fonctionne plus après.
+Il faut coupé toutes les appli son et relancer les modules ::
+
+    su
+    killall artsd
+    killall kmix
+    rmmod snd_intel8x0
+    modprobe  snd_intel8x0
+    modprobe  snd_intel8x0m
+    exit
+    nohup /usr/bin/artsd -F 10 -S 4096 -a alsa -s 60 -m artsmessage -c drkonqi -l 3 -f &
+    nohup kmix
+
+Repertoire systemes /proc /sys /dev
+===================================
+
+Parcourir les repertoires systemes.
+
+::
+
+    ls /proc
+    ls /sys
+    ls /dev
+
+

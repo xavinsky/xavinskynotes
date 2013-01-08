@@ -1,0 +1,11 @@
+####
+IRCD
+####
+
+serveur irc : ircd-ircu ::
+
+    aptitude install ircd
+    # fichier de config :
+    /etc/ircd/ircd.conf
+
+http://www.irc.org/tech_docs/ircnet/INSTALL-4.html

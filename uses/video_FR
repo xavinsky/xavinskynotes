@@ -1,0 +1,375 @@
+#####
+VIDEO
+#####
+
+Capture Video
+=============
+
+Capture video ecran ::
+
+    xvidcap
+
+
+Lecteur Video
+=============
+
+    * mplayer
+    * wine
+    * totem
+    * vlc
+
+
+Quelques commandes de lecteur
+-----------------------------
+
+Lecture DVD : (/PATH/DVD/VIDEO_TS) ::
+
+    xine /PATH/DVD
+    mplayer dvd://1 -dvd-device /PATH/DVD
+
+Lecture iso
+
+    xine dvd:/chemin/file.iso
+    mplayer -dvd-device file.iso mplayer  dvd://1 
+    # Monter une image iso
+    mount -o loop file.iso /mnt/iso
+    # Lire iso monté avec vlc
+    vlc dvd:///mnt/iso/
+
+Option Mplayer ::
+
+    # langues
+    # -alang fr : langue
+    # -slang fr : soustitre
+
+    # Lire un iso dvd en vost :
+    mplayer  -dvd-device /mnt/iso mplayer  dvd://1  -alang en -slang fr
+
+    # Lire un iso dvd en vf :
+    mplayer  -dvd-device /mnt/iso mplayer  dvd://1  -alang fr
+
+    # Autres options de lecture
+
+    # -fs : fullscreen
+    # -zoom
+
+
+Interface graphique pour Encodage
+=================================
+
+    * kmenc15
+    * ogmrip
+    * dvdrip
+    * avidemux
+
+
+Generalité et astuces Encodage
+==============================
+
+Quelque paquets utiles ::
+
+    aptitude install libdvdcss2 libogg0 liboggz1 libvorbis0a libvorbisenc2 \ 
+    libvorbisfile3 libvorbisidec1  libdvdread3 transcode ogmtools \ 
+    gstreamer0.10-ffmpeg-full ffmpeg2theora libsox-fmt-ffmpeg ffmpeg \ 
+    libxine1-ffmpeg libavcodec1d libavcodeccvs51 xvidcap libxvidcore4 \ 
+    avifile-xvid-plugin  vobcopy mencoder  videotrans kmenc15 dvdbackup ogmrip 
+
+
+Option mencoder
+---------------
+
+::
+
+    syntaxe : -vf option1=param,option2=param21:param22
+
+    # crop : decoupe
+    # scale : redimentionement
+
+    # léger filtre antibruit (gagne un peu de place)
+    # -vf hqdn3d=2:1:2
+
+
+Detecter les bandes noires
+--------------------------
+
+::
+
+    mplayer -vf cropdetect film.avi
+    # la sortie indique l'option a rajouter lors de l'encodage :
+    # exemple : -vf crop=464:448:8:80
+    # Remarque : toujours utiliser un multiple de 16 pour la taille
+    # quitte a perdre quelque pixel sur la video.
+
+
+Conversion formats video
+========================
+
+
+Vers ISO
+--------
+
+dvd to iso
+~~~~~~~~~~
+
+    # Lancer le dvd avec vlc, puis lancer :
+    dd if=/dev/dvd of=DVD.iso bs=2048
+
+
+bin/cue to iso
+~~~~~~~~~~~~~~
+
+Avec bchunk : <http://hes.iki.fi/bchunk/> ::
+
+    bchunk -v image.bin image.cue monimage
+
+nrg to iso
+~~~~~~~~~~
+
+::
+
+    dd if=image.nrg of=image.iso bs=2048 skip=150
+
+    # ou non teste :http://gregory.kokanosky.free.fr/v4/linux/nrg2iso.en.html
+    nrg2iso image.nrg image.iso
+
+CloneCD image to iso
+~~~~~~~~~~~~~~~~~~~~
+
+http://sourceforge.net/projects/ccd2iso/ ( ccd+img CloneCD image ) ::
+
+    ccd2iso image.img image.iso
+
+Autres
+~~~~~~
+
+http://cue2toc.sourceforge.net/
+http://cdemu.sourceforge.net/
+
+
+Vers avi
+--------
+
+mkv en avi
+~~~~~~~~~~
+
+::
+
+    mencoder film.mkv -ovc lavc -oac mp3lame -o film.avi
+
+vob en avi
+~~~~~~~~~~
+
+bonne qualite ::
+
+    mencoder FICHIER.VOB -ovc lavc -lavcopts \
+      vcodec=mpeg2video:vbitrate=6000:ilme:ildct:acodec=mp2:abitrate=224 \
+      -oac mp3lame -o film.avi
+
+flv (video flash) en avi
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    mencoder film.flv -oac mp3lame -lameopts vbr=3:br=32:q=0 \
+      -ovc lavc -vf scale=320:240 \
+      -lavcopts vcodec=mpeg4:vpass=2:vbitrate=300:vhq:v4mv:trell \
+      -ffourcc DIVX -o film.avi
+
+iso dvd en avi vost
+~~~~~~~~~~~~~~~~~~~
+
+bonne qualité mais lourd ::
+
+    mencoder -dvd-device /mnt/iso \
+      -alang en -slang fr dvd://1 -o film.avi \
+      -ovc lavc -lavcopts vcodec=mjpeg -oac copy
+
+iso dvd en jpg
+~~~~~~~~~~~~~~
+
+Moin bonne qualité mais taille legere ::
+
+    # Encodage en 3 phases 
+    rm frameno.avi
+    mencoder -dvd-device /mnt/iso -alang en dvd://1 \
+      -ovc frameno -o frameno.avi -oac mp3lame -lameopts vbr=3
+    mencoder -dvd-device /mnt/iso -slang fr dvd://1 -ovc lavc -lavcopts vcodec=mjpeg:vpass=1 -oac copy -o film.avi
+    mencoder -dvd-device /mnt/iso -slang fr dvd://1 -ovc lavc -lavcopts vcodec=mjpeg:vpass=2 -oac copy -o film.avi
+
+
+
+avi vers flv (flash)
+--------------------
+
+::
+
+    ffmpeg -i mon_film.avi -ar 22050 -ab 25 -f flv -s 320x240 mon_film.flv
+
+    # Integration dans un site web grace a
+    # http://flv-player.net/
+
+    # par exemple :
+    wget http://flv-player.net/medias/player_flv_mini.swf
+
+    # Puis un code html de ce genre :
+    <object type="application/x-shockwave-flash" data="player_flv_mini.swf" 
+        width="320" height="240">
+        <param name="movie" value="player_flv_mini.swf" />
+        <param name="FlashVars" value="flv=mon_film.flv" />
+    </object>
+
+
+Vers Lecteur DVD
+----------------
+
+Manipulation encore en test....
+Tranformer votre div en mpeg2 en arrivant dans une taille correspondant
+au standard DVD
+
+On peut couper les bandes noires,
+couper, etirer, et ajouter des bandes noires a la video
+avec les option crop, scale extend... 
+
+Avec un avi qui est déja a la bonne taille, j'essaie ::
+
+    mencoder -oac lavc -ovc lavc -of mpeg -mpegopts format=dvd:tsaf -lavcopts \
+      vcodec=mpeg2video:vrc_buf_size=1835:vrc_maxrate=9800:vbitrate=5000:keyint=15\
+      :acodec=ac3:abitrate=192 -srate 48000 \
+      -af lavcresample=48000  -o film.mpg film.avi
+    # éventuel option a ajouter pour le ratio, pour du 24fps :
+    # -ofps 24000/1001
+
+    # éventuel option a ajouter  si recadrage nécessaire.
+    # par exemple, pour une video initialement 576x304 sans bandes noires, on
+    # etire (scale) à 720:384 pour garder la proportion, puis on ajoute les
+    # bandes blanche (expand) pour atteindre un format dvd : 720:480.
+    # -vf scale=720:384,expand=720:480
+
+    # Une fois obtenu le ou les fichier mpg.
+    # pour chaque fichier mpg:
+
+    dvdauthor -o dvd/ -t film.mpg
+
+    # puis:
+
+    dvdauthor -o dvd/ -T
+
+    # Creer l'iso
+
+    mkisofs -dvd-video -V TITREDVD -o dvd.iso dvd
+
+    # puis graver l'iso... et tester...
+    # Ca a marcher sur le lexteur dvd, mais pas lisible avec xine (ca saccade,
+    # et pas lisible pas un windows?!) menfin...
+
+Créer l'iso avec k3b est surement une meilleur solution.
+
+Bandes son
+==========
+
+A essayer : mplex : multiplexes audio and video into MPEG streams ::
+
+    mplex -f 8 -o film.mpg film.m2v english.ac3 french.ac3 german.ac3 
+
+Faire un mkv avec deux pistes audios
+------------------------------------
+
+::
+
+    mkvmerge -o sortie.mkv entree_video.avi \
+      entree_audio1.mp3 entree_audio2.ac3
+
+
+Sous titres
+===========
+
+Plusieurs sous titres
+---------------------
+
+Avec spumux :
+
+Ajouter une piste de sous titre i (0 est le default) avec le fichier sub.str
+créer un fichier de config spumux.conf ::
+
+    <subpictures>
+        <stream>
+            <textsub filename="sub.srt" characterset="utf-8" 
+            fontsize="28.0" font="arial.ttf" horizontal-alignment="center" 
+            vertical-alignment="bottom" left-margin="60" right-margin="60" 
+            top-margin="20" bottom-margin="30" subtitle-fps="30" 
+            movie-fps="30" movie-width="720" movie-height="480"
+            force="yes"
+            />
+        </stream>
+    </subpictures>
+
+Pour pouvoir utiliser une police comme arial.ttf, la premiere fois il faut faire ::
+
+    mkdir ~/.spumux
+    cp /usr/share/fonts/truetype/msttcorefonts/arial.ttf ~/.spumux
+
+Puis ::
+
+    spumux -m dvd -s i -P  spumux.conf < film.mpg >filmsub.mpg
+
+Par exemple pour des multi sous titre ::
+
+    spumux -m dvd -s 0 -P  spumuxlg1.conf < film.mpg >film1sub.mpg
+    spumux -m dvd -s 1 -P  spumuxlg2.conf < film1sub.mpg >film2sub.mpg
+    mv film2sub.mpg film.mpg
+
+Et on pourra alors utiliser film2sub.mpg avec dvdauthor...
+
+
+Extraction de sous-titres d'un dvd
+----------------------------------
+
+L'extraction de sous titre est longue est laborieuse,
+on préferera genralement trouver les sous-titres sur
+http://www.opensubtitles.com/fr
+
+Voici tout de meme la methode ::
+
+   # Obtenir la liste des langues et leur identifiant
+   tcprobe -i /chemin/dvd   2>&1  |grep title
+
+   # Extraire la piste sous titre en indiquant l'identifiant ? et la langue lg :
+   tccat -i /chemin/dvd -T 1 -L | tcextract -x ps1 -t vob -a 0x2? > subs-lg
+
+   # Reférence :  Extraction des images sous-titres du flux
+   # http://web.njit.edu/all_topics/Prog_Lang_Docs/html/mplayer/French/encoding.html
+
+   mkdir lg
+   subtitle2pgm -o ./lg/lg -c 255,255,0,255 < subs-lg
+
+   # Extraction du text a partir des images
+   cd lg pgm2txt lg
+
+   # Correction orthographe
+   ispell -d francais french*txt 
+
+   # Creation du fichier de sout titre str
+
+   cd ..
+   srttool -s -w < french/french.srtx > french.srt
+
+Documentation
+=============
+
+    * Mplayer et Mencoder
+      http://www.mplayerhq.hu/DOCS/HTML/fr/
+
+    * Encodage mpeg4 :
+      http://www.mplayerhq.hu/DOCS/HTML/fr/menc-feat-dvd-mpeg4.html
+
+    * Gérer le téléciné et l'entrelacement des DVDs
+      NTSChttp://www.mplayerhq.hu/DOCS/HTML/fr/menc-feat-telecine.html
+
+    * Les formats audio, video et container.
+      http://www.mplayerhq.hu/DOCS/HTML/fr/menc-feat-selecting-codec.html
+      http://www.mplayerhq.hu/DOCS/HTML/fr/menc-feat-enc-libavcodec.html
+
+    * Encodage multi passe
+      http://web.njit.edu/all_topics/Prog_Lang_Docs/html/mplayer/French/encoding.html
+      http://forum.hardware.fr/hfr/VideoSon/Traitement-Video/topic-unique-mencoder-sujet_87558_1.htm
+

@@ -1,0 +1,128 @@
+#########
+Langage C
+#########
+
+===========
+Compilation
+===========
+
+gcc est le compilateur open source le plus utilisé pour le C.
+Il effectue les 4 étapes : prétraitement, compilation, assemblage, et édition des liens.
+
+Extensions des fichiers :
+
+* .h    fichier entête; 
+* .c    source C; prétraité, compiler, assembler
+* .i    C prétraité; compiler, assembler
+* .s    source assembleur; assembler
+* .S    source assembleur; prétraiter, assembler
+
+* .o    Fichier binaire (code machine)
+* .a    Fichier archive (code machine)
+* .so   librairie
+
+Remarque, le passage de fichiers objet a un bibliotheque est nommée archivage.
+
+
+Syntaxe ::
+
+    gcc [options] [-o mon_executable] [-lles_librairies] mon_fichier.c  
+    # si aucun fichier n'est précisé avec -o, l'executable est a.out
+
+    # Options Globales    
+    # -o <mon_executable> : Donne le nom du fichier executable produit. 
+    #     Par défaut, ce sera a.out. 
+
+    # Options de visualisation.
+    # -v : verbose. Detail de la compilation.
+    # -Q : autre verbose : affiche le nom des fonctions et des phases de compilations.
+    # -w : pas de warning
+    # -W : Affiche plus de warning
+    # -Wall : Affichie tous les warnings
+    # -Werror : Transforme les warnings en erreurs
+    # -M : voir les dependance d'un programme (y compris système)
+    # -MM : voir les dependance d'un programme (excluant les librairies systèmes)
+
+    # Options de liaison :
+    # -static : n'effectue pas de lien dynamique, mais inclue toutes les librairies dans l'executable.
+    # -shared : produit une librairie partagée.
+    # -I<nom_répertoire> : Ajoute des repertoires ou lire les fichier .h
+    # -L<nom_répertoire> : Ajoute des repertoires ou chercher les librairies.
+    # -l<librairie> : lie une librairie. exemple -ltoto ajoute la librairie libtoto.a
+    # -b <arch> : dans une config avec multi arch, compile pour une autre archi (exemple -b i386)
+
+    # Options optimisation :
+    # -O0 -O, -O1, -O2, -O3 :  niveau d'optimisations. 
+    #     -O3 à l'optimisation maximale. -O = -01 faible optimisation.
+    #     -O0 pas d'optimisation.
+    #     L'optimisation de la compilation ralentit la compilation
+    #     en essayant de réduire la taille de l'executable 
+    #     et d'améliorer la rapidité l'execution.
+
+    # Options pour developpeurs : 
+    # -ggdb<niveau> ou -g<niveau> : ajoute les infos pour le débug dans l'executable. (ggdb plus précis pour gdb).
+    #     niveau : 0 pas debug, 1 faible informations , 3 fortes informations.
+    # -gp ou -p : ajoute les information pour le profiling (étude des performances) dans l'executable (gprof, prof).
+    # -a : ajoutes des informations pour tcov ou gprof.
+
+Pour plus d'information sur les options, il faudrai lire le man gcc
+le hic, c'est qu'il fait plus de 10000 lignes, ce qui aura du mal a tenir sur votre écran.
+La premiere etape transformer la man page en fichier texte ::
+
+    man gcc | col -b > gcc.man.txt
+
+Ensuite on pourra faire des recherces plus facilement dedans.
+Voici les sections de la partie option du document ::
+
+    Option Summary
+
+    Options Controlling the Kind of Output
+    Compiling C++ Programs
+    Options Controlling C Dialect
+    Options Controlling C++ Dialect
+    Options Controlling Objective-C and Objective-C++ Dialects
+    Options to Control Diagnostic Messages Formatting
+    Options to Request or Suppress Warnings
+    Options for Debugging Your Program or GCC
+    Options That Control Optimization
+    Options Controlling the Preprocessor
+    Passing Options to the Assembler
+    Options for Linking
+    Options for Directory Search
+    Specifying Target Machine and Compiler Version
+    Hardware Models and Configurations
+    Options for Code Generation Conventions
+
+Détail des 4 étapes : prétraitement, compilation, assemblage, et édition des liens.
+
+* Etat initial : fichier.c + fichier.h
+* -> prétraitement (preprocessing) : fichier.i
+* -> compilation en langage assembleur (compiling) : fichier.s
+* -> assemblage en code machine (assembling) : fichier.o
+* -> édition des liens (linking) : a.out 
+* Etat final, a.out est executable.
+
+Option GCC pour les étapes de la compilation ::
+
+    # Options gcc de limitation d'étapes : 
+    # -E : préprocesseur uniquement (vers stdout) 
+    # -S : préprocesseur + compilateur : produit un fichier assembleur. 
+    # -c : préprocesseur + compilateur + assemblage : produit seulement un fichier objet. (.o) 
+
+Etapes de la compilation ::
+
+    gcc -E fichier.c > fichier.i
+    gcc -S fichier.i > fichier.s
+    gcc -c fichier.s > fichier.o
+    gcc fichier.o # genere a.out
+
+Syntaxe librairies partagées ::
+
+    # creation de fichiers objets :
+    gcc -c premier_module.c
+    gcc -c second_module.c
+    # creation d'une librairie partagée
+    ld -G -o ma_lib.so premier_module.o second_module.o
+    # utilisation d'une librairie partagée
+    gcc mon_programme.c -lma_lib
+

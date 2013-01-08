@@ -1,0 +1,53 @@
+##############
+Infrastructure
+##############
+
+L'infrastructure physique permet d'assurer les besoins de productions.
+
+Infrastructure éléctrique : 
+
+    * ondulateur (permet de stoquer de l'energie 
+      pour palier a une panne de courrant assez courte (quelques minutes).
+      Il envoie un message au systeme pour le prévenir lorsqu'il y a peu d'energie.
+
+    * double alimentation electrique, 
+      permet de palier a la perte d'une liaison electrique.
+
+    * Générateur éléctrique.
+      permet de generer de l'electricité si la source standard est absente.
+
+Infrastructure Réseau : 
+
+Il existe de nombreux composant qui permette de facilité l'administration
+réseau d'une entreprise ou d'un systeme d'hebergement informatique.
+
+    * Routeurs
+    * Commutateur (Switch)
+    * Point d'acces. (Modem)
+    * Sécurité (Firewall)
+    * Téléphonie (VOIP)
+
+Infrastructure de stockage : 
+
+    * NAS
+    * SAN
+
+Onduleur
+========
+
+mettre en place la communication entre l'onduleur et le systeme ::
+
+    aptitude install nut 
+
+
+Gestion de parc
+===============
+
+Gestion de parc informatique ::
+
+    http://glpi.indepnet.org/
+    http://ocsinventory.sourceforge.net/
+    http://oneorzero.com/
+
+
+

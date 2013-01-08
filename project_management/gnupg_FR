@@ -94,8 +94,12 @@ Utiliser PGP
 
 Syntaxes ::
 
-    # list toutes les clef.
+    # liste toutes les clef.
     gpg --list-keys
+    # liste de signatures
+    gpg --list-sigs
+    # liste de clef prive
+    gpg --list-secret-keys
 
     # montre l'empreinte (fingerprint)
     gpg -v --fingerprint 12345678
@@ -126,4 +130,36 @@ Syntaxes ::
     gpg --sign-key AAAAAAAA 
     # Exporter la signature dans un fichier ascii.
     gpg --armor --output AAAAAAAA-signedBy-12345678.asc --export AAAAAAAA
+
+    # detruire des clefs
+    gpg --delete-key <info-key>
+    gpg --delete-secret-key 
+
+    # editer information d'une cle publique 
+    gpg --edit-key <info-key>
+    * 1 = Je ne sais pas
+    * 2 = Je ne fais pas confiance
+    * 3 = Je fais un peu confiance
+    * 4 = Je fais totalement confiance
+
+    # revoquer une cle :
+    gpg --gen-revoke <info-key>
+
+    # Les messages
+
+    # Crypter sans signer
+    gpg -e destinataire [message]
+    # Signer un message (retourne signature)
+    gpg --detach-sign [message]
+    # Signer un message (retourne message + signature)
+    gpg --clearsign [message]
+    # Signer un message (retourne message + signature compressé)
+    gpg --sign [message]
+    # chiffer + signer
+    gpg [-u expéditeur] [-r destinataire] [--armor] --sign --encrypt [message]
+    # verifier une signature
+    gpg --verify [message]
+    # Decrypter
+    gpg [-d] [message]
+
 

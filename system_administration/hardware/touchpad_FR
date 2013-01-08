@@ -1,0 +1,104 @@
+########
+Touchpad
+########
+
+Le programme qui gere le touchpad est synaptics.
+
+::
+
+    aptitude install xfree86-driver-synaptics tpconfig ksynaptics
+
+Element qui doivent être présent dons le fichier de config de Xorg.
+
+::
+
+    Section "Module"
+        Load    "synaptics" ...
+
+    Section "InputDevice"
+        Driver          "mouse"
+        Option          "CorePointer"
+
+    ...
+
+    Section "InputDevice"
+        Identifier      "Synaptics Touchpad"
+        Driver          "synaptics"
+        Option          "SendCoreEvents"        "true"
+        Option          "Device"                "/dev/psaux"
+        Option          "Protocol"              "auto-dev"
+        Option          "CorePointer"
+        Option          "SHMConfig"             "on"
+        Option          "HorizScrollDelta"      "0"
+        Option          "VertScrollDelta"       "100"
+        Option          "RightEdge"             "5400"
+        Option          "LeftEdge"              "1900"
+        Option          "BottomEdge"            "4000"
+        Option          "TopEdge"               "1900"
+        Option          "AccelFactor"           "0.01"
+        Option          "MaxSpeed"              "1.0"
+        Option          "MinSpeed"              "0.1"
+    EndSection
+
+    Section "ServerLayout"
+        InputDevice     "Synaptics Touchpad"
+    ...
+
+Redemarrer X pour prendre en compte les modification de Xorg.
+
+Commandes : :: 
+
+    #Commande pour voir les options actueles
+    synclient -l
+    # pour les infos de signification des options :
+    man synaptics
+
+Description des options ::
+
+    # Memoire partagé (permet de configurer le touchpad)
+    # avec ksynaptics ou gsynaptics
+    SHMConfig
+
+    # Coordonée des bords gauche, droit, haut et bas.
+    LeftEdge (Integer)
+    RightEdge (Integer)
+    TopEdge (Integer)
+    BottomEdge (Integer)
+
+    # Active le  scroll sur les bord droits et bas.
+    VertEdgeScroll (Bool)
+    HorizEdgeScroll (Bool)
+
+    # Active le scroll vertical avec deux doigts.
+    VertTwoFingerScroll (Bool)
+    HorizTwoFingerScroll (Bool)
+
+    # vitesse mini et maxi.
+    MinSpeed (Float)
+    MaxSpeed (Float)
+    # facteur d'accélération.
+    AccelFactor (Float)
+
+    # activation
+    TouchpadOff (Integer)
+      0 : desactivé
+      1 : activé
+      2 : desactivé selon tap et scroll.
+
+    # 1 : active un clique sur un tap dans un coin.
+    RTCornerButton (Integer)
+    RBCornerButton (Integer)
+    LTCornerButton (Integer)
+    LBCornerButton (Integer)
+
+    # 1 : active un clique sur un tap.
+    TapButton1 (Integer)
+ 
+    # 1 : active un clique sur un tap avec deux doigts.
+    TapButton2 (Integer)
+
+Références :
+
+pour des info technique sur les touchpad synaptics :
+http://www.synaptics.com/decaf/utilities/ACF126.pdf
+

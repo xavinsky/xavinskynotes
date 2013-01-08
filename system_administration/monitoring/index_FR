@@ -1,0 +1,112 @@
+######################################
+Commande de surveillance en temps réel 
+######################################
+
+Afin de voir ce qui ce passe sur le systeme en temps réels.
+
+Generaux
+--------
+
+::
+
+    nmon
+    htop
+    atop
+    top
+    bmon
+    dstat
+
+    uptime # date dernier redemarrage
+
+Process
+-------
+
+::
+
+    pidstat
+
+
+Cpu
+---
+
+::
+
+    mpstat
+    mpstat -A
+    procinfo
+
+
+Memoires
+--------
+
+::
+
+    free -m
+    free -mt
+    vmstat
+
+Energie
+-------
+
+::
+
+    powertop
+
+
+Reseau
+------
+
+::
+
+    iftop
+    ipstat
+    netstat
+    slurm
+
+    nmap
+
+    ping
+    traceroute
+    mtr
+    arp
+
+
+DNS
+---
+
+::
+
+    dig
+    host
+    whois
+    dnstop
+
+Entrées/Sorties IO
+------------------
+
+::
+
+    iotop
+    iostat
+    hdparm
+    hdparm --direct -t /dev/sda
+    dd
+    df
+    cifsiostat
+    nfsiostat
+
+Fichier
+-------
+
+::
+
+    # savoir qui utilise un fichier
+    lsof <file>
+
+Utilisateurs
+------------
+
+::
+
+    # savoir qui est loggé
+    w 

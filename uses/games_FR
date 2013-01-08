@@ -1,0 +1,20 @@
+####
+Jeux
+####
+
+
+Jeux sympas utilisable sous linux sans trop de pb de config : 
+Dofus, Spiral Knight, Winamax Poker.
+
+Anciennes notes install Andomeda9 ::
+
+    Necessite de recompiler un python2.2
+    Python-2.2.3.tgz
+    Imaging-1.1.6.tar.gz
+    Numeric-24.2.tar.gz
+    PyOpenGL-2.0.2.01.tar.gz
+    Compiler avec gcc3-4
+    puis suivre le install.txt
+
+
+

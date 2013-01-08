@@ -1,0 +1,14 @@
+###
+Son
+###
+
+
+Reglage du son :
+
+Alsa sur debian <http://guide.andesi.org/html/dcartesonalsa.html>
+
+
+utiliser alsa (les paquets alsa*) et le wraper oss (paquet alsa-oss) .
+pour generer les devices ::
+
+     /usr/share/alsa-base/snddevices.

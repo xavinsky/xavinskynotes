@@ -1,0 +1,43 @@
+########
+Terminal
+########
+
+Screen
+======
+
+Partager son écran avec d'autres utilisateurs connectés en ssh avec screen.
+C-x signifie Control et touche x
+
+::
+
+    # Le detachement de console avec screen.
+    ssh machinecible
+    screen
+    # nous somme dans une nouvelle console
+    # detachement de cette nouvelle console :
+    C-A d
+    exit
+
+    # se reconnecter a la console :
+    ssh machinecible
+    screen -r
+
+    # se connecter a la console deja ouverte ailleur
+    # (controle a plusieur de la console) :
+    ssh machinecible
+    screen -x
+
+    # Ajouter une console dans screen :
+    C-a c
+    # passer a la console suivante ou precedente :
+    C-a n
+    C-a p
+
+Autres
+======
+
+Autres commandes du genre de screen : dtach, tmux byobu.
+
+Outils d'enregistrement de ce qui se passe sur la console : ttyrec
+
+

@@ -1,0 +1,52 @@
+####################
+Systemes de fichiers
+####################
+
+Le système d'exploitation utilise des systemes de fichiers
+pour stoquers les fichiers sur les disques.
+
+Le systeme par default est ext3 et bientôt ext4.
+
+Ext3
+====
+
+recupération d'un ext3 perdu
+----------------------------
+
+Sur la partition démonté ::
+
+    #test lecture seule
+    e2fsck -f -n /dev/<ref_part>
+    #recuperation automatique
+    e2fsck -f -p /dev/<ref_part>
+    #recuperation manuele
+    e2fsck -f /dev/<ref_part>
+    #check bloc defectueux.
+    e2fsck -c /dev/<ref_part>
+
+    #restore superbloc defectueux.
+    e2fsck /dev/<ref_part> -b -<VALUE>
+    #<VALUE> = 8192*x +1
+
+Reconstruction d'un journal ext3 defectueux ::
+
+    # convertion ext3 vers ext2 (partition demonté)
+    tune2fs -O ^has_journal /dev/<ref_part>
+    # Pour sécurise la manip forcer un fsck.
+    fsck.ext2 -f /dev/<ref_part>
+    # nous pouvons alors detruire .journal si il existe.
+    # creer un journal ext3
+    tune2fs -j /dev/<ref_part>
+    # monter en ext3
+    mount -t ext3 /dev/<ref_part> /mnt/somewhere
+
+Formater ext3 ou ext2
+---------------------
+
+::
+
+    # creation partition ext2
+    mke2fs -j /dev/<ref_part>
+    # creer un journal ext3
+    tune2fs -j /dev/<ref_part>
+

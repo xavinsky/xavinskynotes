@@ -1,0 +1,433 @@
+######
+Réseau
+######
+
+Interfaces
+==========
+
+Linux defini des interfaces IP pour vos composants :
+Loopback:  lo
+Ethernet: eth0, eth1
+Wi-Fi: wlan0, wlan1, wifi0,
+Token Ring: tr0, tr1
+PPP: ppp0, ppp1
+
+
+Hostname
+========
+
+::
+
+    # voir son hostname
+    /bin/hostname
+    # changer son hostname
+    /bin/hostname nouveaunom
+    # fichier de config
+    /etc/hostname
+
+DNS
+===
+
+::
+    # Service de dns gratuits :
+    www.xname.org
+    www.gratisdns.de
+
+fichier de configuration : /etc/resolv.conf ::
+
+    search exemple.com
+    nameserver 192.168.4.45
+
+pour ajouter des entrée manuelle :
+
+    /etc/hosts 
+
+
+En cas de probleme dns vous pouvez acceder a google par son IP :
+
+   72.14.221.104
+
+Vous pouvez egalement changer de dns :
+
+   212.27.53.252 (free)
+   88.191.254.60 (free)
+   195.92.195.94 (FT)
+   8.8.8.8 (google)
+
+
+Who is
+======
+
+Determiner a qui appartient une IP
+
+whois IP ::
+
+    http://cqcounter.com/whois/
+    http://www.dnsstuff.com/
+
+
+Registar
+========
+
+Pour enregistrer un nom de domaine.
+
+http://www.directnic.com
+http://www.gandi.net
+
+Gratuit (eu.org)
+
+http://www.eu.org/fr/
+
+CA
+==
+
+Authorité de certification.
+
+Payante :
+
+http://en.wikipedia.org/wiki/VeriSign
+
+Gratuite :
+
+http://www.startssl.com/?lang=fr
+
+
+Configuration réseaux
+=====================
+
+Exemple de config réseau : /etc/network/interfaces
+
+    #interface locale
+    auto lo
+    iface lo inet loopback
+
+    #interface reseau
+    #en DHCP :
+    auto eth0
+    iface eth0 inet dhcp
+
+    #en STATIQUE :
+    #auto eth0
+    #iface eth0 inet static
+    #address 192.5.1.210
+    #netmask 255.255.255.0
+    #network 192.5.1.0
+    #broadcast 192.5.1.255
+    #gateway 192.5.1.71
+
+    #eventuele  seconde IP ?
+    #auto eth0:1
+    #iface eth0:1 inet static
+    #address 192.168.1.60
+    #netmask 255.255.255.0
+    #network x.x.x.x
+    #broadcast x.x.x.x
+    #gateway x.x.x.x
+
+relancer le reseau apres modification ::
+
+    /etc/init.d/networking restart
+
+    # voir les config
+    ip
+    ifconfig
+    # voir les config wireless
+    iwconfig
+    # voir les routes
+    netstat -nr
+    route
+
+
+configuration reseau
+
+    # enlever une passerelle
+    route del default gw 192.168.3.1
+    # ajouter une passerelle (ou la changer)
+    route add default gw 192.168.3.100
+
+
+Configuration de carte réseau ::
+
+    ethtool
+
+
+Wifi
+----
+
+    # pour le wifi
+    aptitude install wireless-tools  
+    iwconfig
+    wpasupplicant
+
+
+chipset ok : prism2 ralink rt2400.
+pour chipset rt2500 et rt2400 ::
+
+    aptitude install rt2500-source
+    module-assistant a-i rt2500
+    modprobe rt2500
+
+modifier /etc/network/interfaces ::
+
+    iface eth2 inet static
+        address 10.59.12.11
+        netmask 255.0.0.0
+        wireless_mode ad-hoc
+        wireless_essid bombolong
+        wireless_channel 1
+
+puis ::
+
+    ifup eth2
+
+exemple config sans clef
+
+ajouter dans : /etc/network/interfaces ::
+
+    # auto eth1
+    iface eth1 inet manual
+        wireless_essid any
+        wireless_mode Managed
+        wireless_key off 
+
+WOL wake on line
+----------------
+
+paquet neccessaires :
+
+aptitude install wakeonline ethtool
+
+recupere l'interface et l'adresse mac::
+
+    ifconfig
+    ethx      Lien encap:Ethernet  HWaddr xx:xx:xx:xx:xx:xx
+
+voir si la carte reseau supporte le WOL ::
+
+    ethtool ethx
+
+doit retourner une ligne ::
+
+    Wake-on: 
+
+pour activer le wol ::
+
+    ethtool -s ethx wol g
+
+
+Pour declancher le wol a distance a partir d'une autre machine ::
+
+    wakeonline  xx:xx:xx:xx:xx:xx
+
+
+
+Inspection réseau
+=================
+
+    ## Ports
+    netstat -a        # ports ouverts
+    netstat -l --inet # ports en ecoute
+    netstat -ln --tcp # ports en ecoute TCP (numeric)
+    lsof -i :nbport   # indique le processus ecoutant sur ce port.
+
+    ## Checks
+    ping google.com
+    traceroute google.com
+
+    ## commandes et domaine
+    # resoud l'IP
+    nslookup domaine 
+    #renvois les NS, serveur de domaine et les appartenace du domaine
+    whois domaine  
+    # test host.dom DNS records dans dns-server.com 
+    dig [@dns-server.com] host.dom [{a|mx|any}] 
+
+
+    ## Scan sur réseau local 192.168.0.x
+    nmap -v -sP 192.168.0.0/24 
+    # Scan les port d'une machine
+    nmap -v -A 192.168.0.1
+
+
+Utilisation de SSH
+==================
+
+Application X11 a travers par SSH
+---------------------------------
+
+Sur le serveur modifier le fichier de config /etc/ssh/sshd_config ::
+
+    X11Forwording yes
+
+puis redemarrer ssh ::
+
+    /etc/init.d/ssh restart
+
+Sur le client utiliser l'option X ::
+
+    ssh -X <server>
+
+Vous pouvez ensuite lancer des applications X11 sur votre serveur
+et les visualiser sur votre client.
+
+Reconfigurer le display n'est pas bon (ssh -X sur de multiples machines...) ::
+
+    export DISPLAY=:0
+
+Si le user n'authorise pas l'affichage sur son display, il peut lancer
+la commande suivante pour authorisé tout le monde ::
+
+    xhost +
+
+
+SSH INVERSE
+-----------
+
+pour préparer une session ssh inversé alors
+que le routage n'est pas prévus.
+depuis machinecache faire ::
+
+    ssh user@machineaccessible -R2222:127.0.0.1:22
+
+Crée un acces inverse sur l'IP 127.0.0.1 et port 2222 !!!
+et donc depuis machineaccessible pour accede a machine caché ::
+
+    ssh user@127.0.0.1 -p 2222
+
+
+SSH sans password
+-----------------
+
+Creer une cle ::
+
+    ssh-keygen -t dsa
+    cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+    exec ssh-agent tcsh
+    ssh-add 
+
+Envoyer votre clef ::
+
+    ssh-copy-id xavinsky@192.168.0.5 
+
+editer fichier de config sur machine2 : /etc/ssh/sshd_config
+enlever les commentaires au lignes ::
+
+    PermitRootLogin yes
+    RSAAuthentication yes
+    PubkeyAuthentication yes
+    AuthorizedKeysFile      %h/.ssh/authorized_keys
+
+apres c'est bon !
+
+
+Alias SSH avec port custom
+--------------------------
+
+Il faut definir un alias dans la conf ssh client
+dans le fichier /etc/ssh/ssh_config
+ajouter ::
+
+    Host <alias>
+    Hostname <domainecible>
+    Port <autreport>
+
+ansi vous pouver utiliser ssh avec l'alias.
+
+
+Tunnel SSH
+----------
+
+A lancer sur le client :
+
+ssh -L [portlocal]:[domainecible]:[portcible] [loginssh]@[serverssh]:[portssh]
+
+laisser alors ouverte la connection.
+Ensuite en requetant sur localhost:[portlocal],
+on atterri sur [domainecible]:[portcible]
+en passant par [loginssh]@[serverssh]:[portssh].
+remarque on peut configurer sur le serveur les
+ports possible pour ssh.
+(on conseil le 443 pour simuler le https)
+
+
+Partage SSH avec sshfs
+----------------------
+
+En root ::
+
+    #Install 
+    aptitude install sshfs
+    adduser monuser fuse
+    #Activation 
+    modprobe fuse
+
+Avec l'utilisateur monuser :
+
+    # Montage 
+    sshfs -p PORT logindistant@machinedistance:folderdistant folderlocal
+
+    #ou avec -o direct_io pour utilisation avec vlc
+    sshfs -p PORT -o direct_io logindistant@machinedistance:folderdistant folderlocal
+
+    # Demonter :
+    fusermount -u folderlocal
+
+
+
+Tunnel http avec httptunnel
+---------------------------
+
+Sur CIBLE ::
+
+    hts -F localhost:portfinal portpasserelle
+
+Sur CLIENT ::
+
+    htc -F portdepart -P IPPROXY:portproxy IPCIBLE:portpassereele 
+
+On peut ensuite attaquer localhost sur portdedepart,
+et arriver sur cible portfinal
+
+
+firewell, tunneling
+===================
+
+
+::
+
+    iptables
+    stunnel
+
+
+QOS
+---
+
+limiter la bande passante d'un application : trickle
+il y a aussi : wondershaper
+
+Scripts a fouiller :
+http://boisson.homeip.net/limiteur2tranches
+http://boisson.homeip.net/limiteur
+
+Doc de routage avancé contient une section mise en forme CBQ en detail.
+http://www.linux-france.org/prj/inetdoc/guides/Advanced-routing-Howto/
+
+
+Divers Paquets
+==============
+
+netkit-ping, traceroute, dnsutils, and  net-tools
+
+
+networking tools avancés
+========================
+
+::
+
+    tcpdump
+    socat
+    netpipes (faucet, hose, etc...)
+
+
+
+

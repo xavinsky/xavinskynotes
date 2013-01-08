@@ -1,0 +1,33 @@
+#########
+Emulation
+#########
+
+VirtualBox
+==========
+
+Outil facile à prendre en main, le tout avec interface graphique.
+
+qemu
+====
+
+Utilisation de qemu pour emuler un syteme debian dans un systeme debian.
+
+(me permet de tester des compilations a partir d'une install vierge de
+debian, ce qui m'assure de connaitre toutes les dépendances de paquets
+necessaires et me permet donc de faire des doc d'installation plus fiable)
+
+    # Installation de qemu :
+    aptitutde install qemu
+    # Creation d'un fichier qui contiendra le systeme (2000000 = env 2Go):
+    qemu-img create deb.img 2000000
+    # puis j'insere un cd d'install :
+    qemu deb.img -cdrom /dev/cdrom -boot d -user-net
+    # puis pour relancer la debian, j'utilise :
+    qemu deb.img -user-net
+
+
+VMWare
+======
+
+Outil propriétaire facile à prendre en main, le tout avec interface graphique.
+C'est le standard utilisé un peu partout.

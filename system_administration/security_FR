@@ -1,0 +1,61 @@
+########
+Sécurité
+########
+
+Limitations
+===========
+
+Quota disk pour user
+--------------------
+
+Le filesystem doit supporter les quotas (sinon recompiler le noyau) ::
+
+    # Utiliser dans /etc/fstab l'instruction usrquota
+    /dev/sdb1 /samba/prive ext3 usrquota
+
+    # Mettre un quota au user (100000 = 100Mo)
+    setquota -a -u nomuser 100000 100000 0 0
+
+    # Voir les quotas
+    repquota -a
+
+
+limitation : ulimit
+-------------------
+
+::
+
+    # voir la liste des limites.
+    ulimit -a
+
+    # exemple utilisation
+    ulimit -v 500000 # limite a 500Mo l'utilisation de la memoire.
+    # les limites sont pour chaque processus.
+
+
+Réinitialiser votre Mot de passe
+================================
+
+Utiliser un live cd linux pour booter sur votre ordinateur
+
+Determiner quel est votre disque racine en cliquent sur les disques
+
+(le disque racine linux contient les repertoires bin, boot, etc, usr,
+var , sbin, home  ...)
+
+ensuite clique droit sur de disque de Unmount (pour le demonter)
+ensuite clique droit sur de disque et propriété, onglet Device,
+decocher lecture seule
+clique sur le dique pour le monter (ce coup ci en lecture/ecriture)
+
+Ouvrir une console puis taper ::
+
+    sudo su
+    chroot /media/<nomdisque>   # par exemple, /media/hda2
+    passwd # pour changer le password root
+    passwd <nomuser># pour changer le password d'un user
+    cat /etc/passwd # affiche la liste des utilisateur
+    adduser <nomuser> #creer un utilisateur
+
+eteindre le live cd linux, et c'est bon...
+

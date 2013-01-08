@@ -1,0 +1,77 @@
+####################
+Detection Matérielle
+####################
+
+::
+
+    # PCI
+    lspci
+    lspci -v
+    lspci -vv
+    # mettre à jour la base pci
+    update-pciids
+
+    # USB
+    lsusb
+    lsusb -v
+
+    # outil de detection usbtree :
+    wget http://www.linux-usb.org/usbtree
+    cp usbtree /usr/local/bin
+    usbtree
+    # indique les bus usb2
+    /:  Bus 0X.Port 1: Dev 1, Class=root_hub, Driver=ehci_hcd/6p, 480M
+    # et les bus usb1.1
+    /:  Bus 0X.Port 1: Dev 1, Class=root_hub, Driver=uhci_hcd/2p, 12M
+
+    #DMI BIOS
+    dmidecode
+
+    # Senseurs / Ventilateurs
+    aptitude install lm-sensors
+    sensors
+    fancontrol
+    pwmconfig
+    hddtemp # temperature disque
+
+    # PCMCIA
+    lspnp 
+
+    # SCSI
+    lsscsi
+
+    # Disques
+    disk -l
+
+    #Verification preventive des disques :
+    smartmontools
+    /etc/default/smartmontools
+    smartctl -a /dev/hda
+    smartctl -t long /dev/hda
+
+    # General
+    lshw
+    lshw -short
+    hwinfo
+    lshal
+    lsdev
+
+    aptitude install discover-data
+    discover
+
+
+Avec interfaces graphique ::
+
+    lshw-gtk
+    hal-device-manager
+
+
+Tester la compatibilité linux ::
+
+    lspci -n
+    # visiter les sites :
+    http://www.pcidatabase.com
+    http://pci-ids.ucw.cz
+    http://kmuto.jp/debian/hcl/index.cgi
+
+

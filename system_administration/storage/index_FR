@@ -1,0 +1,15 @@
+####################
+Stockage des données
+####################
+
+Le stockage consistant des données se fait généralement à base de disques dur.
+(ou plus rarement de boande magnétique ou cd).
+Les SSD commences également a être pas mal utilisés.
+
+Des unités spécialisés dans le stockages existe : NAS et SAN.
+
+Le NAS est un disque externe accessible via le réseau.
+Le SAN est un stockage externe cablé directement à un serveur via fibre optique. (meilleurs performances mais plus cher).
+
+Les NAS et SAN ont souvent des systemes de répartition et redondance sur plusieurs disques ainsi que des systemes de caches.
+

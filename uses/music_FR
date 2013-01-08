@@ -1,0 +1,126 @@
+#######
+Musique
+#######
+
+Ecouter
+=======
+
+Programme
+---------
+
+    * Amarok : lecteur audio, avec note classement par type... etc...
+    * RecordRadion : plugin Amarok pour enregistrer la  musique a radio a base
+      de streamtunner
+    * Lyrc : plugin Amarok pour les paroles des musiques.
+    * xmms : simple lecteur audio.
+
+::
+
+    # Lancer tous les mp3 d'un repertoire (recursif) avec xmms
+    find . -name "*.mp3" -print0 |xargs -0 xmms
+
+Radio
+-----
+
+Musique libre de droit :
+
+    * http://www.dolebrai.net:8000/dolebrai.ogg
+    * http://radio.dogmazic.net:8000/radio_mlo.ogg.m3u
+    * http://nmns.net:8000/stream.ogg.m3u
+    * http://www.streamakaci.com/radios/denisrichard.m3u
+
+Musique proprio :
+
+    * fip <http://213.205.96.91:9903>
+    * tsf <http://broadcast.infomaniak.net:80/tsfjazz-high.mp3>
+    * Philosomatica <http://scfire-ntc-aa01.stream.aol.com:80/stream/1050>
+
+
+Manipulation Audio
+==================
+
+Outils
+------
+
+audacity : Rogner ou Amplifier des musiques
+
+
+Création Musicale
+=================
+
+Notes du 10.12.2006
+-------------------
+
+J'utilise un noyau comiler par mes soins, mais lors de la compilation,
+je ne me suis pas particulierement applique a mettre certaine option pour le son.
+Tout a l'air de bien marcher. Un joyeux hasard :)
+
+Programme installes par paquets ::
+
+    alsa + qjackctl + ZynAddSubFX + hydrogen
+
+Programme compilé : muse ::
+
+    #version : muse-0.9pre1
+    # J'ai du installer un bon nombre de paquet
+    # pour que cela fonctionne.
+    # De plus il a falu indiquer :
+    export QTDIR=/usr/share/qt3
+
+Initialisation ::
+
+    # je lance toutes les appli en root.
+
+    # 1) je coupe la gestion du son dans kde via kontrol
+
+    # 2) je rajoute lse sound device alsa :
+
+    cd /usr/share/alsa-base
+    ./snddevices
+
+    # 3) je lance qjackctl et je le demarre.
+
+    # 4) je lance hydrogene
+
+    # 5) je mance zynaddsubfx
+
+    # 6) je lance muse ou rosegarden4.
+
+
+Anciennes notes
+---------------
+
+Ancienne config d'edition de musique sous debian ::
+
+    Noyau : recompilation du dernier noyau : 2.6.14-2
+    necessaire pour alsa et lowlatency...
+    fichier .config :
+    config du noyau de debian stable ok
+    (option lowlatency active par default)
+    J'ai ensuite tenté quelque modif perso pour custom....
+    (ne semble pas obligatoire... je teste)
+    realtime : patch realtime-lsm pas encore testé,
+    en attendant, j'execute tout en root pour avoir le realtime...
+
+    Install Applications
+    install de plein de paquet... ( hydrogen / muse / qjackctl )
+    reinstall version plus recente de muse (7)
+    (paquet debian telecharge : 0.7.2pre1)
+    compilation de ZynAddSubFX avec option JACK dans makefile.inc
+
+    Lancement Applications
+    desactivation arts (interface son kde)
+    ( a chaque redemarage : )
+    cd /usr/share/alsa-base
+    ./snddevices
+
+    actu, j'utilise ca :
+    alsa + qjackctl + muse + ZynAddSubFX + hydrogen
+
+    Marche plutot bien.
+
+
+Reference 
+=========
+
+http://www.linuxmao.org/

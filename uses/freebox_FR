@@ -1,0 +1,56 @@
+#######
+Freebox
+#######
+
+Multiposte
+==========
+
+Configurer la freebox par l'interface du site free, redemarrer la freebox
+
+Regarder la TV sur son ordi
+===========================
+
+vlc http://mafreebox.freebox.fr/freeboxtv/playlist.m3u
+
+Enregistrer la TV sur son ordi
+==============================
+
+Soit en direct avec vlc (ouvrir fichier special avec url de la chaine,
+puis diffuser/enregistrer puis choisir un nom de fichier.
+
+Soit utiliser l'interface graphique fricoder pour preperer l'enregistrement :: 
+
+    cd /usr/local/
+    wget http://manatlan.online.fr/setup/fricorder-0.6.tar.gz
+    tar zxvf fricorder-0.6.tar.gz
+    cd /usr/local/fricorder
+    ./fricorder.py
+
+Regarder les films de son ordi sur sa TV
+========================================
+
+Methode actuelle
+----------------
+
+Simplement copier les fichiers vidéos sur le ftp de la freebox.
+
+Ancienne methode
+----------------
+
+::
+
+    #install en root
+    cd /usr/local/build
+    #attention le fichier peux changer
+    #choper la derniere url du fichier sur la page
+    #http://adsl.free.fr/multimedia/freeplayer/
+    wget ftp://ftp.free.fr/pub/freeplayer/freeplayer-linux-20070531.tgz
+    tar zxvf freeplayer-linux-20070531.tgz
+    cd /usr/local/build/freeplayer/
+    ./install.sh
+    Enter the installation path [/usr/local/freeplayer/]:
+    This will install the Freeplayer package in "/usr/local/freeplayer/" [y/n] y
+    ln -s /usr/local/freeplayer/bin/vlc-fbx.sh /usr/local/bin
+    #user :
+    vlc-fbx.sh
+

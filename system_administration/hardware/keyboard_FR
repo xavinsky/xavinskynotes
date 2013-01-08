@@ -1,0 +1,71 @@
+#######
+Clavier
+#######
+
+Fonctionnement du clavier
+-------------------------
+
+Le clavier envoie des scancodes, qui sont traduit par le driver linux 
+(ou xorg) du clavier en keycode ensuite les keycodes sont traduit 
+en keysyms par les applications configurable comme xmodmap et Xkb
+Les applications utilise donc les keysyms (mode ascii ou xlate).
+sauf rare exception :
+une appli qui lit les scancodes est en mode RAW (ou mode scancodes).
+une appli qui lit les keycodes est en mode medium RAW.
+
+Determiner le code d'une touche
+-------------------------------
+
+::
+
+    xev 
+
+    # (reperer le keycode quand vous tapper une touche,
+    # ou une combinaison de touche)
+    # voir la table de correspondance keycodes / keysyms
+
+    xmodmap -pke
+    xmodmap -pk
+
+    # Changer une association de keycode
+
+    xmodmap -e 'keycode <keycode> = <keysym> [<keysym mode+>]+ '
+
+    # utilisation des modes (touche compose...)
+    # voir la table de correspondance
+
+    xmodmap -p
+
+    # changer les correspondances
+
+    xmodmap -e 'remove <modX> = <keysym>'
+    xmodmap -e 'add <modX> = <keysym>'
+
+    # Il y a aussi la config xkb
+    # a priori faudra tester dans ces directions la :
+
+    # 1. Xresources - Client resource files
+    # 2. Xkbmap - Client user keyboard map
+    # 3. Xclients - A script that searches for files that help determine more
+    #   client properties such as the preferred window manager client program.
+
+
+
+exemple sur un mac
+------------------
+
+::
+
+
+    setxkbmap -model macintosh -layout fr
+    setxkbmap -option numpad:pc,compose:rwin,numpad:mac,compose:lwin,numpad:microsoft,srvrkeys:none,lv3:lalt_swit
+
+
+References
+----------
+http://wiki.mandriva.com/fr/Personnaliser_le_clavier
+
+http://wiki.mandriva.com/fr/Quelques_keysyms_repr%C3%A9sentant_des_caract%C3%A8res_affichables
+
+http://www.haypocalc.com/wiki/Touche_compose
+

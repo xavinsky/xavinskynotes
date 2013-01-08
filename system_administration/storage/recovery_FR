@@ -1,0 +1,109 @@
+############
+Récupération
+############
+
+Distribution de depanage
+========================
+
+
+live CD :
+
+    * Knoppix
+    * Ubuntu
+    * mepislite
+
+System de récupération :
+
+    * http://www.sysresccd.org
+    * tomsrtbt
+    * fli4al
+
+listes de distributions : http://old.lwn.net/Distributions/index.php3#floppy
+
+
+Recuperation data
+=================
+
+apres un effacement malheureux (type rm -Rf / )
+
+Premiere chose a faire, remonter en lecture seule la partition (ro)
+
+Pour moi le plus efficasse pour rechercher en fulltext dans le disque :
+magicrescue
+/usr/share/magicrescue
+contient un repertoire de configuration de detection de type
+et un autre avec les scripts...
+Tres pratique pour extraire un fichier dont on connais
+une partie du contenu...
+
+essayer : recover ou e2undel
+sinon :
+
+umount /dev/hda10
+debugfs /dev/hda10
+# listing des fichiers recemment effacés
+debugfs: lsdel 
+#recuperation des fichiers par inode et copie dans un dossier
+debugfs: dump <24> /home/recovered.000
+debugfs: quit
+# cat /home/recovered.000
+
+
+LONG mais efficasse :
+lecture du disque a la recherche de fichier :
+editer le fichier de config de foremost, puis par exemple :
+
+foremost -v -q -o /RECUP/ /dev/hda2
+
+
+
+
+Recuperer un grub
+=================
+
+Lancer grub avec cd debian ::
+
+    linux rescue
+    grub
+
+Lancer grub avec live-cd knoppix ::
+
+    root grub
+
+Utiliser grub ::
+
+    sudo grub
+
+    # grub détecte les disques et les partitions en commençant par 0.
+    # Indiquez la partition sur laquelle se trouve /boot
+    # par exemple ici premier disque premiere partition 
+    grub> root (hd0,0)
+
+    # Indiquez ou ecrire grub
+    #par exemple ici premier disque :
+    grub> setup (hd0)
+
+    # Sortir de grub 
+    grub> quit
+
+    # puis rebooter.
+    shutdown -r now
+
+
+reinstall grub ::
+
+    grub-install <install_device>
+
+
+Recuperer un lilo
+=================
+
+boot un cd knoppix, on considere que la distro est sur hda1 ::
+
+    mkdir /disk
+    mount /dev/hda1 /disk
+    cd /disk
+    lilo -r .
+
+
+

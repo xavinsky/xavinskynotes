@@ -1,0 +1,37 @@
+################
+Touches Magiques
+################
+
+Les "Magic Keys" sont les combinaison de touches qui fonctionne toujours sous linux,
+lorsque plus rien ne réponds.
+
+Avant d'en venir la, il est toujours possible d'essayer des solutions plus standard ::
+
+    ctrl-alt-f1 : passer sur une console mingetty.
+    ctrl-alt-backspace : restarter X
+
+(sysrq = touche impr ecran sur pc)
+En cas de blocage, la combinaison classique utilisé est REISUB ::
+
+    alt-sysrq-r : unraw
+    alt-sysrq-e : envoie le signal terminaison a tous les processus sauf init.
+    alt-sysrq-i : envoie le signal kill a tous les processus sauf init.
+    alt-sysrq-s : sync disk
+    alt-sysrq-u : unmount disk
+    alt-sysrq-b : reboot.
+
+Pour plus de détail voir la doc : /usr/src/linux/Documentation/sysrq.txt ::
+
+    alt-sysrq-h : petit memo sur les combinaison de touche
+    SysRq : HELP : loglevel0-8 reBoot Crashdump tErm Full kIll saK showMem
+    Nice powerOff showPc unRaw Sync showTasks Unmount
+    alt-sysrq-p : affiche registres et des flags dans la console.
+    alt-sysrq-t : affiche les tâches.
+    alt-sysrq-m : affiche la mémoire.
+    alt-sysrq-c : crashdump
+    alt-sysrq-f : utilise oom_kill pour tuer le process qu'il juge le plus gourmand.
+    alt-sysrq-n : renice les taches RT
+
+Remarque, ces touches magiques peuvent avoir été éliminé du noyaux.
+L'option du noyau est CONFIG_MAGIC_SYSRQ.
+on peut verifier si il est activé ici /proc/sys/kernel/sysrq
