@@ -42,3 +42,28 @@ http://wiki.debian.org/?CustomDebian
 Faire son liveCD : 
 http://wiki.debian.org/LiveCD
 
+Creation d'un paquet debian
+---------------------------
+
+:: 
+
+    # avec un repertoire projet dans le repertoire courrant :
+    apt-deb --build projet
+    # Genere projet.deb
+
+
+Communauté
+----------
+
+liste diffusion (inscriptions / desinscriptions / archives) :
+
+   * debian user french <http://lists.debian.org/debian-user-french/> 
+   * old archives <http://lists.debian.org/debian-french/> 
+   * archives <http://groups.google.fr/advanced_search?hl=fr>
+ 
+forum francais :
+
+  * http://forum.debian-fr.org
+  * http://www.debianworld.org
+  * http://www.debianworld.org/?q=forum
+  * http://lea-linux.org/

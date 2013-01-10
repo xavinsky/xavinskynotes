@@ -1,16 +1,16 @@
 #####
-VIDEO
+Vidéo
 #####
 
-Capture Video
+Capture Vidéo
 =============
 
-Capture video ecran ::
+Capture vidéo d'écran ::
 
     xvidcap
 
 
-Lecteur Video
+Lecteur Vidéo
 =============
 
     * mplayer
@@ -98,10 +98,10 @@ Detecter les bandes noires
     # la sortie indique l'option a rajouter lors de l'encodage :
     # exemple : -vf crop=464:448:8:80
     # Remarque : toujours utiliser un multiple de 16 pour la taille
-    # quitte a perdre quelque pixel sur la video.
+    # quitte a perdre quelque pixel sur la vidéo.
 
 
-Conversion formats video
+Conversion formats vidéo
 ========================
 
 
@@ -165,7 +165,7 @@ bonne qualite ::
       vcodec=mpeg2video:vbitrate=6000:ilme:ildct:acodec=mp2:abitrate=224 \
       -oac mp3lame -o film.avi
 
-flv (video flash) en avi
+flv (vidéo flash) en avi
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
@@ -227,7 +227,7 @@ Tranformer votre div en mpeg2 en arrivant dans une taille correspondant
 au standard DVD
 
 On peut couper les bandes noires,
-couper, etirer, et ajouter des bandes noires a la video
+couper, etirer, et ajouter des bandes noires a la vidéo
 avec les option crop, scale extend... 
 
 Avec un avi qui est déja a la bonne taille, j'essaie ::
@@ -240,7 +240,7 @@ Avec un avi qui est déja a la bonne taille, j'essaie ::
     # -ofps 24000/1001
 
     # éventuel option a ajouter  si recadrage nécessaire.
-    # par exemple, pour une video initialement 576x304 sans bandes noires, on
+    # par exemple, pour une vidéo initialement 576x304 sans bandes noires, on
     # etire (scale) à 720:384 pour garder la proportion, puis on ajoute les
     # bandes blanche (expand) pour atteindre un format dvd : 720:480.
     # -vf scale=720:384,expand=720:480
@@ -365,7 +365,7 @@ Documentation
     * Gérer le téléciné et l'entrelacement des DVDs
       NTSChttp://www.mplayerhq.hu/DOCS/HTML/fr/menc-feat-telecine.html
 
-    * Les formats audio, video et container.
+    * Les formats audio, vidéo et container.
       http://www.mplayerhq.hu/DOCS/HTML/fr/menc-feat-selecting-codec.html
       http://www.mplayerhq.hu/DOCS/HTML/fr/menc-feat-enc-libavcodec.html
 
