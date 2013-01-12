@@ -1,0 +1,60 @@
+#####################
+Configuration réseaux
+#####################
+
+Exemple de config réseau : /etc/network/interfaces ::
+
+    #interface locale
+    auto lo
+    iface lo inet loopback
+
+    #interface reseau
+    #en DHCP :
+    auto eth0
+    iface eth0 inet dhcp
+
+    #en STATIQUE :
+    #auto eth0
+    #iface eth0 inet static
+    #address 192.5.1.210
+    #netmask 255.255.255.0
+    #network 192.5.1.0
+    #broadcast 192.5.1.255
+    #gateway 192.5.1.71
+
+    #eventuele  seconde IP ?
+    #auto eth0:1
+    #iface eth0:1 inet static
+    #address 192.168.1.60
+    #netmask 255.255.255.0
+    #network x.x.x.x
+    #broadcast x.x.x.x
+    #gateway x.x.x.x
+
+relancer le reseau apres modification ::
+
+    /etc/init.d/networking restart
+
+    # voir les config
+    ip
+    ifconfig
+    # voir les config wireless
+    iwconfig
+    # voir les routes
+    netstat -nr
+    route
+
+
+configuration reseau ::
+
+    # enlever une passerelle
+    route del default gw 192.168.3.1
+    # ajouter une passerelle (ou la changer)
+    route add default gw 192.168.3.100
+
+
+Configuration de carte réseau ::
+
+    ethtool
+
+

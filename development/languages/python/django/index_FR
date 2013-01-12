@@ -1,0 +1,245 @@
+######
+Django
+######
+
+
+INITIALISATION DU PROJET DJANGO
+===============================
+
+Installation sur debian ::
+
+    apt-get install tree \
+    postgresql-8.1  postgresql-contrib-8.1 sqlite3 \
+    subversion subversion-tools trac \
+    python python-ps2ycopg2 python-pysqlite2 \
+    python-docutils python-unit python-mode python-django \
+    apache2 libapache2-mod-python libapache2-svn \
+    gnat libgmp3c2 libgmpxx4 libmpfr1 zip unzip \
+    gcc binutils gzip zip unzip tar make \
+    python-dev
+
+Optionnel : Installation de PyLucene
+
+Configuration postgres simpliste ::
+
+    # modifier le fichier /etc/postgresql/8.1/main/pg_hba.conf :
+    local   all         monuser                                        trust
+    host    all         monuser    127.0.0.1         255.255.255.255   trust
+
+    # Creation de la base en root :
+    su postgres
+    createdb nombase -O xavinsky -E UNICODE
+    exit
+
+Créer un projet django dans le répertoire courrant /repprojet ::
+
+    cd /repprojet
+    django-admin startproject nomprojet
+
+Créer quelques répertoires utiles ::
+
+    mkdir -p /repprojet/nomprojet/docs
+    mkdir -p /repprojet/nomprojet/upload/images
+    mkdir -p /repprojet/nomprojet/upload/files
+    mkdir -p /repprojet/nomprojet/templates
+
+Lien vers les templates d'administration que l'on pourra surcharger ::
+
+    cd /repprojet
+    ln -s /usr/share/python-support/python-django/django/contrib/admin/templates django-templates
+
+Editer le fichier de configuration de django ::
+
+    # /repprojet/nomprojet/setting.py
+    #Administrateurs
+    ADMINS = (
+        ('Nom Auteur', 'email@author.org'),
+    )
+    DEFAULT_FROM_EMAIL='email@author.org'
+    EMAIL_HOST=''mon.smtp.amoi''
+
+    #connection database.
+    DATABASE_ENGINE = 'postgresql'
+    DATABASE_NAME = 'nombase'
+    DATABASE_USER = 'nomuser'
+    DATABASE_PASSWORD = ''
+    DATABASE_HOST = 'localhost'
+    DATABASE_PORT = '5432'
+
+    #i18n
+    # L'url dans les commentaires n'est plus valide
+    #voir le repertoire /usr/share/postgresql/8.1/timezone
+    TIME_ZONE = 'Europe/Paris'
+    LANGUAGE_CODE = 'fr-FR'
+
+    #templates
+    TEMPLATE_DIRS = (
+        "/repprojet/nomprojet/templates",
+	)
+
+    # Et ajouter dans les INSTALLED_APPS :
+    'django.contrib.admin',
+    'monprojet.monappli'
+
+
+Activation de la partie administration ::
+
+    # modification du fichier /repprojet/nomprojet/url.py :
+    # decommenter la ligne d'url d'admin.
+    (r'^admin/', include('django.contrib.admin.urls')),
+
+Création de la première application et sa structure ::
+
+    cd  /repprojet/nomprojet/
+    python manage.py startapp monappli
+
+Editer monappli/models.py et ajouter des structures.
+
+Vérification de la syntaxe de models.py avec la commande ::
+
+    python manage.py sql monappli
+
+Création des tables et index par la commandes ::
+
+    python manage.py syncdb
+
+Lancer le serveur django sur le port 8000::
+
+    python manage.py runserver
+
+sur le port 8080:
+
+    python manage.py runserver 8080
+
+
+Structures de données
+=====================
+
+Malheureusement, django ne gère pas les modifications de structures.
+Lors de modification de la structure, nous avons alors deux choix :
+ - tout détruire et tout recréer.
+ - faire les requêtes sql à la main avec le risque d'être incompatible
+avec une version généré par django.
+
+Je préfère donc la première option, mais c'est un peu chiant.
+
+Nous avons donc intérêt a bien penser notre structure de donnée
+des le départ, car il sera  pas facile de la modifier par la suite.
+(Gros point négatif pour django ici donc, qui pour une raison
+de sécurité, peur de perte de données, préfère ne prendre aucun risque
+et propose donc un système incomplet sur ce qui est censé être
+son utilité : la gestion des données.)
+
+Autre solution de migration
+<http://code.djangoproject.com/wiki/SchemaEvolution>
+
+Détruire et recréer
+-------------------
+
+Sortir des applications utilisant la base (psql and cie) ::
+
+    # Sauvegarde posgressql en cas de catastrophe
+    pg_dump nombase -f nomfichier
+
+    # Que l'on pourra remettre par :
+    $ psql -d nombase -f nomfichier
+
+    # Sauvegarde des donnés au format django :
+    python manage.py dumpdata --format=xml >data.xml
+
+    # puis avec le user postgres
+    dropdb nomprojet
+    createdb nomprojet -O monuser -E UNICODE
+
+    # Recréer la nouvelle structure
+    cd /repprojet/nomprojet/
+    python manage.py syncdb
+
+    # Répondre aux questions :
+    > You just installed Django's auth system, 
+    > which means you don't have any superusers defined.
+    > Would you like to create one now? (yes/no): n
+    
+    # Réinserer les données :
+    python manage.py loaddata --format=xml data.xml
+
+Exemple de structures de base
+-----------------------------
+
+doc officielle <http://www.djangoproject.com/documentation/model_api/>
+
+Chaque table est définie par :
+
+ - une suite de champ.
+ - fonction pour son affichage
+ - classe Admin pour son interface dans admin.
+
+Chaque champ  est défini par :
+
+ - son type dans la database (colonne integer, varchar...)
+ - son widget d'affichage.
+ - son systeme de validation.
+
+Exemples ::
+
+    from django.db import models
+    from django.contrib.contenttypes.models import ContentType
+
+    CHAMPS_CHOICES = (
+        ('A', 'Aaaa'),
+        ('B', 'Bbbbb'),
+        ('C', 'Cccccc'),
+    )
+
+    class Structure1(models.Model):
+
+         # id est généré tout seul en cas d'absence de definition.
+        id = models.AutoField('ID', primary_key=True)
+
+        champtext = models.TextField()
+        champtexttaillemax = models.CharField(maxlength=100)
+        champvraifaux = models.BooleanField()
+        champentier = models.IntegerField()
+        champfloat= models.FloatField(max_digits=5, decimal_places=2)
+        champdate = models.DateField()
+        champdateetheure = models.DateTimeField()
+        champfile = models.FileField(
+            upload_to="/mypath/upload/files")
+        champimage  =models.ImageField(
+            upload_to="/mypath/upload/images/pages")
+        champfilelocal = models.FilePathField(path="/home/images", match="foo.*", recursive=True)
+        champemail = models.EmailField()
+        champtag = models.SlugField()
+        champurl = models.URLField()
+        champip = models.IPAddressField()
+
+        # les options
+        #par default les champs sont obligatoire,
+        # pour les champ facultatifs utiliser blank = true.
+        champtext2 = models.TextField(blank=True)
+
+        # date mise a la date actuele a chaque modif (comme pour last-modifed)
+        champdate2 = models.DateField(auto_now=True)
+        # date mise a la date actuele lors de sa creation
+        champdate3 = models.DateField(auto_now_add=True)
+
+        champchoice = models.CharField(maxlength=1, choices=CHAMPS_CHOICES)
+  
+        def __str__(self):
+            #affichage de l'objet (utilisé souvent dans les templates)
+            return self.name
+
+        # la classe admin permet d'activer la gestion par l'interface admin.
+        class Admin:
+            pass
+
+
+    class Structure2(models.Model):
+ 
+        #liaison avec la table Structure1
+        champstructure1 = model.ForeignKey(Structure1)
+
+Doc sur l'heritage <http://code.djangoproject.com/wiki/ModelInheritance>
+Malheureusement la syntaxe de surchage (évolution proposé) n'existe pas.
+
+

@@ -13,10 +13,21 @@ sauf rare exception :
 une appli qui lit les scancodes est en mode RAW (ou mode scancodes).
 une appli qui lit les keycodes est en mode medium RAW.
 
-Determiner le code d'une touche
--------------------------------
+Configuration du clavier (model, layout et option)
+--------------------------------------------------
+
+exemple sur un mac ::
+
+    setxkbmap -model macintosh -layout fr
+    setxkbmap -option numpad:pc,compose:rwin,numpad:mac,compose:lwin,numpad:microsoft,srvrkeys:none,lv3:lalt_swit
+
+
+Manipuler les mapping des touches
+---------------------------------
 
 ::
+
+    # Determiner le code d'une touche
 
     xev 
 
@@ -50,15 +61,18 @@ Determiner le code d'une touche
     #   client properties such as the preferred window manager client program.
 
 
+Exemple utilisé pour mon vieux portable toshiba ::
 
-exemple sur un mac
-------------------
+    # init : keycode 103 (keysym 0xff57, End)
+    #        keycode 49 (keysym 0x13bd, oe)
 
-::
+    xmodmap -e "keycode 103 = Right"
+    xmodmap -e "keycode 49 = End"
 
-
-    setxkbmap -model macintosh -layout fr
-    setxkbmap -option numpad:pc,compose:rwin,numpad:mac,compose:lwin,numpad:microsoft,srvrkeys:none,lv3:lalt_swit
+    # dans le repertoire de l'utilisateur :
+    # creation du fichier ~/.xmodmaprc
+    keycode 103 = Right
+    keycode 49 = En"
 
 
 References

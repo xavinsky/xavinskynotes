@@ -1,0 +1,139 @@
+####
+BASH
+####
+
+Configuration
+=============
+
+fichier de configuration ::
+
+    /etc/profile : valable pour tous Ã  la connection.
+    ~/.bash_profile : Ã  la connection.
+    ~/.bashrc : au demarrage du bash
+    ~/.bash_logout : Ã  la deconnection.
+    ~/.bash_history : historique.
+
+Utilisation
+===========
+
+Méta Carractere ::
+
+    * : 0 Ã  x caracteres.
+    ? : 1 caractere.
+    [a-dGh1-3] : un caractere a,b,c,d,G,h, 1, 2 ou 3.
+    [!abc] [^abc] : un caractere different de a, b et c.
+    {toto,tata} : toto ou tata
+    ~ : repertoire home du user courant
+    ~nom : /home/nom
+    ~+ : pwd
+
+Carracteres spéciaux ::
+
+    ;    : separateur de commande
+    &&   : et logique (lazy)
+    ||   : ou logique (lazy)
+    &    : execution en arriere plan
+    ()   : sous shell
+    {}   : bloc de commande
+    |    : tube
+    >    : redirection de la sortie standard
+    2>   : redirection de la sortie erreur
+    2>&1 : redirection de la sortie erreur vers standard
+    >>   : redirection de la sortie standard (ajout au fichier)
+    >&   : duplication de la sortie standard
+    >&~  : ferme  la sortie standard
+    <    : redirection de l'entrÃ© standard
+    ``   : substitution de commande
+    #    : commentaire
+
+Gestion des taches ::
+
+    jobs # liste des taches
+    fg idtache # mettre en avant plan la tache
+    bg idtache # mettre en avant plan la tache
+    commande & # mettre en arriere plan la commande a lancée
+
+Imbriquer des commandes ::
+
+    cat `ls`
+    cat $(ls)
+
+racourcis clavier ::
+
+    C-l : Clean
+    # Deplacement
+    C-a : debut de ligne
+    C-e : fin de ligne
+    M-b : mot precedent
+    M-f : mot suivant
+    # Historique :
+    C-p ou fleche haut : commande précédente
+    C-n ou fleche bas : commande suivante
+    C-r : recherche (arriere) dans l'historique
+    C-s : recherche (avant) dans l'historique
+    M-< : aller debut historique
+    M-> : aller fin historique
+    # Copier Coller :
+    M-backspace : del debut mot
+    M-d : del fin de mot
+    C-u : debut de ligne
+    C-k : del fin de ligne
+    C-y : Colle dernier delete
+    # Casse :
+    M-u : met la fin du mot en majuscule
+    M-l : met la fin du mot en minuscule
+    M-c : Met un majuscule sous le curseur et la fin du mot en minuscule
+
+
+Quelques Commandes
+==================
+
+Surveiller un fichier de log avec tail ::
+
+    tail -f /var/log/syslog
+    # puis gueter l'activité 
+
+récuperer une colonne d'un tableau avec awk, exemple ::
+
+    awk '{print $1}' file.txt
+
+récuperer le pid d'un processus avec ps ::
+
+    ps -e |grep nom_processus | awk '{print $1}'
+
+script perl pour replacement de texte dans plusieurs fichiers ::
+
+    # remplace windows par linux dans tous les fichiers *.txt
+    # créer un fichier .save pour sauvegarder l'ancien fichier.
+    perl -i.save -pe s/windows/linux/g *.txt
+    # ou
+    perl -i.save -pe s#windows#linux#g *.txt
+
+passage d'une liste de fichier à une commande avec find et xargs ::
+
+    find . -name "*.mp3" -print0 |xargs -0 xmms
+
+    # -print0 est une option pour virer les sauts de lignes
+    # -0 est une option pour quota les résultats de find (pb d'espace...).
+
+pour pouvoir recuperer les variable d'environement d'un script ::
+
+    source ./monscript
+    # ou
+    source . ./monscript
+
+faire un beep ::
+
+    alias beep="echo -en \\\\007"
+    beep
+
+utilisation de dialog ::
+
+    http://lea-linux.org/dev/dialog.html
+
+
+Utiliser un pipe pour éviter une limite de nombre d'argument ::
+
+    ls | xargs rm
+    find . -type f -print0 | xargs -0 rm
+

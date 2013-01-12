@@ -1,0 +1,68 @@
+############################
+Exemple archi serveur pyhton
+############################
+
+Un serveur pyhton avec de bonne perf est : Apache2  + modPython
+
+C'est bien, y'a meme des sessions de gérées.
+Par contre, il n'y a pas de memoire globale.
+
+La solution que j'ai trouver, faire marcher apache2 avec mpm-worker,
+en limitant le nombre de processus a 1 et en maximisant le nombre de thread.
+
+prefork ne convient pas car pas de thread, seulement des processus.
+
+event ne convient pas car ne supporte pas le ssl.
+
+Le fait d'utiliser des threads et non pas des processus me permet d'avoir le partage
+de l'espace de memoire.
+
+Le fait d'utiliser des threads me permet d'avoir un access concurent et des requetes
+simultanées.
+
+Donc dans la config apache, j'utilise ces parametres ::
+
+    <IfModule mpm_worker_module>
+        ServerLimit           1
+        ThreadLimit         150
+        StartServers          1
+        MaxClients          150
+        MinSpareThreads      50
+        MaxSpareThreads     150
+        ThreadsPerChild     150
+        MaxRequestsPerChild   0
+    </IfModule>
+
+
+Ensuite, toujours dans la conf apache 
+afin d'être sur que mes modules ne soient pas reimporter et réinitialisé ::
+
+    PythonInterpreter MyInterpreter
+    PythonPath "sys.path+['/chemin/de/mes/modules]+['/autre/chemin']"
+    PythonAutoReload Off
+    PythonImport <modulenonreloadable> MyInterpreter
+
+Ensuite dans les virtuals hosts, Je defini un handler ansi ::
+
+    <Directory /var/www/python>
+        SetHandler mod_python
+        PythonHandler <modulehandler>
+        PythonDebug On # si on veut le debug.
+    </Directory>
+
+Si je veux reloader certains modules qui on ete modifié,
+je pourrai dans mon code utiliser ceci ::
+
+    <monmodule>=apache.import_module("<monmodule>",autoreload=1)
+
+Pour la gestion de le memoire :
+
+  * 1) Memoire de session, apache.
+  * 2) Memoire volatile, dictionnaire python ou/et sqlite(':memory:')
+  * 3) Memoire simple, sqlite(file)
+  * 4) Memoire complexe, postgres.
+  * 5) fichier, file systeme.
+
+Seul 1 n'est pas partagé entre les threads. On se servira de 2 pour le systeme de cache.
+
+

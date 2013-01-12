@@ -1,0 +1,134 @@
+##########
+Subversion
+##########
+
+Référence
+=========
+
+Documentation officielle : 
+http://svnbook.red-bean.com/nightly/en/svn-book.html
+
+
+Installation
+============
+
+::
+
+    apt-get install subversion-tools
+
+
+
+Commandes
+=========
+
+::
+
+    # checkout (recuperation sources)
+    svn co http://svn.serveur.org/path --username=xxx --password=xxx
+    # (ou svn checkout)
+
+    # update : Mise à jour
+    svn up
+    # (ou svn update)
+
+    # Ajouter un fichier :
+    svn add file
+
+    # Modification d'un fichier :
+    # Rien a faire
+
+    # Enlever un fichier :
+    svn rm file
+
+    # Deplacer un fichier :
+    svn mv file destination
+
+    # puis commiter vos modifs :
+    svn ci
+    #(ou svn commit)
+
+    # indication sur l'etat des fichiers
+
+    A : Ajouté
+    M : Modifié
+    D : Detruit
+    U : est mis a jour
+    G : Conflit géré automatiquement.
+    C : Conflit a gérer manuelement.
+
+    # Voir les logs
+    svn log
+
+    # Changer un message de log (admin only)
+    svnadmin setlog CHEMIN -r REVISION FICHIERLOG --bypass-hooks
+
+    # Voir l'état des modifications, utile pour voir quel fichier on a oublier
+    # d'ajouter au svn
+    svn st
+    # (ou svn status)
+
+
+Résolution conflits
+-------------------
+
+En cas de conflit, un messager contenant Commit failed et Out of date
+vous indiquera que vous devez mettre à jour.
+
+OLDREV et NEWREV sont des nombre qui correspond a des numeros de version
+ sur le svn
+
+  * OLDREV : version avant que vous fassiez une modification.
+  * NEWREV : version actuelle du svn.
+
+le ficher contient maintenant des marquers ::
+
+    <<<<<<< .mine
+    #votre ancien code
+    =======
+    #code dans le svn
+    >>>>>>> .r<NEWREV>
+
+3 fichiers (ou 2) sont créer par svn :
+
+  * <filename>.r<OLDREV> : la version OLDREV
+  * <filename>.r<NEWREV> : la version NEWREV
+  * <filename>.mine : votre ancien fichier.
+
+(si il n'est pas créer, c'est que subversion n'a pas toucher au fichier
+original, car il n'a rien trouver a merger correctement.)
+
+Abandonner vos modifs ::
+
+    svn revert <filename>
+
+Indiquer la résolution du conflit ::
+
+    svn resolved <filename>
+    svn commit
+
+
+Configuration
+=============
+
+Configurer l'editeur de commentaires
+------------------------------------
+
+::
+
+    export SVN_EDITOR=/usr/bin/emacs
+
+
+Utiliser des liens externes dans svn
+------------------------------------
+
+Exemple de fichier links.conf ::
+
+    http://mon.server.svn/rep1/test1/paquet1/trunk
+    http://mon.server.svn/rep1/test2/paquet2/trunk
+    http://mon.server.svn/rep1/test3/paquet3/trunk
+
+Commande pour associer `links.conf` au répertoire actuel ::
+
+    svn propset svn:externals -F link.conf .
+    svn ci link.conf . -m "maj links"
+

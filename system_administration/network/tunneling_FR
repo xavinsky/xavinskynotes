@@ -1,0 +1,61 @@
+#########
+Tunneling
+#########
+
+SSH INVERSE
+-----------
+
+(en anglais : reverse ssh)
+
+pour permettre a une machine d'accede en ssh a un autre machine
+caché derriere un proxy.
+
+depuis machinecache faire ::
+
+    ssh user@machineaccessible -R2222:127.0.0.1:22
+
+Crée un acces inverse sur l'IP 127.0.0.1 et port 2222 !!!
+et donc depuis machineaccessible pour accede a machine caché ::
+
+    ssh user@127.0.0.1 -p 2222
+
+
+
+Tunnel SSH
+----------
+
+A lancer sur le client :
+
+ssh -L [portlocal]:[domainecible]:[portcible] [loginssh]@[serverssh]:[portssh]
+
+laisser alors ouverte la connection.
+Ensuite en requetant sur localhost:[portlocal],
+on atterri sur [domainecible]:[portcible]
+en passant par [loginssh]@[serverssh]:[portssh].
+remarque on peut configurer sur le serveur les
+ports possible pour ssh.
+(on conseil le 443 pour simuler le https)
+
+
+
+Tunnel http avec httptunnel
+---------------------------
+
+Sur CIBLE ::
+
+    hts -F localhost:portfinal portpasserelle
+
+Sur CLIENT ::
+
+    htc -F portdepart -P IPPROXY:portproxy IPCIBLE:portpassereele 
+
+On peut ensuite attaquer localhost sur portdedepart,
+et arriver sur cible portfinal
+
+
+stunnel
+-------
+
+::
+
+   aptitude install stunnel4

@@ -1,0 +1,55 @@
+###
+QOS
+###
+
+Qualité de service.
+
+Limiter la bande passante
+=========================
+
+
+Pour une application
+--------------------
+
+Avec trickle ou wondershaper
+
+Pour un hôte
+------------
+
+::
+
+    # installation d'un gestionnaire de mise en file d'attente basé sur des classes
+    # <DEV> : interface reseau. par exemple eth0
+    # <debitmax> : debit max interface. par exemple : 10mbit (10 Mbits/s)
+    tc qdisc add dev <DEV> root handle 1: cbq avpkt 1000 bandwidth <debitmax>
+
+    # Crée Limitation 
+    # <LIMIT> : limitation par exemple : 512kbit
+    tc class add dev <DEV> parent 1: classid 1:1 cbq rate <LIMIT> \
+       allot 1500 prio 5 bounded isolated 
+
+    # Quel destination sera affecte par la limitation
+    # <CIBLE> = 0.0.0.0/0  : pour tout.
+    # <CIBLE> = 123.124.125.126  : pour une adresse ip seulement.
+    tc filter add dev <DEV> parent 1: protocol ip prio 16 u32 \
+       match ip dst <CIBLE> flowid 1:1
+
+    # facultatif (amélioration qualité)
+    tc qdisc add dev <DEV> parent 1:1 sfq perturb 10.
+
+    # Annuler cette limitation
+    tc qdisc del dev $DEV root
+
+
+References
+==========
+
+Scripts a fouiller :
+http://boisson.homeip.net/limiteur2tranches
+http://boisson.homeip.net/limiteur
+
+Doc de routage avancé contient une section mise en forme CBQ en detail.
+http://www.linux-france.org/prj/inetdoc/guides/Advanced-routing-Howto/
+
+http://guidespratiques.traduc.org/vf/lartc.html#lartc.ratelimit.single
+

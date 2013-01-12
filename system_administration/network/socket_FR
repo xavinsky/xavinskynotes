@@ -1,0 +1,13 @@
+#######
+Sockets
+#######
+
+
+Outils de manipulation de sockets
+=================================
+
+::
+
+    socat
+    netpipes (faucet, hose, etc...)
+

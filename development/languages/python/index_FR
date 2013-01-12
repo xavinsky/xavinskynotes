@@ -1,0 +1,153 @@
+######
+Python
+######
+
+.. contents:: Sommaire
+
+====================
+References anglaises
+====================
+
+http://docs.python.org/2/
+
+http://docs.python.org/3/
+
+http://python.org/
+
+http://wiki.python.org/moin/FrontPage
+
+
+Tutorial
+--------
+
+http://www.diveintopython.net/
+
+http://getpython3.com/diveintopython3/
+
+http://www.codecademy.com/tracks/python
+
+http://www.learnpython.org/
+
+http://ivory.idyll.org/articles/advanced-swc/
+
+http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html
+
+Free Books
+----------
+
+http://www.greenteapress.com/thinkpython/
+
+http://python-ebook.blogspot.fr/
+
+http://www.mindview.net/Books/TIPython
+
+http://www.swaroopch.com/notes/python/
+
+Books
+-----
+
+http://oreilly.com/python/
+
+http://www.inforef.be/swi/python.htm
+
+http://www.filecrop.com/Python-Cookbook-pdf.html
+
+Design patterns elements of reusable object-oriented software
+
+Expert Python Programming
+
+
+Trucs et astuces
+----------------
+
+http://stackoverflow.com/questions/tagged/python
+
+http://code.activestate.com/recipes/langs/python/
+
+Test
+----
+
+http://docs.python.org/2/library/unittest.html
+
+Packaging
+---------
+
+http://guide.python-distribute.org/index.html#
+
+http://getpython3.com/diveintopython3/packaging.html
+
+Publication
+-----------
+
+http://moin-20.readthedocs.org/en/latest/
+
+Templating
+----------
+
+http://wiki.python.org/moin/Templating
+
+Indexing text
+-------------
+
+http://packages.python.org/Whoosh/quickstart.html
+
+Team dev python
+---------------
+
+http://python.developpez.com/
+
+http://www.pythonfrance.com/
+
+http://www.pocoo.org/
+
+Outils dev
+----------
+
+http://www.wingware.com/
+
+Design patterns
+---------------
+
+https://github.com/faif/python-patterns
+
+http://www.python.org/workshops/1997-10/proceedings/savikko.html
+
+
+=====================
+References francaises
+=====================
+
+http://www.afpy.org/
+
+http://wiki.python.org/moin/FrenchLanguage
+
+http://www.haypocalc.com/wiki/Python
+
+Argumentaire
+------------
+
+http://issuu.com/wile/docs/article_lebigot
+
+Free Books
+----------
+
+http://inforef.be/swi/python.htm
+
+?? http://blog.admin-linux.org/news/livre-blanc-python-le-developpement-autrement
+=> http://www.alterway.fr/publication/python-le-developpement-autrement?page=1
+
+Pep8 FR
+-------
+
+http://wiki.openihs.org/PEP_8_fran%C3%A7ais
+
+https://larlet.fr/david/biologeek/archives/20080511-bonnes-pratiques-et-astuces-python/
+
+
+Blogs
+-----
+
+http://programmation-python.org/
+
+http://blog.notmyidea.org/python-go-fr.html
+

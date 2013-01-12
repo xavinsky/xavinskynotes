@@ -1,0 +1,42 @@
+####
+Wifi
+####
+
+::
+
+    # pour le wifi
+    aptitude install wireless-tools  
+    iwconfig
+    wpasupplicant
+
+
+chipset ok : prism2 ralink rt2400.
+pour chipset rt2500 et rt2400 ::
+
+    aptitude install rt2500-source
+    module-assistant a-i rt2500
+    modprobe rt2500
+
+modifier /etc/network/interfaces ::
+
+    iface eth2 inet static
+        address 10.59.12.11
+        netmask 255.0.0.0
+        wireless_mode ad-hoc
+        wireless_essid bombolong
+        wireless_channel 1
+
+puis ::
+
+    ifup eth2
+
+exemple config sans clef
+
+ajouter dans : /etc/network/interfaces ::
+
+    # auto eth1
+    iface eth1 inet manual
+        wireless_essid any
+        wireless_mode Managed
+        wireless_key off 
+

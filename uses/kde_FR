@@ -1,0 +1,17 @@
+###
+Kde
+###
+
+Astuces
+-------
+
+Reconstruire le cache des police kde (evite lenteur kde) en root ::
+
+    fc-cache -v
+
+Recherche full text sous kde
+----------------------------
+
+::
+
+    aptitude install kerry

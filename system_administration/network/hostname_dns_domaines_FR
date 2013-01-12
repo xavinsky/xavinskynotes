@@ -1,0 +1,92 @@
+Hostname
+========
+
+::
+
+    # voir son hostname
+    /bin/hostname
+    # changer son hostname
+    /bin/hostname nouveaunom
+    # fichier de config
+    /etc/hostname
+
+
+Who is
+======
+
+Determiner a qui appartient une IP
+
+whois IP ::
+
+    http://cqcounter.com/whois/
+    http://www.dnsstuff.com/
+
+
+DNS
+===
+
+::
+
+    # Service de dns gratuits :
+    www.xname.org
+    www.gratisdns.de
+
+fichier de configuration : /etc/resolv.conf ::
+
+    search exemple.com
+    nameserver 192.168.4.45
+
+pour ajouter des entrée manuelle ::
+
+    /etc/hosts 
+
+
+En cas de probleme dns vous pouvez acceder a google par son IP ::
+
+   72.14.221.104
+
+Vous pouvez egalement changer de dns ::
+
+   8.8.8.8 (google)
+   212.27.53.252 (free)
+   88.191.254.60 (free)
+   195.92.195.94 (FT)
+
+
+
+test DNS
+--------
+
+::
+
+    dig
+    host
+    whois
+    dnstop
+
+
+Registar
+========
+
+Pour enregistrer un nom de domaine
+
+http://www.directnic.com
+http://www.gandi.net
+
+Gratuit (eu.org)
+
+http://www.eu.org/fr/
+
+CA
+==
+
+Authorité de certification.
+
+Payante :
+
+http://en.wikipedia.org/wiki/VeriSign
+
+Gratuite :
+
+http://www.startssl.com/?lang=fr
+

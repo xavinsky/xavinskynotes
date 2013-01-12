@@ -1,0 +1,179 @@
+##################
+Encoding Python 2X
+##################
+
+Pré requis
+==========
+
+Ici je considère que votre system, votre console, votre editeur, votre
+user est en utf-8
+
+Liste des encoding supporté par python :
+http://docs.python.org/lib/standard-encodings.html
+
+
+Type Python
+===========
+
+Les types de chaines :
+
+    * str : type pour les chaine non unicode
+    * unicode : type pour les chaine unicode
+
+::
+
+    type('chaine')
+    <type 'str'>
+
+    type(u'chaineunicode')
+    <type 'unicode'>
+
+    'tête'
+    't\xc3\xaate'
+
+    u'tête' 
+    u't\xeate'
+
+    #A noté que les deux sont en utf-8 !
+    #un au format str et l'autre au format unicode.
+
+
+Bon la ou cela se complique un peu,
+c'est que rien ne vous empêche de mettre latin-1
+dans une chaine unicode et une chaine utf-8 dans un str.
+
+#Voici des chaines correctes utf-8::
+
+    't\xc3\xaate'
+    u't\xeate'
+
+#ceci est un exemple de ce qu'il ne faut pas faire, mais qui est possible
+#Tres con ::
+
+    u't\xc3\xaate'
+    't\xeate'
+
+Detection encoding
+==================
+
+Les module pyenca et chardet permettent la detection d'encoding d'un text
+
+Installation pyenca
+-------------------
+
+::
+
+    apt-get install enca libenca-dev
+    cd /datas/build
+    wget http://trific.ath.cx/Ftp//python/pyenca/pyenca-0.4.tar.gz
+    tar zxvf pyenca-0.4.tar.gz
+    cd pyenca-0.4
+    python setup.py build
+    python setup.py install
+
+
+Utilisation pyenca
+------------------
+
+::
+
+    import Enca
+    analyser=Enca.Analyser()
+    analyser.significant=1
+    encodage=analyser.analyse("text") 
+
+
+
+Installation chardet
+--------------------
+
+::
+
+    cd /datas/build
+    wget http://chardet.feedparser.org/download/chardet-1.0.tgz
+    tar zxvf chardet-1.0.tgz
+    cd charde-1.0
+    python setup.py build
+    python setup.py install
+
+
+Utilisation chardet
+-------------------
+
+    import chardet
+    print chardet.detect(chainenonunicode)['encoding']
+    #malheureusement pas parfait car plus fait pour les pages web que pour le texte.
+
+
+Decodage / Encodage
+===================
+
+Decodage
+--------
+
+Passage d'une chaine standard utf-8 a une chaîne unicode utf-8.
+
+Nous supposont ici que nous avons une chaine non unicode,
+et que nous voulons enfaire une chaine unicode.
+
+::
+
+    a = 'tête'
+    b = a.decode('utf-8')
+    print b
+    u't\xeate'
+
+    #bref : 
+    chainenonunicode = chaineunicode.decode('utf-8')
+
+    #si vous tombez sur une chaine en un autre encodage par exemple latin-1 :
+    chainenonunicode = chaineunicode.decode('latin-1')
+
+    #si vous tombez sur des caracteres récalcitrant replace bous les transforme en '?' :
+    chainenonunicode = chaineunicode.decode('utf-8','replace')
+
+
+    Comment faire de nouveau n'importe quoi:
+    # ceci est un exemple de ce qu'il ne faut pas faire.
+    a = 'tête'
+    b = a.decode('latin-1')
+    #vous venez de mettre une chaine encoder en latin-1 dans une chaine unicode,
+    #bref du grand n'importe quoi.
+
+
+Encodage
+--------
+
+Passage d'une chaine unicode utf-8 a une chaîne encodé dans un encoding
+particulier.
+
+::
+
+    #pour le retour a la normal de ma chaine unicode au format str
+    chainenonunicode = chaineunicode.encode("utf-8")
+
+    #Utile  pour encoder dans un autre charset par exemple en latin-1:
+    #cependant si on a le choix, on restera en utf-8
+    chainenonunicode = chaineunicode.encode("latin-1") 
+
+
+Détection et Encodage utf-8 unicode
+-----------------------------------
+
+Voici ma fonction actuelle. Je ne gere pas l'entrée de départ en unicode
+
+::
+
+    import Enca
+
+    def textToUtf8Unicode(text):
+        if not text:
+            return u''
+        if type(text) == type(''):
+            try:
+                analyser = Enca.Analyser()
+                analyser.significant = 1
+                encodage = analyser.analyse(text).split('/')[0].lower()
+                return text.decode(encodage) 
+            except:
+                return text.decode('utf-8', 'replace') 

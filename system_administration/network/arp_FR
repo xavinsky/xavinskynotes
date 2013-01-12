@@ -1,0 +1,15 @@
+###
+ARP
+###
+
+Protocole de Résolution d'Adresse 
+
+Fait correspondre des adresses physiques (mac) et addresse IP sur une interface.
+
+Voir le cache arp ::
+
+    ip neigh show
+
+    # eliminer une ip du cache arp
+    ip neigh delete <IP> dev <interface>
+    

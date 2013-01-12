@@ -1,0 +1,31 @@
+#######
+OPENSSL
+#######
+
+Ces commandes fonctionnent ( demande la phrase pass ) ::
+
+    # generation cles
+    openssl genrsa -out c1.pem -des3 -passout pass:monpassword 1024
+
+    # extraction cle publique
+    openssl rsa -in c1.pem -passin pass:monpassword -pubout -out c2.pem
+
+    # chiffrer by prive
+    openssl rsautl -encrypt -in tocrypt.txt -inkey c1.pem -out tocryptpri.txt -passin pass:monpassword
+
+    # chiffrer by public
+    openssl rsautl -in tocrypt.txt -out tocryptpub.txt -encrypt -pubin -inkey c2.pem
+
+    # dechiffrer
+    openssl rsautl -decrypt -in tocryptpri.txt -inkey c1.pem -out tocryptout.txt -passin pass:monpassword
+    openssl rsautl -decrypt -in tocryptpub.txt -inkey c1.pem -out tocryptout2.txt -passin pass:monpassword
+
+    # calcul empreinte fichier
+    openssl dgst -binary -out tocrypt.txt.hash tocrypt.txt
+
+    # signer une empreinte
+    openssl rsautl -sign   -in tocrypt.txt.hash -inkey c1.pem -out tocrypt.txt.hash.sign -passin pass:monpassword
+
+    # verifier l'empreinte
+    openssl rsautl -in tocrypt.txt.hash.sign -verify -inkey c2.pem -pubin -out tocrypt.txt.hash.sign.verify
+

@@ -1,0 +1,41 @@
+####################
+Internationalisation
+####################
+
+Façon simple et au norme GNU (gettext) de traduire les scripts python.
+
+Etape 1 : modifier son script python
+------------------------------------
+
+exemple ::
+
+    import gettext
+    trans = gettext.GNUTranslations(open("test-fr.mo"))
+    _ = trans.gettext
+
+    def toto()
+        print _('coucou')
+        toto()
+
+Ici le texte a traduire est coucou car il est placé dans _( )
+Selon la langue on choisi le fichier correspondant test-fr.mo
+
+Etape 2 : création du fichier .pot
+----------------------------------
+
+pygettext -o test.pot test.py
+
+Etape 3 : initialisation du fichier de langue .po
+-------------------------------------------------
+
+msginit -i test.pot -o test-fr.po
+
+
+Etape 4 : edition du fichier .po pour entrer les traductions
+------------------------------------------------------------
+
+Etape 5 : compilation du .po en .mo (binaire)
+---------------------------------------------
+
+msgfmt test-fr.po -o test-fr.mo
+

@@ -1,0 +1,27 @@
+#########
+Semaphore
+#########
+
+Suite a mon utilisation partagé de la mémoire avec des threads,
+je doit protéger certains accès avec des semaphore.
+
+Rien de plus facile avec python.
+
+On défini quelque part en global ::
+
+    import threading
+    mysemaphore=threading.Semaphore()
+
+On utilise ainsi ::
+
+    mysemaphore.acquire()
+    # code protégé
+    mysemaphore.release()
+
+    # On peut aussi gérer des accès non bloquant :
+    if mysemaphore.acquire(false):
+        # code protégé
+        mysemaphore.release()
+    else:
+        # ressourse occupé, on ne fait rien.
+

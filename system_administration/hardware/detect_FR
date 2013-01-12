@@ -24,8 +24,30 @@ Detection Matérielle
     # et les bus usb1.1
     /:  Bus 0X.Port 1: Dev 1, Class=root_hub, Driver=uhci_hcd/2p, 12M
 
+
+    #BIOS
+    biosdecode
+
     #DMI BIOS
     dmidecode
+
+    # ACPI
+    # montre les infos acpi
+    acpi -V
+    # dump et traitement des tables ACPI
+    acpidump -t FACP
+    acpidump -t DSDT
+    acpixtract
+    acpitool
+    acpitail
+    # exemple , recuperation du code assembleur et desassemblage.
+    acpidump -t DSDT -b -o DSDT
+    iasl -d DSDT
+    cat DSDT.dsl
+
+    # CPU
+    x86info
+    superiotool
 
     # Senseurs / Ventilateurs
     aptitude install lm-sensors
@@ -49,6 +71,13 @@ Detection Matérielle
     smartctl -a /dev/hda
     smartctl -t long /dev/hda
 
+    # Affichage video
+    ddcprobe
+    get-edid | parse-edid
+
+    # Mouse
+    mdetect
+
     # General
     lshw
     lshw -short
@@ -59,11 +88,16 @@ Detection Matérielle
     aptitude install discover-data
     discover
 
+    # Références 
+    aptitude install hwdata
+    # voir le contenu du repertoire /usr/share/hwdata/
+
 
 Avec interfaces graphique ::
 
     lshw-gtk
     hal-device-manager
+    hardinfo
 
 
 Tester la compatibilité linux ::

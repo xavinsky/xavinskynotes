@@ -1,0 +1,130 @@
+###
+CVS
+###
+
+Voir config SSH pour la connexion ssh sans mot de passe.
+
+Configuration
+=============
+
+::
+
+    CVSROOT et CVS_RSH
+    export CVSROOT=:ext:user@machine:/path/cvs
+    export CVS_RSH=ssh
+
+Commandes
+=========
+
+Checkout
+--------
+
+::
+    cvs co 
+    cvs co -P 
+
+utiliser le paramètre –P afin de ne pas récupérer les répertoires vides.
+
+Update
+------
+
+::
+
+    cvs update -d
+
+L’option –d permet de créer les répertoires manquant dans la copie de
+travail.
+
+Update d’un seul fichier
+------------------------
+
+::
+
+    cvs update fichier.txt
+
+Commit de tout le projet
+------------------------
+
+::
+
+    cvs commit –m "description des modifications"
+
+L’option –m est obligatoire et permet de décrire les modifications
+apportées.
+
+Commit d’un seul fichier
+------------------------
+
+::
+
+    cvs commit –m "description de la modification" fichier.txt
+
+Tag d’un projet
+---------------
+
+::
+
+    cvs tag TAG_1
+
+forcer le réassignement d’un tag en utilisant l’option –F derrière la
+commande tag.
+
+Creation d’une branche
+----------------------
+
+::
+
+    cd /copiedetravail/monprojet
+    cvs tag –b BRANCH_1
+
+Pour connecter la copie de travail à une branche
+------------------------------------------------
+
+::
+
+    cvs update -r BRANCH_1
+
+Mais il vaux mieux faire un nouveau checkout ailleur ::
+
+    cd /copiedetravail/monprojet_mabranche
+    cvs co -r BRANCH_1
+
+merge au projet principal
+-------------------------
+
+::
+
+    cd /copiedetravail/monprojet
+    cvs update –d -A
+    cvs update –d –j BRANCH_1
+    cvs commit –m "Merge de la branche BRANCH_1"
+
+visualiser les fichiers qui ont été modifiés entre deux tags du projet
+----------------------------------------------------------------------
+
+::
+
+    cvs rdiff -u -s -r  -r 
+
+
+visualiser les modifications qui ont été apportés au projet entre deux tags
+---------------------------------------------------------------------------
+
+::
+
+    cvs rdiff -u -r  -r  
+
+historique des modifications apportées à un fichier
+---------------------------------------------------
+
+::
+
+    cvs log fichier.txt
+
+
+Reprendre un ancienne version en cvs
+------------------------------------
+
+::
+
+    cvs update -p -r 1.1 namefile > recupnamefile

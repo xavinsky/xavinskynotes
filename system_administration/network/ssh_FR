@@ -1,0 +1,94 @@
+##################
+Utilisation de SSH
+##################
+
+Application X11 a travers par SSH
+---------------------------------
+
+Sur le serveur modifier le fichier de config /etc/ssh/sshd_config ::
+
+    X11Forwording yes
+
+puis redemarrer ssh ::
+
+    /etc/init.d/ssh restart
+
+Sur le client utiliser l'option X ::
+
+    ssh -X <server>
+
+Vous pouvez ensuite lancer des applications X11 sur votre serveur
+et les visualiser sur votre client.
+
+Reconfigurer le display n'est pas bon (ssh -X sur de multiples machines...) ::
+
+    export DISPLAY=:0
+
+Si le user n'authorise pas l'affichage sur son display, il peut lancer
+la commande suivante pour authorisé tout le monde ::
+
+    xhost +
+
+
+SSH sans password
+-----------------
+
+Creer une cle ::
+
+    ssh-keygen -t dsa
+    cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+    exec ssh-agent tcsh
+    ssh-add 
+
+Envoyer votre clef ::
+
+    ssh-copy-id xavinsky@192.168.0.5 
+
+editer fichier de config sur machine2 : /etc/ssh/sshd_config
+enlever les commentaires au lignes ::
+
+    PermitRootLogin yes
+    RSAAuthentication yes
+    PubkeyAuthentication yes
+    AuthorizedKeysFile      %h/.ssh/authorized_keys
+
+apres c'est bon !
+
+
+Alias SSH avec port custom
+--------------------------
+
+Il faut definir un alias dans la conf ssh client
+dans le fichier /etc/ssh/ssh_config
+ajouter ::
+
+    Host <alias>
+    Hostname <domainecible>
+    Port <autreport>
+
+ansi vous pouver utiliser ssh avec l'alias.
+
+
+Partage SSH avec sshfs
+----------------------
+
+En root ::
+
+    #Install 
+    aptitude install sshfs
+    adduser monuser fuse
+    #Activation 
+    modprobe fuse
+
+Avec l'utilisateur monuser ::
+
+    # Montage 
+    sshfs -p PORT logindistant@machinedistance:folderdistant folderlocal
+
+    #ou avec -o direct_io pour utilisation avec vlc
+    sshfs -p PORT -o direct_io logindistant@machinedistance:folderdistant folderlocal
+
+    # Demonter :
+    fusermount -u folderlocal
+
+

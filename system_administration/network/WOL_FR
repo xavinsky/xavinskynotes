@@ -1,0 +1,32 @@
+################
+WOL wake on line
+################
+
+paquet neccessaires :
+
+aptitude install wakeonline ethtool
+
+recupere l'interface et l'adresse mac::
+
+    ifconfig
+    ethx      Lien encap:Ethernet  HWaddr xx:xx:xx:xx:xx:xx
+
+voir si la carte reseau supporte le WOL ::
+
+    ethtool ethx
+
+doit retourner une ligne ::
+
+    Wake-on: 
+
+pour activer le wol ::
+
+    ethtool -s ethx wol g
+
+
+Pour declancher le wol a distance a partir d'une autre machine ::
+
+    wakeonline  xx:xx:xx:xx:xx:xx
+
+
+

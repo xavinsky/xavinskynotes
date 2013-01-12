@@ -1,0 +1,135 @@
+###########
+PHP Eclipse
+###########
+
+
+Install du jre
+==============
+
+jre =  java runtime environement
+Download : j2re-1_4_2_11-linux-i586.bin
+sur le site : http://java.com/en/download/
+
+Installation ::
+
+    chmod u+x j2re-1_4_2_11-linux-i586.bin
+    ./j2re-1_4_2_11-linux-i586.bin
+    rm j2re-1_4_2_11-linux-i586.bin
+    mv j2re1.4.2_11/ /usr/local/share/
+    cd /usr/local/bin
+    ln -s /usr/local/share/j2re1.4.2_11/bin/java java
+    chown -R xavinsky:xavinsky /usr/local/share/j2re1.4.2_11
+
+Installation du sdk Eclipse
+===========================
+
+Download : eclipse-SDK-3.1.2-linux-gtk.tar.gz
+sur le site : http://www.eclipse.org/downloads
+
+Installation ::
+
+    tar zxvf eclipse-SDK-3.1.2-linux-gtk.tar.gz 
+    rm eclipse-SDK-3.1.2-linux-gtk.tar.gz 
+    mv eclipse /usr/local/share/
+    cd /usr/local/bin
+    ln -s /usr/local/share/eclipse eclipseFolder
+    chown -R xavinsky:xavinsky /usr/local/share/eclipse
+
+J'edite un fichier eclipse ::
+
+    #!/bin/bash
+    cd /usr/local/bin/eclipseFolder
+    ./eclipse
+
+Droit execution eclipse ::
+
+    chmod a+x eclipse
+
+Installation du plugin PhpEclipse
+=================================
+
+Download : net.sourceforge.phpeclipse_1.1.8.bin.dist.zip
+sur le site : http://sourceforge.net/projects/phpeclipse
+
+Installation ::
+
+    mv net.sourceforge.phpeclipse_1.1.8.bin.dist.zip /usr/local/share/eclipse/
+    cd /usr/local/share/eclipse/
+    unzip net.sourceforge.phpeclipse_1.1.8.bin.dist.zip
+    chown -R xavinsky:xavinsky /usr/local/share/eclipse
+
+
+Installation Apache
+===================
+
+::
+
+    aptitude install apache2 
+
+Installation Php4
+=================
+
+::
+
+    aptitude install php4 libapache2-mod-php4
+
+    # decommenter les 2 lignes suivantes de /etc/apache2/apache2.conf
+    AddType application/x-httpd-php .php
+    AddType application/x-httpd-php-source .phps
+
+Installation Php4 debugger
+==========================
+
+::
+
+    apt-get install php4-apd
+
+recuperer le module : dbg-2.13.1-glibc-2.2.tar.gz
+sur le site : http://dd.cron.ru/dbg/downloads.php
+
+Installation ::
+
+    tar zxvf dbg-2.13.1-glibc-2.2.tar.gz
+    mv dbg-2.13.1-glibc-2.2/i686/dbg.so-4.3.10 /usr/lib/php4/20020429/dbg.so
+    rm -Rf dbg-2.13.1-glibc-2.2*
+
+Config php
+==========
+
+Editer /etc/php4/apache2/php.ini ::
+
+    ;modifier implicit_flush = Off en
+    implicit_flush = On
+
+    ;a la fin du ficher...
+    [debugger]
+    extension=dbg.so
+    debugger.enabled=on
+    debugger.profiler_enabled=on
+    debugger.hosts_allow=localhost
+    debugger.hosts_deny=ALL
+    debugger.ports=7869, 10000/16
+
+
+Verifications
+=============
+
+editer un fichier /var/www/test.php contenant ::
+
+    <?php phpinfo();?>
+
+puis relancer apache ::
+
+    /etc/init.d/apache2 restart
+
+puis lancer firefox sur l'url http://localhost/test.php
+rechercher dans la page dbg pour verifier si le module
+de debug est bien installé.
+
+Sources documentation
+=====================
+
+http://www.plog4u.org/index.php/Using_PHPEclipse
+
+http://support.nusphere.com/viewtopic.php?t=576
+

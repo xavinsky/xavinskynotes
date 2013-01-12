@@ -1,0 +1,41 @@
+##########
+Monitoring
+##########
+
+
+
+::
+
+    iftop
+    ipstat
+    netstat
+    slurm
+
+    nmap
+
+    ping
+    traceroute
+    mtr
+    arp
+
+
+    ## Ports
+    netstat -a        # ports ouverts
+    netstat -l --inet # ports en ecoute
+    netstat -ln --tcp # ports en ecoute TCP (numeric)
+    lsof -i :nbport   # indique le processus ecoutant sur ce port.
+
+    ## Checks
+    ping google.com
+    traceroute google.com
+
+    ## commandes et domaine
+    # resoud l'IP
+    nslookup domaine 
+    #renvois les NS, serveur de domaine et les appartenace du domaine
+    whois domaine  
+    # test host.dom DNS records dans dns-server.com 
+    dig [@dns-server.com] host.dom [{a|mx|any}] 
+
+
+

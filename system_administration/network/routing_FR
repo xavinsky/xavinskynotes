@@ -1,0 +1,44 @@
+#######
+Routage
+#######
+
+
+
+Liens IP et routes
+==================
+
+::
+
+    # Voir les liens : adresses MAC, le mtu, qdisc, l'etat, le mode DORMANT et qlen...
+    ip link list
+
+    # voir les addresses : IPv4 et IPv6 (masque reseau et broadcast)
+    ip address show
+   
+    # Voir les routes : passerelles.
+    ip route show
+    # ou 
+    route -n
+
+
+qdisk est la notion de file d'attente.
+
+
+Firewall et routage
+===================
+
+::
+
+    iptables
+
+
+
+
+
+References
+==========
+
+http://lartc.org/howto/
+http://lartc.org/howto/lartc.ratelimit.single.html
+http://guidespratiques.traduc.org/vf/lartc.html
+

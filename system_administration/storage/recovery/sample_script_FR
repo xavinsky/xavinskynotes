@@ -1,0 +1,76 @@
+#################
+Exemple de script
+#################
+
+::
+
+    file * > F
+    replace '   ' par ' '
+    replace '  ' par ' '
+    awk -F ': ' '{print $2}' F | sort -u > T
+
+    nous donne les pattern suivante :
+    grep -v source F | grep -v SGML | grep -v HTML | grep -v troff | grep -v cpio | grep -v xdg | \
+      grep -v script | grep -v image | grep -v gettext | grep -v document | grep -v batch | \ 
+      grep -v program | grep -v program | grep -v output > FF
+
+    grep ASCII FF > FA
+    awk -F ': ' '{print $2}' FA | sort -u
+    grep ISO-8859 FF > FI
+    awk -F ': ' '{print $2}' FI | sort -u
+    grep Unicode FF > FU
+    awk -F ': ' '{print $2}' FU | sort -u
+
+    awk -F ':' '{print $1}' FA > FNA
+    awk -F ':' '{print $1}' FI > FNI
+    awk -F ':' '{print $1}' FU > FNU
+
+    python
+
+    import os
+    for t in ['A','I','U']:
+        fres = open('FN%s' % t)
+        os.system('mkdir N%s' % t)
+        lines = fres.readlines()
+            for line in lines:
+            if len(line)>1:
+                os.system('mv %s N%s' % (line[:-1], t))
+
+::
+
+    du */* | sort -n > F
+
+    alias xet='emacs -nw NA/`ls NA | head -n 1`'
+    alias rmt='rm -f NA/`ls NA | head -n 1`'
+    alias xgd='xavgrep delete '
+    alias xgm='xavgrep move '
+
+    dans chaque repertoire :
+
+    python
+
+    import os
+    os.system("mkdir -p NOSP")
+    listfiles = os.listdir('.')
+    for namefile in listfiles:
+        if namefile <> 'NOSP' :
+            f = open(namefile)
+            txt = f.read()
+            f.close()
+            if txt.find(' ') == -1 and txt.find('\n') == -1:
+                cmd ="mv %s NOSP" % namefile
+                os.system(cmd)
+
+    import os
+    os.system("mkdir -p SHORT")
+    listfiles = os.listdir('.')
+    for namefile in listfiles:
+        if namefile <> 'SHORT' :
+            f = open(namefile)
+            txt = f.read()
+            f.close()
+            if txt.count('\n') < 20:
+                cmd ="mv %s SHORT" % namefile
+                os.system(cmd)
+
+

@@ -1,0 +1,116 @@
+########
+PyLucene
+########
+
+Try for mod_python compatible (not working yet)
+<http://www.1et0.org/admin/db/pylucene/trypatch>
+
+<http://www.1et0.org/admin/db/pylucene/trunk-gcc42>
+
+
+django-without-mod-python
+=========================
+
+Installation de PyLucene sur Debian Etch
+
+Il faut compiler un gcc3.4 et l'utiliser ::
+
+    mkdir GCC
+    cd GCC
+    wget ftp://ftp.irisa.fr/pub/mirrors/gcc.gnu.org/gcc/releases/gcc-3.4.4/gcc-3.4.4.tar.bz2
+    tar jxvf gcc-3.4.4.tar.bz2
+    mkdir build
+    cd build
+    ../gcc-3.4.4/configure --enable-threads=posix --prefix=/usr/local/gcc-3.4.4 --enable-languages=c,c++,java
+    make bootstrap 2>err.txt >ok.txt
+    make install
+    cd ..
+    cd ..
+    mv /usr/bin/gcc /usr/bin/gcc-init
+    ln -s /usr/local/gcc-3.4.4/bin/gcc /usr/bin/gcc
+
+    # Les paquets debian a installer sont inclus dans ceux pour utiliser
+    # django <http://localhost:/1/dev/django/commandes> .
+
+    ln -s /lib/libgcc_s.so.1 /usr/lib/libgcc_s.so.1
+    wget http://downloads.osafoundation.org/PyLucene/src/PyLucene-src-2.1.0-2.tar.gz
+    tar zxvf PyLucene-src-2.1.0-2.tar.gz
+    wget http://download.oracle.com/berkeley-db/db-4.4.20.tar.gz
+    tar zxvf db-4.4.20.tar.gz
+    mv db-4.4.20 PyLucene-src-2.1.0-2
+    cd PyLucene-src-2.1.0-2/db-4.4.20/build_unix
+    ../dist/configure
+    make 2>err.txt >ok.txt
+    cd ../../
+
+    # on remarquera ci dessus, l'astuce qui consiste a compiler db-4.4.20 sans
+    # l'installer.
+
+editer le Makefile pour décommenter la partie linux puis l'editer ::
+
+    PREFIX=/usr/local
+    PREFIX_PYTHON=/usr
+    LIBDIR_NAME=lib
+    GCJ_HOME=/usr/local/gcc-3.4.4
+    GCJ_LIBDIR=$(GCJ_HOME)/$(LIBDIR_NAME)
+    GCJ_STATIC=1
+    LIB_INSTALL=libstdc++.so.6 libgcc_s.so.1
+    DB=$(PYLUCENE)/db-$(DB_VER)
+    PREFIX_DB=/usr
+    ANT=ant
+    PYTHON=$(PREFIX_PYTHON)/bin/python
+
+puis compiler ::
+
+    make 2>err.txt >ok.txt
+    make install
+    cd ..
+
+Tester ::
+
+    python
+    import PyLucene
+
+Remettre le gcc standard ::
+
+    rm /usr/bin/gcc
+    mv /usr/bin/gcc-init /usr/bin/gcc
+
+Search-api django et PyLucene ::
+
+    cd /usr/lib/python2.4/site-packages/django/contrib
+    svn co http://code.djangoproject.com/svn/django/branches/search-api/django/contrib/search search
+
+    # Editer le fichier :
+    /usr/lib/python2.4/site-packages/django/utils/autoreload.py
+
+    # Remplacer
+    import thread
+    # par
+    import PyLucene.PythonThread as thread
+
+    # Editer le fichier :
+    /usr/lib/python2.4/site-packages/django/contrib/search/backends.py
+
+    # Mettre en commentaire les 2 try except qui ne concerne pas PyLucene.
+
+Exemple de code ::
+
+    from django.contrib.search.backends import LuceneIndexer
+
+    #definir un index.
+    indexer = LuceneIndexer('/chemin/fichierindex',
+                            MaClasse,
+                            fields=['MaClasse.champaindexer'],
+                            attributes={'id': 'MaClasse.champaretourner
+    '}
+                            )
+    #mettre a jour l'index.
+    indexer.update()
+
+    #faire une recherche
+    res=indexer.search('textachercher')._hits
+    resids=[]
+    for hit in res:
+        resids.append(int(hit.get('champaretourner'))
+
