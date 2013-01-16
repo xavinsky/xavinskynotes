@@ -1,0 +1,48 @@
+####
+JAVA
+####
+
+
+Precompilation et Execution
+===========================
+
+Le principe de java c'est de creer des fichiers executables
+sur n'importe quelle plateforme (ayant un interpreteur java)
+L'"executable" java est donc portable.
+
+exemples ::
+
+    # generer file.class
+    javac file.java 
+
+    # executer file.class
+    java file 
+
+Archive JAR
+===========
+
+::
+
+    # decompresser le jar pour voir a l'interieur
+    jar xf file.jar
+
+Decompiler les .class
+=====================
+
+decompilateur java : jd-gui
+
+
+Hello World
+===========
+
+Exemple minimal de script java ::
+
+    import java.io.File;
+
+    class HelloWorldApp {
+        public static void main(String[] args) {
+            System.out.println("Hello World!");
+        }
+    }
+
+

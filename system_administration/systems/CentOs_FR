@@ -1,0 +1,36 @@
+######
+CentOS
+######
+
+Pourquoi CentOS
+===============
+
+A utiliser pour avoir la compatibilité totale RedHat.
+
+CentOS est un clone de RedHat, ou RedHat (nom protégé par des droits) 
+est remplacé par CentOS, ce qui en fait un systeme libre sans contrainte d'utilisation,
+totalement compatible RedHat.
+
+
+Obtenir CentOS
+==============
+
+
+    * Liste des mirroirs : http://mirror.centos.org/centos/5/isos/
+    * Les iso CentOS 5.3 pour i386 : http://ftp.ciril.fr/pub/linux/centos/5.3/isos/i386/CentOS-5.3-i386-LiveCD.iso
+    * Les iso CentOS 5.3 pour 64bits : http://ftp.ciril.fr/pub/linux/centos/5.3/isos/x86_64/CentOS-5.3-x86_64-LiveCD.iso
+
+
+Quelques spécificités
+=====================
+
+Pas de '/sbin' dans le PATH !!
+
+il faut faire ::
+
+    /sbin/ifconfig
+    /sbin/shutdown -r now
+
+demarrer sshd ::
+
+    /etc/init.d/sshd start

@@ -1,0 +1,8 @@
+#####
+Gnome
+#####
+
+
+Lancer programmes au démarrage ::
+
+    gnome-session-properties

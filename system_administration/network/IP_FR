@@ -1,0 +1,72 @@
+##
+IP
+##
+
+La taille du reseau depend de la classe ::
+
+    A de   0.0.0.0 a 127.255.255.255  /8 255.0.0.0
+    B de 128.0.0.0 a 191.255.255.255 /16 255.255.0.0
+    C de 192.0.0.0 a 223.255.255.255 /24 255.255.255.0
+    D de 224.0.0.0 a 239.255.255.255  /4 non défini (multicast)
+    E de 240.0.0.0 a 255.255.255.255     non défini (réservée)
+
+    # Adressage prive RFC 1918 ::
+    10.0.0.0/8
+    172.16.0.0/12
+    192.168.0.0/16
+
+    # Adresse de bouclage (localhost) RFC 1122 :
+    127.0.0.0/8    
+
+    # Multicast RFC 3171
+    224.0.0.0/4
+
+    # Broadcast limité RFC 919     
+    255.255.255.255/32 
+
+    # Usage reserves :
+    0.0.0.0/8  Adresse réseau par défaut	RFC 1700
+    169.254.0.0/16 adresses locales autoconfigurées (APIPA)		RFC 3927
+    192.0.0.0/24 Réservé par l'IETF 		RFC 5736
+    192.88.99.0/24 6to4 anycast   RFC 3068
+    198.18.0.0/15 Tests de performance   RFC 2544
+    240.0.0.0/4 Réservé à un usage ultérieur non précisé		RFC 1112
+
+    # Réseau de test RFC 5737
+    192.0.2.0/24    TEST-NET-1
+    198.51.100.0/24 TEST-NET-2
+    203.0.113.0/24  TEST-NET-3
+
+Repartitions de ips :
+ftp://ftp.ripe.net/pub/stats/ripencc/membership/alloclist.txt
+
+les ip d'un pays :
+http://www.countryipblocks.net/
+
+http://www-public.int-evry.fr/~maigron/Internet/Adresses.html#AllocationDesAdressesIP
+
+http://www.robtex.com/dns/fr.html#records
+
+Allocation France ::
+
+    Bouygues Telecom : ORG-BT2-RIPE
+    Cegetel : ORG-CE1-RIPE (CEGETEL Entreprises)
+    Chello : ORG-CBF1-RIPE (Chello Broadband France)
+    Claranet : ORG-CF1-RIPE (Claranet France)
+    Club Internet : ORG-TFCI1-RIPE (T-Online France - Club Internet)
+    Completel : ORG-CSF1-RIPE (COMPLETEL SAS France)
+    Easynet France : ORG-EA23-RIPE (EASYNET)
+    Free : ORG-PISP1-RIPE (Proxad, Internet Service Provider in France)
+    MCI France : ORG-UFW1-RIPE (UUNET France/Internet Way)
+    Nerim : ORG-NA20-RIPE (Nerim)
+    neuf telecom : ORG-LA7-RIPE (LDCOM)
+    Noos : ORG-LC2-RIPE (LYONNAISE COMMUNICATIONS)
+    Numericable : ORG-NNS2-RIPE (NC Numericable S.A.)
+    Orange : ORG-FT2-RIPE (France Telecom)
+    Outremer Télécom : ORG-OT1-RIPE
+    RENATER : ORG-RA8-RIPE
+    SFR : ORG-VF1-RIPE (Vivendi France ?)
+    Tele2 : ORG-TFS1-RIPE (Tele2 France S.A.)
+    Tiscali : ORG-TT1-RIPE (TISCALI TELECOM)
+
+

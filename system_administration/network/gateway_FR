@@ -1,0 +1,19 @@
+##########
+Passerelle
+##########
+
+Liés deux réseaux avec une passerelle
+-------------------------------------
+
+Par exemple, Vous avez un réseau internet via wifi, 
+et un réseau local par cable.
+
+Pour relier les deux, A l'aide livecd ubuntu, 
+connecter vous à l'internet par le wifi, puis brancher le cable 
+et modifier les routes :: 
+
+    route del default
+    route add default gw 192.168.1.1 dev wlan0
+
+Editer les dns /etc/resolv.conf en ne laissant que la derniere ligne.
+

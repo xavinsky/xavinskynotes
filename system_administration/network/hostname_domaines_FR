@@ -1,0 +1,49 @@
+Hostname
+========
+
+::
+
+    # voir son hostname
+    /bin/hostname
+    # changer son hostname
+    /bin/hostname nouveaunom
+    # fichier de config
+    /etc/hostname
+
+
+Who is
+======
+
+Determiner a qui appartient une IP
+
+whois IP ::
+
+    http://cqcounter.com/whois/
+    http://www.dnsstuff.com/
+
+
+Registar
+========
+
+Pour enregistrer un nom de domaine
+
+http://www.directnic.com
+http://www.gandi.net
+
+Gratuit (eu.org)
+
+http://www.eu.org/fr/
+
+CA
+==
+
+Authorité de certification.
+
+Payante :
+
+http://en.wikipedia.org/wiki/VeriSign
+
+Gratuite :
+
+http://www.startssl.com/?lang=fr
+

@@ -1,0 +1,118 @@
+###
+DNS
+###
+
+Config Locale DNS
+=================
+
+Vous pouvez changer ou ajouter des serveurs DNS
+pour faire vos recherche DNS en modifiant, ajoutant des ligne nameserver
+dans votre fichier de configuration.
+
+fichier de configuration DNS : /etc/resolv.conf ::
+
+    search exemple.com
+    nameserver 192.168.4.45
+
+
+pour ajouter des entrée locale manuellement ::
+
+    /etc/hosts 
+
+
+test DNS
+========
+
+::
+
+    dig
+    host
+    whois
+    dnstop
+
+
+DNS dynamique
+=============
+
+Services de dns dynamiques :
+
+    * http://freedns.afraid.org/
+    * http://www.no-ip.com/
+    * http://www.changeip.com/
+    * http://www.namecheap.com/products/freedns.aspx
+
+
+Gestion de vos DNS
+==================
+
+::
+
+    # Service de dns gratuits :
+    www.xname.org
+    www.gratisdns.de
+
+
+Liste de DNS
+============
+
+Certain service DNS sont ouvert a tous ::
+
+    nameserver 208.67.222.222 # OpenDNS
+    nameserver 208.67.220.220 # OpenDNS
+    nameserver 8.8.8.8        # Google
+    nameserver 8.8.4.4        # Google
+    nameserver 156.154.70.1
+    nameserver 4.2.2.1
+    nameserver 4.2.2.2
+    nameserver 4.2.2.3
+    nameserver 4.2.2.4
+    nameserver 4.2.2.5
+    nameserver 4.2.2.6
+
+Les FAI fournissent leur services DNS réserver à leurs clients ::
+
+    9 Telecom / 9Online : 109.0.66.10 109.0.66.20
+    Alice ADSL : 212.216.212.112 212.216.172.62
+    AOL : 109.0.66.10 109.0.66.20
+    Belgacom / SkyNet : 195.238.2.21 195.238.2.22
+    Bluewin.ch : 195.186.4.111 195.186.4.110
+    Bouygues BBOX : 194.158.122.10 194.158.122.15
+    Cegetel : 109.0.66.10 109.0.66.20
+    Chello : 212.186.224.9 212.186.224.10
+    Club-internet : 109.0.66.10 109.0.66.20
+    Colt France : nscache0.coltfrance.com 195.68.0.1 nscache1.coltfrance.com 195.68.0.2
+    Darty box (Dartybox) : 212.99.2.8 195.167.224.150
+    EasyConnect : 212.180.0.137 212.180.1.79
+    Free : dns1.proxad.net 212.27.40.240 dns2.proxad.net 212.27.40.241
+    Free : ns0.proxad.net 212.27.32.2 ns1.proxad.net 212.27.32.130 
+    Free : ns2.proxad.net 212.27.53.253 ns3.proxad.net 212.27.37.3
+    Infonie : 10.1.5.2 10.1.6.10
+    LibertySurf : 213.36.80.2 213.36.80.4
+    Magic Online : 194.149.160.9 194.149.160.1
+    Médiaserv : 192.168.1.2 192.168.1.1
+    Nérim : 62.4.16.70 62.4.16.80
+    Net Pratique : 62.210.164.14 62.210.164.4
+    Neufbox de SFR : 109.0.66.10 109.0.66.20
+    NOOS / Le Câble : 212.198.0.91 212.198.2.5
+    Nordnet : 194.206.126.253 194.51.3.49
+    Numéricable : 89.2.0.1 89.2.0.2
+    Mauritel (Mauritanie) : 82.151.68.157 82.151.90.1
+
+Ancien service DNS des FAI ::
+
+    Old Numéricable : 81.220.255.4 80.236.0.68
+    Old Oléane : 194.2.0.20 194.2.0.50
+    Old OOL / Outremer Telecom : 217.175.160.11 217.175.160.12
+    Old Orange / Livebox : 80.10.246.2 80.10.246.129
+    Old SFR : 109.0.66.10 109.0.66.20
+    Old Sympatico.Ca : 198.235.216.110 209.226.175.224
+    Old Télé2 : 109.0.66.10 109.0.66.20
+    Old TISCALI-Freesbee : 213.36.80.1 192.221.96.3
+    Old Videotron.CA : 205.151.222.253 205.151.222.254
+    Old Wanadoo : 80.10.246.2 80.10.246.129
+    Old WorldNet : 195.3.3.1 195.3.3.2
+    Old World Online : 212.83.128.3 212.83.128.4
+
+IP de google si vous n'avez pas regler votre DNS ::
+
+   72.14.221.104
