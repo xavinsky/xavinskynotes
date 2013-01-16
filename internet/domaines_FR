@@ -10,10 +10,14 @@ iana, (afnic pour la france) pour plus de renseignement.
 C'est un sujet tres polemique car la politique mondial du contrôle des
 domaines est une guerre de pouvoir et d'indépendence en perpetuelle
 evolution.
-http://www.isoc.org/standards/orgs.shtml
-http://www.isoc.org/standards/otherorgs.shtml
-http://www.isoc.org/standards/adminorgs.shtml
 
+    * http://www.isoc.org/standards/orgs.shtml
+    * http://www.isoc.org/standards/otherorgs.shtml
+    * http://www.isoc.org/standards/adminorgs.shtml
+
+Authorite des nom de domaine : http://www.iana.org/
+
+Authorite .fr : http://www.afnic.fr/
 
 Votre nom de domaine
 --------------------
@@ -50,7 +54,11 @@ investir dedans...)
 
 En resume
 
-choisisser .org ou .com pour une entreprise
+choisisser .com pour une entreprise
+
+choisisser .org pour une association, un projet open source, un groupe d'ami.
+
+choisisser .fr et .com pour une entreprise française de taille conséquente.
 
 Choix du prestataire pour acheter votre domaine
 -----------------------------------------------
@@ -81,18 +89,24 @@ Ils vous proposes egalement des prestataires pour acheter les domaines
 qui sont accrediter, mais pas forcements au meilleurs tarifs, et avec
 les meilleurs conditions...
 
-Le registre pour la france est l'afnic :
-http://www.afnic.fr
-
-Pour le mexique : nic.mx. il garde le monopole de la vente de domaine !!!
-http://www.nic.mx
-
 Prestataires agrés pour les internationaux :
 http://www.icann.org/en/registrars/accredited-list.html
 
-En resume
+Quelques Registrar :
 
-gandi pour .org .com ou .fr (et plein d'autres)
-pour les autres chercher sur http://www.ofindo.fr/
+  * l'original : http://www.directnic.com
+  * français que je conseille : http://www.gandi.net/
+  * autre français beaucoup utilisé : http://www.ovh.com/
+  * français avec les dédibox : http://www.bookmyname.com
+  * Mexique : https://www.akky.mx
+
+
+Commande pour connaitre le registrar d'un domaine :
+whois domaine.org
+
+Le registrar donne une configuration pour determiner quels sont les referents dns pour ce domaine.
+
+Serveurs dns libre :
+xname.org
 
 

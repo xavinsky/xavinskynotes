@@ -2,20 +2,70 @@
 Wifi
 ####
 
+Configuration
+=============
+
+Outils
+------
+
 ::
 
-    # pour le wifi
     aptitude install wireless-tools  
     iwconfig
     wpasupplicant
 
+Chipset
+-------
 
 chipset ok : prism2 ralink rt2400.
-pour chipset rt2500 et rt2400 ::
+
+pour les chipset rt2500 et rt2400 ::
 
     aptitude install rt2500-source
     module-assistant a-i rt2500
     modprobe rt2500
+
+Change Mac Adress
+-----------------
+
+Quelque réseau wifi sont limité a certaines adresses mac,
+on peut alors changer de mac pour pouvoir s'y connecter.
+
+Exemple avec interface wifi ath0 ::
+
+    ifconfig ath0 down
+    # change mac
+    ifconfig ath0 hw ether 00:26:B0:85:4E:D5
+    ifconfig ath0 up
+
+
+Se connecter a un reseau wep
+----------------------------
+
+syntaxe ::
+
+    # configuration interface
+    iwconfig <interface_reseau> essid <ssid_to_connect> key <hexa_key>
+    # Recuperation dhcp (ip, dns...)
+    dhclient <interface_reseau>
+
+    # exemple 
+    iwconfig ath0 essid FREE_XAVIER key 012345689ABCDEF012345689AB
+    dhclient ath0
+
+
+Redemarrer les interface reseau
+-------------------------------
+
+::
+
+    /etc/init.d/networking restart 
+
+
+
+
+Exemple config statique
+-----------------------
 
 modifier /etc/network/interfaces ::
 
@@ -23,20 +73,32 @@ modifier /etc/network/interfaces ::
         address 10.59.12.11
         netmask 255.0.0.0
         wireless_mode ad-hoc
-        wireless_essid bombolong
+        wireless_essid mon_essid
         wireless_channel 1
 
 puis ::
 
     ifup eth2
 
-exemple config sans clef
+Exemple sans clef
+-----------------
 
-ajouter dans : /etc/network/interfaces ::
+Ajouter dans : /etc/network/interfaces ::
 
     # auto eth1
     iface eth1 inet manual
         wireless_essid any
         wireless_mode Managed
         wireless_key off 
+
+GetKeyWep
+=========
+
+J'ai mis quelques scripts utilitaire pour la connection WEP et recuperer des clef WEP.
+
+Documentation française ici : https://github.com/xaviermanach/getkeywep/blob/master/README_FR.TXT
+
+Recuperation des scripts ::
+
+    git clone https://github.com/xaviermanach/getkeywep.git
 

@@ -14,6 +14,13 @@ depuis machinecache faire ::
 
     ssh user@machineaccessible -R2222:127.0.0.1:22
 
+Souvent il existe un timeout à la session ssh inactive,
+il faut donc ajouter une boucle infinie dans le ssh pour que la 
+session ne soit pas interrompue, par exemple ::
+
+    while [ 1 -lt 2 ]; do date; sleep 1;done
+
+
 Crée un acces inverse sur l'IP 127.0.0.1 et port 2222 !!!
 et donc depuis machineaccessible pour accede a machine caché ::
 

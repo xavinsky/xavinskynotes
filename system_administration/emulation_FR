@@ -31,3 +31,10 @@ VMWare
 
 Outil propriétaire facile à prendre en main, le tout avec interface graphique.
 C'est le standard utilisé un peu partout.
+
+Astuce
+------
+
+pour que la vm demarre automatiquement, utiliser dans le fichier de config ::
+
+    autostart = "poweron"

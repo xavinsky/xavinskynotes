@@ -14,7 +14,7 @@ Lecteur Vidéo
 =============
 
     * mplayer
-    * wine
+    * xine
     * totem
     * vlc
 
@@ -69,11 +69,11 @@ Generalité et astuces Encodage
 Quelque paquets utiles ::
 
     aptitude install libdvdcss2 libogg0 liboggz1 libvorbis0a libvorbisenc2 \ 
-    libvorbisfile3 libvorbisidec1  libdvdread3 transcode ogmtools \ 
-    gstreamer0.10-ffmpeg-full ffmpeg2theora libsox-fmt-ffmpeg ffmpeg \ 
-    libxine1-ffmpeg libavcodec1d libavcodeccvs51 xvidcap libxvidcore4 \ 
-    avifile-xvid-plugin  vobcopy mencoder  videotrans kmenc15 dvdbackup ogmrip 
-
+      libvorbisfile3 libvorbisidec1  libdvdread3 transcode ogmtools \ 
+      gstreamer0.10-ffmpeg-full ffmpeg2theora libsox-fmt-ffmpeg ffmpeg \ 
+      libxine1-ffmpeg libavcodec1d libavcodeccvs51 xvidcap libxvidcore4 \ 
+      avifile-xvid-plugin  vobcopy mencoder  videotrans kmenc15 dvdbackup ogmrip \
+      libdvdread-dev libavformat-dev mplayer-skin-blue libavformat-dev gmplayer
 
 Option mencoder
 ---------------
@@ -99,6 +99,99 @@ Detecter les bandes noires
     # exemple : -vf crop=464:448:8:80
     # Remarque : toujours utiliser un multiple de 16 pour la taille
     # quitte a perdre quelque pixel sur la vidéo.
+
+
+Quelques programmes que l'on peut compiler
+==========================================
+
+
+Quelques paquets utiles ::
+
+    aptitude install libncurses5-dev libsndfile1-dev nasm subversion xine-ui \
+      libpulse-dev libcdio-dev libcdio-cdda-dev libsmbclient-dev libxv-dev \
+      libxvmc-dev libdirectfb-dev libgtk-directfb-2.0-dev libxss-dev libxv-dev \
+      libxxf86vm-dev libxxf86misc-dev libxxf86dga-dev libggi2-dev libggiwmh0-dev \
+      libaa1-dev libcaca-dev libsvga1-dev libdvb-dev libgif-dev xserver-xorg-dev \
+      libsdl1.2-dev libpulse-dev libopenal-dev libcdparanoia0-dev libfribidi-dev \
+      libenca-dev liblzo2-dev libtwolame-dev libtwolame-dev libspeex-dev \ 
+      libtheora-dev vorbis-tools libmpcdec-dev libavcodec-dev ladspa-sdk \ 
+      liblivemedia-dev libdv4-dev libschroedinger-dev vstream-client-dev \
+      liblircclient-dev liblogfile-rotate-perl libconfhelper-perl \
+      libzip1 libzip-dev libmpeg2-4-dev libpostproc-dev \ 
+      libavifile-0.7c2 libavifile-0.7-dev avifile-* liba52-0.7.4-dev \
+      libmagick++9-dev imagemagick libmagick++10 \
+      libevent-perl libintl-xs-perl libintl-perl libevent-rpc-perl
+
+    cd /usr/src
+    mkdir software
+
+lame
+----
+
+Installation manuelle ::
+
+    cd /usr/src/software
+    #install lame
+    mkdir lame
+    cd lame
+    wget http://internap.dl.sourceforge.net/sourceforge/lame/lame-398-2.tar.gz
+    tar zxvf lame-398-2.tar.gz
+    mv lame-398-2.tar.gz ../download
+    cd lame-398-2
+    perl -i.save -pe s#3.98.1#3.98.2#g debian/changelog
+    chmod +x debian/rules
+    rm -f debian/changelog.save
+    dpkg-buildpackage -rfakeroot
+    cd ..
+    sudo dpkg -i .deb
+    cd ..
+
+mplayer
+-------
+
+Installation manuelle ::
+
+    cd /usr/src/software
+    #install mplayer (derniere version)
+    sudo aptitude purge mplayer
+    rm -Rf ~/.mplayer
+    mkdir mplayer
+    cd mplayer
+    svn checkout svn://svn.mplayerhq.hu/mplayer/trunk mplayer
+    cp -r mplayer ../download
+    cd mplayer
+    ./configure
+    DEB_BUILD_OPTIONS="--enable-gui --enable-menu" fakeroot debian/rules binary
+    cd ..
+    sudo dpkg -i *.deb
+    cd ..
+
+
+transcode
+---------
+
+Installation manuelle ::
+
+    cd /usr/src/software
+    mkdir transcode
+    cd transcode
+    wget http://download.berlios.de/tcforge/transcode-1.1.0.tar.bz2
+    tar jxvf transcode-1.1.0.tar.bz2
+    mv transcode-1.1.0.tar.bz2 ../download
+    cd transcode-1.1.0
+    ./configure --enable-v4l --enable-ogg --enable-vorbis --enable-theora --enable-libdv --enable-a52 --enable-libmpeg3 --enable-libxml2 --enable-sdl --enable-gtk --enable-imagemagick
+    ./configure --enable-v4l --enable-ogg --enable-vorbis --enable-theora --enable-libdv --enable-a52 --enable-libmpeg3 --enable-libxml2 --enable-sdl --enable-gtk --enable-imagemagick --with-libavformat-includes=/usr/include
+    make
+    sudo make install
+    cd ..
+    cd ..
+    transcode -h
+
+Autres sources :
+
+    * wget http://www.exit1.org/dvdrip/dist/dvdrip-0.98.10.tar.gz
+    * wget http://downloads.xvid.org/downloads/xvidcore-1.2.1.tar.gz
+    * svn checkout svn://svn.videolan.org/libdvbpsi/trunk libdvbpsi-trunk
 
 
 Conversion formats vidéo
@@ -319,6 +412,34 @@ Par exemple pour des multi sous titre ::
     mv film2sub.mpg film.mpg
 
 Et on pourra alors utiliser film2sub.mpg avec dvdauthor...
+
+exemple fichier spumux français ::
+
+    <subpictures>
+        <stream>
+            <textsub filename="afr.srt" characterset="ISO_8859" 
+                fontsize="28.0" font="arial.ttf" horizontal-alignment="center" 
+                vertical-alignment="bottom" left-margin="60" right-margin="60" 
+                top-margin="20" bottom-margin="30" subtitle-fps="30" 
+                movie-fps="30" movie-width="720" movie-height="480"
+                force="yes"
+            />
+        </stream>
+    </subpictures>
+
+exemple fichier spumux espagnom ::
+
+    <subpictures>
+        <stream>
+            <textsub filename="aes.srt" characterset="ISO_8859" 
+                fontsize="28.0" font="arial.ttf" horizontal-alignment="center" 
+                vertical-alignment="bottom" left-margin="60" right-margin="60" 
+                top-margin="20" bottom-margin="30" subtitle-fps="30" 
+                movie-fps="30" movie-width="720" movie-height="480"
+                force="yes"
+            />
+        </stream>
+    </subpictures>
 
 
 Extraction de sous-titres d'un dvd

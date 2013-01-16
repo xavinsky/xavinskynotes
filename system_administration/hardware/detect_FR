@@ -46,6 +46,8 @@ Detection Matérielle
     cat DSDT.dsl
 
     # CPU
+    cat /proc/cpuinfo |grep lm # detect si le flag lm (64 bit) est présent.
+
     x86info
     superiotool
 

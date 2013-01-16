@@ -57,4 +57,10 @@ Configuration de carte réseau ::
 
     ethtool
 
+Detection adresse mac ::
+
+    ifconfig -a | grep HWaddr | awk '{print $1 "  :  " $5}'
+
+
+
 

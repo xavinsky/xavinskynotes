@@ -306,16 +306,27 @@ Configuration de clef ssh, editer  ~/.ssh/config ::
         IdentityFile ~/.ssh/<fichier_clef_privé__exemple_id_dsa>
         User <nom_user_github>
 
-Se connecter sans login mot de passe (nécessite clef ssh) ::
+Initialiser un depot github ::
 
-    # pour vous connecter avec une clef publique ssh
+    # 1) sur l'interface web de git hub, creer un nouveau depot.
+    
+    # 2) mettre vos source local en git
+    cd <depot>
+    git init
+    git add *
+    git commit -m 'init depot'
+
+    # choisir 3a ou 3b
+
+    # 3a) Se connecter sans login mot de passe (nécessite clef ssh)
     git remote add origin git@github.com:/<user>/<depot>.git
-    git push -u origin master
-
-Se connecter avec login mot de passe ::
-
+    
+    # 3b) connecter avec login mot de passe
     git remote add origin https://github.com/<user>/<depot>.git
+
+    # 4) envoyer les donner sur github
     git push -u origin master
+
 
 ========
 Syntaxes

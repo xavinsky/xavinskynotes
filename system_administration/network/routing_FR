@@ -27,9 +27,39 @@ qdisk est la notion de file d'attente.
 Firewall et routage
 ===================
 
-::
+iptables
 
-    iptables
+
+exemple de syntaxes ::
+
+    iptables -A INPUT -s 10.170.217.148 --protocol udp --dport 9160 -i eth0 -j ACCEPT
+    iptables -A INPUT -s 10.170.217.148 --protocol tcp --dport 9160 -i eth0 -j ACCEPT
+
+    iptables -D INPUT -s 10.170.217.148 --protocol udp --dport 9160 -i eth0 -j ACCEPT
+    iptables -D INPUT -s 10.170.217.148 --protocol tcp --dport 9160 -i eth0 -j ACCEPT
+
+    iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to 8000
+
+    #voir les regles INPUT, FORWARD et OUTPUT
+    iptables -L
+    # l' option par default est (iptables -L -t filter)
+
+    #voir les regles NAT
+    iptables -L -t nat
+
+    #voir d'autre regles
+    iptables -L -t mangle
+    iptables -L -t raw
+
+sauvegarder les tables iptables actuelles ::
+
+    iptables-save > /etc/iptables.up.rules
+
+pour lancer les regles sauvegardées au démarrage, utiliser /etc/network/if-pre-up.d/iptables ::
+
+    #!/bin/sh
+    /sbin/iptables-restore < /etc/iptables.up.rules
+
 
 
 
