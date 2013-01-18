@@ -1,0 +1,53 @@
+###########
+Imprimantes
+###########
+
+Site de reference :
+http://www.linuxprinting.org
+
+Install cups sur debian.
+http://www.debian.org/doc/manuals/reference/ch-install.fr.html#s-cups
+
+HP
+==
+
+Utilitaire
+----------
+
+hplip ::
+
+    aptitude install hplip
+
+Références 
+----------
+    * Site HP pour drivers linux.
+      http://hplipopensource.com/hplip-web/supported_devices/index.html
+    * Page du driver hplip (download driver+ pdf doc)
+      http://hplipopensource.com/hplip-web/downloads.html
+    * Doc ubuntu sur hplib
+      http://doc.ubuntu-fr.org/hplip
+
+HP laserjet 1018
+----------------
+
+Site du driver avec note d'install.
+http://foo2zjs.rkkda.com/
+
+Note pour 1018 :
+http://www.linuxprinting.org/show_printer.cgi?recnum=HP-LaserJet_1018
+
+une solution pour le script a lancer au demarage est de modifier
+/etc/init.d/cupsys ::
+
+    chmod 3775 /usr/share/cups/model 2>/dev/null || true
+    cat /usr/share/foo2zjs/firmware/sihp1018.dl >  /dev/usb/lp0
+    start-stop-daemon --start --quiet --background -m --pidfile ... 
+
+HP F2480
+--------
+
+L'installation s'est faite automatiquement.
+
+Référence HP F2480 :
+http://hplipopensource.com/hplip-web/models/deskjet_aio/deskjet_f2400_series.html
+
