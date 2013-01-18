@@ -1,0 +1,84 @@
+########
+IBook G4
+########
+
+J'ai du faire une intervention pour récuperer les donnée d'un ibook g4.
+
+
+Récupération des donnée
+=======================
+
+On va utiliser un liveCD ubuntu (version powerPC) 
+pour récuperer les données d'un ibookG4
+
+
+Etape 1 : Lancer ubuntu liveCD
+------------------------------
+
+::
+
+    Allumer le ibookG4
+    Mettre le CD dans le mac
+    BANCHER LE CABLE RESO (branché sur un reseau IP valide avec l'ordi save)
+    Eteindre le ibookG4
+    Allumer le ibookG4 en appuyant sur la touche C
+    Attendre (un bon moment) l'invite: "boot:"
+    taper entree
+    Choisir French / francais puis clavier mac francais
+    Attendre demarrage du liveCD Ubuntu
+    Attendre que le buro  soit completement affiché.
+    (c'est dire que dans la barre supérieu de l'ecran il doit y avoir :
+    Applications, ressouirce, system, + 3 icones a droite de systeme ....
+
+
+Etape 2 : Passage en mode terminal
+----------------------------------
+
+::
+
+    # Appuyer sur CTRL ALT F1 (etre patient ~ 10s)
+    
+    # Pour les premieres commandes (tant que le systeme graphique n'est pas eteint)
+    # le clavier ne repond pas rapidement.
+    # il faut donc être patient et attendre que les carracteres taper au clavier s'affiche...
+    # et surtout attendre l'invite avant de taper chaque commande ou password.
+
+    # Creation du mot de passe root :
+    sudo passwd root
+    # choisir le mot de passe root: <PASSROOT>
+    Passage en root 
+    su
+    # entrer <PASSROOT>
+    # On eteint le systeme graphique pour recuperer de la memoire systeme :
+    /etc/init.d/gdm stop
+    # Attendre le retour de l'invite :
+    root@ubuntu:/etc/init.d #
+
+Etape 3 : Montage du disque dur
+
+::
+
+    parted
+    > print
+
+    # dans la colonne Sys/Fichier, 'hfs+' doit aparaitre sur un ligne.
+    # c'est la valeur de la colonne "Type mineur" correspondant nous interresse
+    # on la nomera <HID>
+
+    > quit (dans la commande parted)
+
+    cd /home/ubuntu
+    mkdir recup
+    mount -t hfsplus /dev/hda<HID> /home/ubuntu/recup
+    cd recup
+    # Vérifier le contenu du disque est bien la avec :
+    ls 
+
+    # Il faut ensuite recupere l'adresse IP d'une machine Linux dans notre exemple
+
+    rcp -R <nom user dans la machine de save>@<IP de save>:<chemin du repertoire de save>
+
+    # Etes vous sur de continuer: OUI
+    # Mot de passe de user de la machine de save
+
+

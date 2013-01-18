@@ -1,0 +1,12 @@
+####
+IPOD
+####
+
+pour monter un ipod sur mon PC pour transferer les données,
+j'ai utilisé (en root) ::
+
+    modprobe ohci1394
+    modprobe sbp2
+    mount -t hfsplus /dev/sdb /mnt/ipod/
+
+
