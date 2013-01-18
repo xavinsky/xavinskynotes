@@ -25,6 +25,11 @@ Commandes
 
 ::
 
+    # creer un depot
+    svnadmin create testsvn
+    # Donner les droits d'ecriture au groupe unix.
+    chmod -R g+w testsvn
+
     # checkout (recuperation sources)
     svn co http://svn.serveur.org/path --username=xxx --password=xxx
     # (ou svn checkout)
@@ -68,6 +73,23 @@ Commandes
     # d'ajouter au svn
     svn st
     # (ou svn status)
+
+Exemples
+--------
+
+    # exemple creer un repertoire de travail local
+    svn co file:///path/testsvn read1
+    cd read1
+    touch toto
+    svn add toto
+    svn commit
+
+    # exemple creer un repertoire de travail distant via ssh.
+    svn co svn+ssh://user@server/path/testsvn read2
+    cd read2
+    echo "iiii" >> toto
+    svn commit
+
 
 
 Résolution conflits

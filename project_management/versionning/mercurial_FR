@@ -1,0 +1,216 @@
+#########
+Mercurial
+#########
+
+L'outil de versionning mercurial est hg.
+
+
+TERMS
+=====
+
+::
+
+    depot / repository : Stockage des revisions Bazaar
+    working dir : repertoire de travail
+
+    changeset : changement dans un commit
+    Revision : changeset integré dans un repository
+    Rev : Revision number, identifiant de revision in the working dir
+    Changeset id : identifiant de revision unique pour un Rev
+    Parent : ancetre du de la revision dans le working dir
+
+    branch : suit un child d'une revision ...
+    ##branch / Branche : ligne de developpent d'un projet.
+
+    merge : revision avec 2 parents.
+    head : derniere revision d'une branche.
+    tip : dernier head
+    tag : nom pour une revision
+
+    patch : donnee pour mettre ajout d'une version a un autre
+    bundle : patch avec permission et renomae.
+
+Config HG
+=========
+
+::
+
+    ~/.hgrc 
+    username = Xavier Manach <xavier.manach@xcg-consulting.fr>
+    editor = emacs
+
+    Dans le repository :
+    .hgignore
+    syntax: glob
+    *.orig
+    *.rej
+    *~
+    *.o
+    tests/*.err
+    syntax: regexp
+    .*\#.*\#$
+
+GET
+===
+
+::
+
+    #recuperer un projet existant 
+    hg clone url_source repertoire_local
+
+UPDATE
+======
+
+::
+
+    # synchronise les repository (sans changer le contenu du repertoire de travail)
+    hg pull depotcentral
+
+    # met à jour le contenu sur la derniere revision.
+    hg update
+
+    # appliquer un patch (ou un bundle)
+    hg import file.patch
+    hg unbundle filebundle.hg
+
+INFOS
+=====
+
+::
+
+    # voir les fichier different
+    hg status
+
+    # diff 
+    hg diff
+    hg diff file.txt
+    hg diff -r100
+    hg diff -r100 -r200
+    hg diff -r100 -r200 | diffstat
+
+    # recup a version of file
+    hg cat -r100 file.txt
+
+
+    # voir historique des messages de commits
+    hg log
+
+    # montre la revsion (unique parent) ou merges (parents)
+    hg parents 
+
+    # voir les branchs 
+    hg heads
+
+    # voir les anotation ?
+    hg annotate myfile
+
+INITIALISE
+==========
+
+::
+
+    ##### creation de projet hg :
+    mkdir monprojecthg
+    cd monprojecthg
+    hg init # crée .hg
+
+    # ou 
+    hg init monprojet2
+
+EDIT LOCAL
+==========
+
+::
+
+    # ajout un fichier ou un repertoire
+    hg add test1.txt
+
+    # detruire
+    hg remove test1.txt
+
+    # rename
+    hg rename test1.txt test2.txt
+
+    # deplacer
+    hg rename oldfolder/test1.txt newfolder/test1.txt
+
+    # commit modif (avec edition commentaire interactive) 
+    hg commit
+
+Revisions et TAGS
+=================
+
+::
+
+    # mettre un tag
+    hg tag v1.0
+
+    # liste des tags
+    hg tags
+
+    # revision current switch to other revision
+    hg update -C REVISION
+
+    # le contenu du repertoire de travaille change 
+    # sans affecter le repertoire courrant
+    hg revert -rREV 
+
+    # annule toute modif sur le repertoire de travail 
+    # et revient a la derniere revision
+    hg revert
+
+    # annule dernier commit / pull / import ou unbundle
+    hg rollback
+
+MERGE
+=====
+
+::
+
+    # fusionner le nouveau Tip de project-work dans notre répertoire de travail
+    hg merge
+
+    #peut engendrer des conflits !
+    # une fois traiter, marquer les fichiers resolus :
+    bzr resolve file
+    bzr resolve 
+
+UPLOAD / PUBLISH
+================
+
+::
+
+    # Envoyer les changements vers un dépôt en utilisant SSH
+    hg push ssh://user@example.com/hg/
+
+    #Exporter un patch 
+    hg export REVISIONS > geature.path
+
+    #bundle change ???
+    hg bundle filebundle.hg ~/otherrepo
+
+PUBLICATION REPO
+================
+
+::
+
+    # Exporter votre dépôt actuel via HTTP avec une interface consultable sur le port 8000
+    hg serve -n "My repo"
+
+
+URL supported
+=============
+
+::
+
+    http 
+    ssh
+
+DOC
+===
+
+::
+
+    http://mercurial.selenic.com/wiki/Mercurial
+    http://mercurial.selenic.com/wiki/FrenchMercurial
+
