@@ -2,7 +2,37 @@
 OpenSSL
 #######
 
-Ces commandes fonctionnent ( demande la phrase pass ) ::
+Commandes unitaires
+===================
+
+::
+
+    ###  Generer une clef rsa 4096 bits
+    openssl genrsa -out my.key 4096
+
+    ###  Creer un request de certificat
+    openssl req -new -key my.key -out my.req -subj "CN=*"
+
+    ###  Signer un certificat
+    openssl x509 -req -in req.pem -out cert.pem  \
+      -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial \
+      -passin pass:capass -days 365
+
+    ###  Autosigner un certificat (par exemple pour son ca)
+    openssl req -new -x509 -key ca-key.pem -out ca-crt.pem -days 3650 \
+       -passin pass:capass -subj "CN=*"
+
+    ### voir les certificat.
+    openssl x509 -text -in cert.pem
+    # voir subject certificat (qui est-ce)
+    openssl x509 -subject -noout -in cert.pem
+    # voir issuer certificat (qui signe)
+    openssl x509 -issuer -noout -in cert.pem
+    # verifier un certificat signé par authorité
+    openssl verify cert.pem
+    # verifier en utilisant un serveur web et son repertoire CA.
+    openssl s_client -CApath /path/mes/ca/ -connect www.domain.com:443
+
 
     # generation cles
     openssl genrsa -out c1.pem -des3 -passout pass:monpassword 1024
@@ -28,4 +58,107 @@ Ces commandes fonctionnent ( demande la phrase pass ) ::
 
     # verifier l'empreinte
     openssl rsautl -in tocrypt.txt.hash.sign -verify -inkey c2.pem -pubin -out tocrypt.txt.hash.sign.verify
+
+    # Generer Certificat au format pkcs12
+    openssl pkcs12 -export -clcerts -in elem.crt -inkey elem.key -out elem.p12 
+
+
+Params explication
+==================
+
+    # genrsa <bits> : generation key rsa de longueur <bits>
+    #   -out <file> : key rsa (pem) created.
+
+    # req : gestion des certificat (creation requete ou autosignature)
+    #   -new : a new certificate request
+    #   -x509 : replace certificate request by signed certificate 
+    #   -days : nb de jour de validite
+    #   -key : utilise une key genere precedement
+    #   -newkey : genere un cle, indique le type et la longueur 
+    #   -keyout : genere un cle, indique le nom
+    #   -passin pass:<passphrase>: passphrase en entree (evite prompt)
+    #   -passout pass:<passphrase>: passphrase en entree (evite prompt)
+    #   -subj : information inclues dans le certificats (evite prompt)
+    #      C            = Country
+    #      ST           = Test State or Province
+    #      L            = Test Locality
+    #      O            = Organization Name
+    #      OU           = Organizational Unit Name
+    #      CN           = Common Name
+    #      emailAddress = test@email.address
+
+    #      CN is important becausse used by apache in https connexion.
+    #      CN=* : for all domain.
+    #      CN=*.domain.com : for all subdomain
+    #      CN=www.domain.com : for an unique domain.
+    #   -nodes : pour auto sign, no crypt, donc effet secondaire : pass de passphrass (evite prompt)
+
+    # x509 : certificate display and signature.
+    #   ## display
+    #   -in <cert.pem> : indique le certificat a regarder
+    #   -text : voir le certificat.
+    #   -subject : voir a qui appartient
+    #   -issuer : voir qui a signer
+    #   -noout : ne pas afficher la partie crypte
+    #   ## sign
+    #   -req : signe requete
+    #   -in <req.pem> : fichier requete
+    #   -signkey <ca-key.pem> : key pour signer
+    #   -out <cert.pem> : certificat produit
+    #   -CA <ca-cert.pem> : CA cert
+    #   -CAkey <ca-key.pem> : CA key (redondant ?)
+    #   -CAserial <cert.srl> : numero serial
+    #   -CAcreateserial 
+    #   -passin pass:<capass> : pass ca
+    #   -days 365 : nb jours validite
+
+    # verify <cert.pem> : verifie sur les CA standards
+
+    # s_client  Verifie avec webserver
+    #   -CApath </path/ca> : repertoire contenant les cert.pem ca.
+    #   -connect <www.domain.com:443> : site a verifier (recuper le certificat ssl) 
+
+    # verifier en utilisant un serveur web et son repertoire CA.
+
+Exemple CA et apache2
+=====================
+
+1
+-
+
+::
+
+    # generer les clefs :
+    openssl genrsa -out ca-key.pem 4096
+    openssl genrsa -out apache2-key.pem 4096
+
+    # auto sign certificat ca :
+    openssl req -new -x509 -key ca-key.pem -out ca-cert.pem -days 3650 \
+      -passin pass:mypasswd \
+      -subj "/C=FR/ST=FR/L=Paris/O=tekio.org/OU=CA/CN=*/emailAddress=xav@tekio.org"
+
+    # certificat request pour apache2 et tekionotes.
+    openssl req -new -key apache2-key.pem -out apache2-req.pem \
+      -subj "/C=FR/ST=FR/L=Paris/O=tekio.org/OU=Tekionotes/CN=*/emailAddress=xav@tekio.org"
+
+    # ca sign certificate apache:
+    openssl x509 -req -in apache2-req.pem -out apache2-cert.pem -CAserial apache2.srl \
+      -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -passin pass:mypass -days 365
+
+2
+-
+
+::
+
+    ###  Version simple creer les fichier pour apache autosigne sans prompt sans passphrase :
+    openssl req -new -newkey rsa:4096 -days 365 -passout pass:mypasswd -x509 \
+      -subj "/C=FR/ST=FR/L=Paris/O=tekio.org/OU=Tekionotes/CN=*/emailAddress=xav@tekio.org" \
+      -keyout apache.pem -out apache-cert.pem
+
+    ###  Version simple creer les fichier pour apache autosigne sans prompt avec passphrase :
+    openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
+      -subj "/C=FR/ST=FR/L=Paris/O=tekio.org/OU=Tekionotes/CN=*/emailAddress=xav@tekio.org" \
+      -keyout apache.pem -out apache-cert.pem
+
+
 

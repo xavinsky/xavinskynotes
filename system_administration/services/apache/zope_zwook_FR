@@ -1,0 +1,42 @@
+#################
+Config zope zwook
+#################
+
+Fichiers de configuration des sites dans /etc/apache2/sites-available
+
+avec ::
+
+    mon domaine : mon.domaine.org
+    port du site http : 80
+    port du site https : 443
+    mon email : webmaster@mon.email.org
+    Repertoire ou son stoquer mes images :  /var/www/zwo_images
+    Port de mon zope : 8080
+
+ressemble a ceci, /etc/apache2/sites-available/mon.domaine.org :: 
+
+    NameVirtualHost *:80
+    <VirtualHost *:80>
+      DocumentRoot /var/www
+      ServerName mon.domaine.org
+      ServerAdmin webmaster@mon.email.org
+      RewriteEngine On
+      RewriteRule ^/(.*)zwo_images(.*) /var/www/zwo_images$2 [L]
+      RewriteRule ^/(.*) http://localhost:8080/VirtualHostBase/http/mon.domaine.org:80/forlderzope/zwook/VirtualHostRoot/$1 [L,P]
+    </VirtualHost>
+
+    <VirtualHost *:443>
+      ServerName mon.domaine.org:443
+      ServerAdmin webmaster@mon.email.org
+      SSLEngine on
+      SSLCertificateFile /etc/apache2/ssl/new.cert.cert
+      SSLCertificateKeyFile /etc/apache2/ssl/new.cert.key
+      RewriteEngine On
+      RewriteRule ^/(.*)zwo_images(.*) /var/zope/1et0/Products/Zwook/zwo_images$2 [L]
+      RewriteRule ^/(.*) http://localhost:8080/VirtualHostBase/https/mon.domaine.org:443/forlderzope/zwook/VirtualHostRoot/$1 [L,P]
+    </VirtualHost>
+
+faire un lien symbolique de ce ficher dans site-enable
+
+ln -s /etc/apache2/sites-available/mon.domaine.org /etc/apache2/sites-enable/mon.domaine.org
+

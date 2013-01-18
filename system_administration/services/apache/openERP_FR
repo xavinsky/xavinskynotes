@@ -1,0 +1,130 @@
+#######
+OpenERP
+#######
+
+Configuration apache pour openerp
+
+Modules apache
+==============
+
+::
+
+    a2enmod ssl proxy_http headers proxy proxy_connect proxy_ftp rewrite
+
+Configuration
+=============
+
+On doit utiliser https car l'acces openerp necessite des droits utilisateurs.
+
+Exemple VirtualHost
+-------------------
+
+Dans un virtual host openerp, par exemple site-available/myopenerp
+Replacer les valeurs {config.*}
+
+
+
+::
+
+    <VirtualHost *:443>
+        #ServerAdmin {config.admin_email}
+        #ServerName {config.domain}
+        #ServerAlias *.{config.domain}
+        DocumentRoot /var/www
+        LogLevel warn
+        ErrorLog /var/log/apache2/error.log
+        CustomLog /var/log/apache2/access.log combined
+        SSLEngine on
+        SSLCertificateFile    /etc/apache2/ssl/apache2-cert.pem
+        SSLCertificateKeyFile /etc/apache2/ssl/apache2-key.pem
+
+        RequestHeader set "X-Forwarded-Proto" "https"
+        # Fix IE problem (httpapache proxy dav error 408/409)
+        SetEnv proxy-nokeepalive 1
+
+        <Proxy *>
+            Order deny,allow
+            Allow from all
+        </Proxy>
+        ProxyRequests Off
+
+        ProxyVia On
+        ProxyPass /webdav/ http://127.0.0.1:{config.openerp.webdav.port}/webdav/
+        <Location /webdav/ >
+            ProxyPassReverse /webdav/
+           <Limit OPTIONS PROPFIND GET REPORT MKACTIVITY PROPPATCH PUT MOVE COPY DELETE LOCK UNLOCK>
+               Order Deny,Allow
+               Allow from all
+               Satisfy Any
+           </Limit>
+        </Location>
+
+        ProxyPass / http://127.0.0.1:{config.openerp.http.port}/
+        <location / >
+            # ProxyPassReverse /
+            ProxyPassReverse / http://localhost:{config.openerp.http.port}/
+        </location>
+
+        <Directory />
+            Options FollowSymLinks
+            AllowOverride None
+        </Directory>
+        <Directory /var/www/>
+            Options Indexes FollowSymLinks MultiViews
+            AllowOverride None
+            Order allow,deny
+            allow from all
+        </Directory>
+        BrowserMatch "MSIE [2-6]" \
+            nokeepalive ssl-unclean-shutdown \
+            downgrade-1.0 force-response-1.0
+        # MSIE 7 and newer should be able to use keepalive
+        BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+        # Fix IE problem (http error 408/409)
+        SetEnv proxy-nokeepalive 1
+    </VirtualHost>
+
+
+autre config moin fiable avec mod_proxy et mod_rewrite ::
+
+    RewriteEngine on
+    RewriteRule ^~openerp/(*) http://mon_ip_fix:8080/$1 [P]
+
+pour port ssl (xmlrpcs) dans openerp : openerp-server.conf ::
+
+    secure_pkey_file = /etc/ssl/openerp/server.key
+    secure_cert_file = /etc/ssl/openerp/server.crt 
+
+
+sudo nano /etc/openerp-web.conf
+
+    # Some server parameters that you may want to tweak
+    server.socket_host = “127.0.0.1″
+
+    # Set to True if you are deploying your App behind a proxy
+    # e.g. Apache using mod_proxy
+    tools.proxy.on = True
+
+    # If your proxy does not add the X-Forwarded-Host header, set
+    # the following to the *public* host url.
+    tools.proxy.base = ‘https://your-ip-or-domain’
+
+    # Set to false to disable CSRF checks
+    tools.csrf.on = False 
+
+ou  encore ::
+
+    base_url_filter.on = True
+    base_url_filter.use_x_forwarded_host = False
+    base_url_filter.base_url = "https://www.example.com"
+
+!!! attention a l'existance necessaire du hostname dans /etc/hosts*
+
+Références
+==========
+
+    * http://www.theopensourcerer.com/2011/04/21/how-to-install-openerp-6-on-ubuntu-10-04-lts-server-part-2-ssl/
+    * http://www.theopenlearningcentre.com/thewayout/145-how-to-install-openerp-6-on-ubuntu-1004-lts-server-part-2-ssl.html
+    * http://www.howtoforge.com/installation-of-openerp-server-5.0-openerp-gtk-client-5.0-and-openerp-web-client-5.0.1-on-ubuntu-server-9.04-p3
+    * http://www.zbeanztech.com/blog/setting-ssl-proxy-openerp-web
+

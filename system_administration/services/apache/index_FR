@@ -1,0 +1,103 @@
+######
+APACHE
+######
+
+.. contents:: Sommaire
+
+Installation
+============
+
+::
+
+    aptitude install apache2 apache2-mpm-worker apache2-utils libapache2-mod-proxy-html
+    aptitude install openssl ssl-cert
+
+Debian et apache
+----------------
+
+Modification debian sur la disposition des fichiers apaches ::
+
+    binaries (apachectl)  /usr/sbin/
+    gestionnaire de demon /etc/init.d/apache2 (start|stop|graceful|configtest)
+    ServerRoot            /etc/apache2/
+    Fichier de config     /etc/apache2/apache2.conf
+    Modules  disponible   /etc/apache2/mods-available/
+    Module active         /etc/apache2/mods-enabled/
+    VHost disponible      /etc/apache2/sites-available/
+    VHost activé          /etc/apache2/sites-enabled/
+
+    VHost par Default     /etc/apache2/sites-available/default, /etc/apache2/sites-enabled/000-default
+    son DocumentRoot      /var/www/
+    son ErrorLog          /var/log/apache2/error.log
+    son AccessLog         /var/log/apache2/access.log
+    son cgi-bin           /usr/lib/cgi-bin/
+
+
+
+Configuration
+=============
+
+Les modules
+-----------
+
+Pour connaitre les modules compilés avec apaches ::
+
+    apache -l 
+
+Liste des modes apache enable ::
+
+    ls /etc/apache2/mods-enabled
+
+    cgid.conf
+    cgid.load
+    dav_fs.conf
+    dav_fs.load
+    dav.load
+    dav_svn.conf
+    dav_svn.load
+    proxy_html.load
+    proxy.load
+    rewrite.load
+    ssl.conf
+    ssl.load
+    userdir.conf
+    userdir.load
+
+
+Les Ports
+---------
+
+Fichier de configuration modifié /etc/apache2/port.conf pour chaque port
+ouvert ::
+
+    Listen 80
+    Listen 443
+
+VirtualHost
+-----------
+
+Il existe dans debian des repertoires pour les virtualhost disponible : /etc/apache2/sites-available. Il contient des fichiers avec des config de virtualhost.
+
+Ces configurations s'active en manipulat des lien symbolique de ces fichiers dans le repertoire d'activation : /etc/apache2/sites-enabled/
+
+On pourra utiliser une numérotation pour donner un ordre a ces configurations.
+
+Exemples ::
+
+    # activation
+    ln -s /etc/apache2/sites-available/monvhost /etc/apache2/sites-enabled/018-monvhost
+    # desactivation
+    rm -f /etc/apache2/sites-enabled/018-monvhost
+
+
+Option pour VCard
+-----------------
+
+syntaxe apache pour que les vcard soit integrer par les mobiles ::
+
+    AddType text/x-vcard .vcf
+    <Files *.vcf>
+        Header set Content-Disposition attachment
+    </Files> 
+
+
