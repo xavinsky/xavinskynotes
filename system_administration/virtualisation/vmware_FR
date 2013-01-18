@@ -1,0 +1,241 @@
+######
+VMWare
+######
+
+
+Outil propriétaire facile à prendre en main, le tout avec interface graphique.
+C'est le standard utilisé un peu partout.
+
+Installation
+============
+
+::
+
+    # necessaire pour install vmware workstation
+    aptitude install linux-headers-2.6.32-5-amd64 gcc make 
+    # lancer une fois vmware sous X pour installation des modules.
+    # et remplir la licence
+
+
+Utilisation
+===========
+
+En console, la commande pour controler les vm est vmrun.
+
+Syntaxe ::
+
+    vmrun <options> command <params>
+
+    # commandes (options): 
+    vmrun list
+
+    vmrum start /path/vm.vmx nogui
+    vmrum suspend /path/vm.vmx
+    vmrum stop /path/vm.vmx
+    vmrum reset /path/vm.vmx
+
+    vmrum listSnapshots /path/vm.vmx 
+    vmrum snapshot /path/vm.vmx namesnap
+    vmrum deleteSnapshot /path/vm.vmx namesnap
+    vmrum revertToSnapshot /path/vm.vmx namesnap
+
+    vmrum deleteVM /path/vm.vmx
+    vmrum clone /path/vm.vmx /path/newvm.vmx full namesnap
+
+    #vmrun installTools /path/vm.vmx
+
+    vmrun -gu exploitation -gp passtmp listProcessesInGuest /path/vm.vmx
+    vmrun -gu exploitation -gp passtmp runProgramInGuest /path/vm.vmx /sbin/ifconfig 
+
+    ##  option pour acces distant avec vmrun
+    # -T ws : acces a une workstation vmware
+    # -T esx : acces a une workstation vmware
+    # -h hostname
+    # -P hostport
+    # -u username in os (not need for ws)
+    # -p password in os (not need for ws)
+    # -vp password for encrypted vm
+    # -gu username in vm 
+    # -gp password in vm
+
+    # option pour lancer un programme dans la machine virtuelle
+    # runProgramInGuest        Path to vmx file
+    #                          [-noWait]
+    #                          [-activeWindow]
+    #                          [-interactive]
+    #                          Complete-Path-To-Program
+    #                          [Program arguments]
+
+    # option pour mancer un script dans la machine virtuelle
+    # runScriptInGuest         Path to vmx file
+    #                          [-noWait]
+    #                          [-activeWindow]
+    #                          [-interactive]
+    #                          Interpreter path
+    #                          Script text
+
+
+
+    # Convertion vmware ovf
+    ovftool pathvmx/file.vmx pathovf/file.ovf
+
+    # Convertion ovf vmware
+    ovftool pathovf/file.ovf pathvmx/file.vmx
+
+
+Exemple script d'exploitation pour mise en place de vm pour recuperer l'ip de la vm ::
+
+    # fichier dans l'image de la vm /usr/local/bin/getipeth0 : 
+    #!/bin/sh
+    sudo /sbin/ifconfig eth0 | grep 'inet a' | awk '{print $2}' |awk -F ':' '{print $2}' > /home/exploitation/ipeth0.txt
+
+    # recuperation de l'ip de la vm dans un fichier sur le host.
+    vmrun -gu exploitation -gp passtmp runProgramInGuest UbuntuServer1010.vmx /usr/local/bin/getipeth0
+    vmrun -gu exploitation -gp passtmp CopyFileFromGuestToHost UbuntuServer1010.vmx /home/exploitation/ipeth0.txt ipeth0.txt
+
+
+Astuce
+======
+
+pour que la vm demarre automatiquement, utiliser dans le fichier de config ::
+
+    autostart = "poweron"
+
+
+voir l'adresse mac d'une ip (de la vm) ::
+
+    arp -n 192.168.111.154
+
+Liste complete des options vmrun
+================================
+
+======================== ==================== ===================================
+GENERAL COMMANDS         PARAMETERS           DESCRIPTION
+======================== ==================== ===================================
+list                                          List all running VMs
+
+upgradevm                Path to vmx file     Upgrade VM file format, virtual hw
+
+installTools             Path to vmx file     Install Tools in Guest
+
+register                 Path to vmx file     Register a VM
+
+unregister               Path to vmx file     Unregister a VM
+
+listRegisteredVM                              List registered VMs
+
+deleteVM                 Path to vmx file     Delete a VM
+
+clone                    Path to vmx file     Create a copy of the VM
+                         Path to destination 
+                         vmx file
+                         full|linked
+                         [Snapshot name]
+======================== ==================== ===================================
+
+======================== ==================== ===================================
+VPROBE COMMANDS          PARAMETERS           DESCRIPTION
+======================== ==================== ===================================
+vprobeVersion            Path to vmx file     List VP version
+
+vprobeLoad               Path to vmx file     Load VP script
+                         'VP script text'
+
+vprobeLoadFile           Path to vmx file     Load VP file
+                         Path to VP file
+
+vprobeReset              Path to vmx file     Disable all vprobes
+
+vprobeListProbes         Path to vmx file     List probes
+
+vprobeListGlobals        Path to vmx file     List global variables
+======================== ==================== ===================================
+
+======================== ==================== ===================================
+OPTION COMMAND           PARAMETERS           DESCRIPTION
+======================== ==================== ===================================
+runProgramInGuest        Path to vmx file     Run a program in Guest OS
+                         [-noWait]
+                         [-activeWindow]
+                         [-interactive]
+                         Path-To-Program
+                         [Program arguments]
+
+fileExistsInGuest        Path to vmx file     Check if a file exists in Guest OS
+                         Path file in guest
+
+directoryExistsInGuest   Path to vmx file     Check if a directory exists in Guest OS
+                         Path dir in guest
+
+setSharedFolderState     Path to vmx file     Modify a Host-Guest shared folder
+                         Share name
+                         Host path
+                         writable|readonly
+
+addSharedFolder          Path to vmx file     Add a Host-Guest shared folder
+                         Share name
+                         New host path
+
+removeSharedFolder       Path to vmx file     Remove a Host-Guest shared folder
+                         Share name
+
+enableSharedFolders      Path to vmx file     Enable shared folders in Guest
+                         [runtime]
+
+disableSharedFolders     Path to vmx file     Disable shared folders in Guest
+                         [runtime]
+
+listProcessesInGuest     Path to vmx file     List running processes in Guest OS
+
+killProcessInGuest       Path to vmx file     Kill a process in Guest OS
+                         process id
+
+runScriptInGuest         Path to vmx file     Run a script in Guest OS
+                         [-noWait]
+                         [-activeWindow]
+                         [-interactive]
+                         Interpreter path
+                         Script text
+
+deleteFileInGuest        Path to vmx file     Delete a file in Guest OS
+Path in guest            
+
+createDirectoryInGuest   Path to vmx file     Create a directory in Guest OS
+Directory path in guest  
+
+deleteDirectoryInGuest   Path to vmx file     Delete a directory in Guest OS
+Directory path in guest  
+
+listDirectoryInGuest     Path to vmx file     List a directory in Guest OS
+                         Dir path in guest
+
+CopyFileFromHostToGuest  Path to vmx file     Copy a file from host OS to guest OS
+Path on host             Path in guest
+                         
+
+CopyFileFromGuestToHost  Path to vmx file     Copy a file from guest OS to host OS
+Path in guest            Path on host
+                         
+
+renameFileInGuest        Path to vmx file     Rename a file in Guest OS
+                         Original name
+                         New name
+
+captureScreen            Path to vmx file     Capture the screen of the VM to a local file
+Path on host             
+
+writeVariable            Path to vmx file     Write a variable in the VM state
+                         [runtimeConfig|
+                         guestEnv|
+                         guestVar]
+                         variable name
+                         variable value
+
+readVariable             Path to vmx file     Read a variable in the VM state
+                         [runtimeConfig|
+                         guestEnv|
+                         guestVar]
+                         variable name
+======================== ==================== ===================================
+
+

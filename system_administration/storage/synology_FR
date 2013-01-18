@@ -1,0 +1,18 @@
+########
+Synology
+########
+
+configuration smbfs pour synology
+=================================
+
+Acceder au smbfs sur un synology :
+
+::
+
+    # creer /etc/samba/cifspwd :
+    username=yourusername
+    password=yourpassword
+
+    # /etc/fstab,  ajouter ligne :
+    <NOMNAS>/<path_partage> /<path_local> cifs user,uid=<nomuser>,gid=<nomgroup>,rw,suid,credentials=/etc/samba/cifspwd 0 0
+

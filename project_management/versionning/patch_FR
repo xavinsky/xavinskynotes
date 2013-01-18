@@ -1,0 +1,38 @@
+#####
+Patch
+#####
+
+::
+
+    ## Make a Patch for a file
+    diff -u my_file_init my_file_new > my_file.patch
+
+    # Apply the patch 
+    patch < my_folder.patch
+
+    ## Make a patch for a folder.
+    diff -crB my_folder_init my_folder_new > my_folder.patch
+
+    # Test patch 
+    cd my_folder
+    patch --dry-run -p1 < my_folder.patch
+
+    # Apply a patch 
+    cd my_folder
+    patch -p1 < my_folder.patch
+
+    # UnApply a patch
+    patch -p1 -R < my_folder.diff
+
+    # param diff :
+    # -u unified context
+    # -c context
+    # -r recursive
+    # -B ignore Blank Lines
+
+    # param patch :
+    # -p1 context
+    # -i input file
+    # -R UnApply
+    # -d <path> change folder : affect folder to patcher and input file
+

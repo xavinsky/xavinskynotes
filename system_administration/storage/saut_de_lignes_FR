@@ -1,0 +1,60 @@
+#############
+Saut de ligne
+#############
+
+Version courte 
+==============
+
+::
+
+    CR+LF (Windows)
+    LF (Unix)
+    CR (Macintosh avant mac Os X)
+
+    # notation classique
+    '\r' = CR = Carriage Return
+    '\n' = LF = Line Feed (new line)
+
+    # command for conversion : 
+    flip, toms, toix, dos2unix, unix2dos, mac2unix, unix2mac, mac2dos, dos2mac
+
+    # permet de visualiser les caracteres fin de ligne.
+    cat -e myfile.txt
+
+Version longue 
+==============
+
+    LF:    Multics, Unix and Unix-like systems (GNU/Linux, AIX, Xenix, Mac OS X, FreeBSD, etc.), BeOS, Amiga, RISC OS and others. Also, Microsoft Windows uses LF newlines in the "Windows Developer Preview,"[citation needed] a pre-beta version of Windows 8 freely available for developers.
+    CR+LF: Microsoft Windows, DEC TOPS-10, RT-11 and most other early non-Unix and non-IBM OSes, CP/M, MP/M, DOS (MS-DOS, PC-DOS, etc.), Atari TOS, OS/2, Symbian OS, Palm OS
+    LF+CR: Acorn BBC and RISC OS spooled text output.
+    CR:    Commodore 8-bit machines, Acorn BBC, TRS-80, Apple II family, Mac OS up to version 9 and OS-9
+    RS:    QNX pre-POSIX implementation.
+
+    LF:    Line Feed, U+000A
+    VT:    Vertical Tab, U+000B
+    FF:    Form Feed, U+000C
+    CR:    Carriage Return, U+000D
+    CR+LF: CR (U+000D) followed by LF (U+000A)
+    NEL:   Next Line, U+0085
+    LS:    Line Separator, U+2028
+    PS:    Paragraph Separator, U+2029
+
+    Caractère  Unicode    ASCII  EBCDIC*
+    CR         000D       0D     0D      0D
+    LF         000A       0A     25      15
+    CRLF       000D,000A  0D,0A  0D,25   0D,15
+    NEL*       0085       85     15      25
+    VT         000B       0B     0B      0B
+    FF         000C       0C     0C      0C
+    LS         2028       n/a    n/a     n/a
+    PS         2029       n/a    n/a     n/a
+
+    end-of-line (EOL) 
+
+References
+==========
+
+    * francaise http://unicode.org/reports/tr13/tr13-9.html
+    * Unicode Line Breaking Algorithm http://www.unicode.org/reports/tr14/
+    * Unicode Newline Guidelines http://unicode.org/reports/tr13/tr13-9.html
+

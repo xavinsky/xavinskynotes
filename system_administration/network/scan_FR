@@ -2,14 +2,47 @@
 Scan
 ####
 
+.. contents:: Sommaire
+
+Inspection systeme
+==================
+
+::
+
+    # detection du systeme d'exploitation
+    nmap -O ipmachine
+
+    # Scan les port d'une machine
+    nmap -v -A 192.168.0.1
+
+    # scan des ports et de la version des logiciels
+    nmap -sV ipmachine
+
+    # scan rapide et non intrusif
+    nmap -sS ipmachine
+
+    # obtenir une adresse pac pour une ip :
+    ping <ip>
+    arp -n <ip>
+
 
 Inspection réseau
 =================
 
 ::
 
-    ## Scan sur réseau local 192.168.0.x
+    ## Scan sur réseau local 192.168.0.x (mask 255.255.255.0)
     nmap -v -sP 192.168.0.0/24 
-    # Scan les port d'une machine
-    nmap -v -A 192.168.0.1
 
+    # scan rapide du reseau local 192.168.0.x (mask 255.255.255.0)
+    nmap -sP 192.168.0.1/24
+    #ou
+    nmap -sP 192.168.0.1-254
+
+    # Obtenir les adresses macs pour les machines du reseau local
+    nmap -p 22 192.168.0.1/24
+
+Reférences
+==========
+
+    * http://nmap.org/bennieston-tutorial/

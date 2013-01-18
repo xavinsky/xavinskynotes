@@ -2,6 +2,8 @@
 DNS
 ###
 
+.. contents:: Sommaire
+
 Config Locale DNS
 =================
 
@@ -20,36 +22,6 @@ pour ajouter des entrée locale manuellement ::
     /etc/hosts 
 
 
-test DNS
-========
-
-::
-
-    dig
-    host
-    whois
-    dnstop
-
-
-DNS dynamique
-=============
-
-Services de dns dynamiques :
-
-    * http://freedns.afraid.org/
-    * http://www.no-ip.com/
-    * http://www.changeip.com/
-    * http://www.namecheap.com/products/freedns.aspx
-
-
-Gestion de vos DNS
-==================
-
-::
-
-    # Service de dns gratuits :
-    www.xname.org
-    www.gratisdns.de
 
 
 Liste de DNS
@@ -116,3 +88,86 @@ Ancien service DNS des FAI ::
 IP de google si vous n'avez pas regler votre DNS ::
 
    72.14.221.104
+
+Voir les enregistrement dns
+===========================
+
+::
+
+    # basic use
+    dig tekio.org +short
+
+    # DNS
+    dig tekio.org NS +noall +answer
+
+    # Addresse
+    dig tekio.org A +noall +answer
+
+    # Server Mail
+    dig tekio.org MX +noall +answer
+
+    # ALL
+    dig tekio.org ANY +noall +answer
+
+    dig +nocmd tekio.org any +multiline +noall +answer
+
+    # IP to dns 
+    dig -x 192.168.0.1 +short
+    dig +noall +answer -x 192.168.0.1
+    dig -x 192.168.0.1
+
+    # ask to a specific nameserver
+    dig @8.8.8.8 tekio.org
+    dig @ns1.google.com tekio.org
+
+
+    # check dns was updated
+    dig tekio.org +nssearch | cut -d' ' -f4,11
+    #verify there is all from
+    dig tekio.org NS +noall +answer
+
+    # tracing dns : +trac
+    dig tekio.org +trac
+
+    # check named.root
+    dig +nocmd . NS +noall +answer +additional
+
+
+Autres Outils
+=============
+
+::
+
+    host
+    whois
+    dnstop
+
+
+DNS dynamique
+=============
+
+Services de dns dynamiques :
+
+    * http://freedns.afraid.org/
+    * http://www.no-ip.com/
+    * http://www.changeip.com/
+    * http://www.namecheap.com/products/freedns.aspx
+
+
+Gestion de vos DNS
+==================
+
+::
+
+    # Service de dns gratuits :
+    www.xname.org
+    www.gratisdns.de
+
+REFERENCES
+==========
+
+    * propagation dns : http://viewdns.info/propagation/
+    * http://www.whatsmydns.net/
+    * http://www.preshweb.co.uk/cgi-bin/dns-propagation-tracker.pl?
+    * http://dnschk.com/
+    * http://www.mob.net/~ted/tools/dns.php3

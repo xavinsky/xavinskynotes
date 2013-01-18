@@ -1,0 +1,59 @@
+###########
+Compression
+###########
+
+Voici les syntaces de decompression, suivi de la compression.
+
+TAR
+===
+
+::
+
+    # (de)compresser tar
+    tar -xvf archive.tar
+    tar -cvf archive.tar repertoire
+
+TGZ
+===
+
+::
+
+    # (de)compresser tgz
+    tar -zxvf archive.tgz 
+    #-C <folder> : destination folder
+    tar -zcvf archive.tgz repertoire
+
+BZ2
+===
+
+::
+
+    # (de)compresser bz
+    tar -jxvf archive.tar.bz2 
+    tar -jcvf archive.tar.bz2 
+
+
+XZ
+==
+
+::
+    # (de)compresser xz
+    tar -Jxvf archive.tar.xz 
+    tar -Jcvf archive.tar.xz repertoire
+
+
+7Z
+==
+
+::
+
+    # (de)compresser 7z
+    7z e archive.7z
+    7z a archive.7z repertoire
+
+ZIP
+===
+
+    unzip archive.zip
+    zip -r archive.zip repertoire
+

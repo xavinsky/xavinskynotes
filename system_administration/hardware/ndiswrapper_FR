@@ -1,0 +1,28 @@
+###########
+ndiswrapper
+###########
+
+Ndiswrapper est un utilitaire qui permet d'utiliser un driver windows sur linux.
+
+::
+
+    # Installation version source :
+    module-assistant prepare
+    #setup the symbolic link /usr/src/linux
+    aptitude install ndiswrapper-source
+    module-assistant build ndiswrapper
+    aptitude install ndiswrapper-utils-1.9
+    module-assistant install ndiswrapper
+
+    # Installation version binaire :
+    aptitude install ndiswrapper-common
+
+    # Usage 
+
+    #WINDOWSDRIVER.sys
+    #WINDOWSDRIVER.inf
+
+    ndiswrapper -i WINDOWSDRIVER.inf
+    depmod -a
+    modprobe ndiswrapper
+

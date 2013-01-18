@@ -2,6 +2,7 @@
 Django
 ######
 
+.. contents:: Sommaire
 
 INITIALISATION DU PROJET DJANGO
 ===============================
@@ -117,9 +118,10 @@ Structures de données
 
 Malheureusement, django ne gère pas les modifications de structures.
 Lors de modification de la structure, nous avons alors deux choix :
- - tout détruire et tout recréer.
- - faire les requêtes sql à la main avec le risque d'être incompatible
-avec une version généré par django.
+
+  * tout détruire et tout recréer.
+  * faire les requêtes sql à la main avec le risque d'être incompatible
+    avec une version généré par django.
 
 Je préfère donc la première option, mais c'est un peu chiant.
 

@@ -1,0 +1,8 @@
+#######
+WINDOWS
+#######
+
+Acceder a un windows via rdesktop ::
+
+    rdesktop -d domain -u user -p password -k fr -f ipcible
+

@@ -2,6 +2,8 @@
 Utilisation de SSH
 ##################
 
+.. contents:: Sommaire
+
 Application X11 a travers par SSH
 ---------------------------------
 
@@ -90,5 +92,12 @@ Avec l'utilisateur monuser ::
 
     # Demonter :
     fusermount -u folderlocal
+
+    # exemple config dans /etc/fstab :
+    sshfs#logindistant@machinedistance:folderdistant folderlocal fuse defaults,idmap=user 0 0
+
+    # Exemple en direct IO :
+    sshfs -o direct_io logindistant@machinedistance:folderdistant folderlocal
+
 
 

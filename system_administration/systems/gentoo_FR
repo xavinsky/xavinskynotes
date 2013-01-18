@@ -1,0 +1,28 @@
+######
+Gentoo
+######
+
+::
+
+    # emerge info update
+    emerge --sync
+
+    full upgrade :
+    emerge --update --deep --with-bdeps=y --newuse world
+
+    # chercher paquets
+    emerge --search pdf
+    emerge --searchdesc pdf
+    # chercher des fichiers dans les paquets
+    equery files alsa-lib 
+
+    # verifier les flag et install
+    emerge -vp alsa-lib
+
+    # desinstall
+    emerge --unmerge gnumeric
+
+    # add keyword or use for emerge
+    echo "=dev-lang/python-2.7.2-r3:2.7 ~amd64"  >>/etc/portage/package.keywords
+    echo "dev-db/postgresql-server xml nls python uuid" >>/etc/portage/package.use
+

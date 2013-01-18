@@ -1,0 +1,23 @@
+######
+Sybase
+######
+
+Lancer sybase (root) ::
+
+    # Positionner les variables d'environement
+    source /opt/sybase/SYBASE.sh
+    /opt/sybase/ASE-15_0/bin/dataserver -s<server> -d/opt/sybase/data/master.dat -e/opt/sybase/ASE-15_0/install/<server>.log -c/opt/sybase/ASE-15_0/<server>.cfg -M/opt/sybase/ASE-15_0
+
+Utiliser sybase ::
+
+    su sybase
+
+    # Positionner les variables d'environement :
+    source /opt/sybase/SYBASE.sh
+
+    # Lancer utilitaire graphique :
+    /opt/sybase/shared/sybcentral600/scjview.sh
+
+    # Lancer intepreteur sql
+    /opt/sybase/OCS-15_0/bin/isql -S<server> -D<basededonnee> -U<user> -P
+

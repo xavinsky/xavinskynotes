@@ -1,0 +1,14 @@
+######
+ACCESS
+######
+
+
+Il existe un outil pour exporter les données d'une table dans une base access : mdb-export
+
+Utilisation ::
+
+    # option de syntaxe : [-d <delimiter>] [-R <row delim>] [-q <quote>]
+
+    # exemple : exporter une base acces (mdb) en csv, delimiteur ;
+    mdb-export -d ';'  -S my_file.mdb MY_TABLE  > my_file.csv
+

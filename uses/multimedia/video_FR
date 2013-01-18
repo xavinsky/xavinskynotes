@@ -206,7 +206,8 @@ dvd to iso
 
     # Lancer le dvd avec vlc, puis lancer :
     dd if=/dev/dvd of=DVD.iso bs=2048
-
+    # ou encore (selon le device cdrom)
+    dd if=/dev/sr0 of=DVD.iso
 
 bin/cue to iso
 ~~~~~~~~~~~~~~
@@ -267,6 +268,13 @@ flv (vidéo flash) en avi
       -ovc lavc -vf scale=320:240 \
       -lavcopts vcodec=mpeg4:vpass=2:vbitrate=300:vhq:v4mv:trell \
       -ffourcc DIVX -o film.avi
+
+    # version simplifié ::
+    mencoder -oac mp3lame -ovc lavc -o file.avi file.flv
+
+    # version ffmpeg ::
+    ffmpeg -i file.flv file.avi
+
 
 iso dvd en avi vost
 ~~~~~~~~~~~~~~~~~~~

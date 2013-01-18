@@ -1,0 +1,256 @@
+######
+Bazaar
+######
+
+.. contents:: Sommaire
+
+TERMS
+=====
+
+::
+
+    branche / branch : ligne de developpent d'un projet.
+    depot / repository : Stockage des revisions Bazaar
+    repertoire de travail / working tree 
+
+    Standalone Tree : working tree + branch + repository 
+
+    Shared repositories :  working tree + branch (no repository)
+    Stacked branches : branch stores only his revisions, use parent for common revision
+    Lightweight checkouts : working tree without branch.
+
+
+    version / revision : une version du repository
+    etiquette / tag : revision nommee
+    branche frere / related branches : branches ayant un ancetre commun. 
+    merge / merge : applique tout les changement d'une branche sur une autre.
+
+
+CONFIG
+======
+
+::
+
+    # config bazaar
+    # verifier votre config
+    bzr whoami
+    # changer de user
+    bzr whoami "xavinsky <xavier.manach@xcg-consulting.fr>"
+
+    config file for bazaar in ~/.bazaar :
+    => bazaar.conf
+    [DEFAULT]
+    email = xavinsky <xavier.manach@xcg-consulting.fr>
+    launchpad_username = xavinsky
+    editor = /usr/bin/emacs
+    => authentication.conf
+    [Launchpad]
+    host = .launchpad.net
+    scheme = ssh
+    user = xavinsky
+    => ignore
+    *.a
+    *.o
+    *.py[co]
+    *.so
+    *.sw[nop]
+    *~
+    .#*
+    [#]*#
+    __pycache__
+    bzr-orphans
+
+on peut egalement publier dans le repository un .bzrignore 
+pour fixer les ignores pour une branche. avec le même principe
+
+
+GET
+===
+
+::
+
+    #recuperer un projet existant sur launchpad :
+    # au format Standalone Tree :
+    bzr branch lp:project_name/versio_name folder_local
+    bzr branch lp:~user_name/project_name/versio_name folder_local
+
+    # au format Checkout 
+    bzr checkout lp:~user_name/project_name/versio_name folder_local
+    bzr checkout --lightweight lp:~user_name/project_name/versio_name folder_local
+
+    # passer d'un Standalone Tree a un checkout :
+    bzr bind lp:project_name/versio_name 
+    # passer d'un checkout à un Standalone Tree :
+    bzr unbind
+
+
+UPDATE
+======
+
+::
+
+    # recuperer a derniere mise a jour sur la parent branch.
+    bzr pull
+
+    # recuperer a derniere mise a jour sur une url
+    bzr pull URL
+
+    # recuperer a derniere mise a jour sur une url 
+    # qui deviendra parent branch
+    bzr pull --remember URL
+
+    # met le repertoire de travail sur la derniere revision.
+    bzr update  
+
+INFOS
+=====
+
+::
+
+    # voir les differences
+    bzr status
+    bzr diff
+    bzr diff file.txt
+    bzr diff -r100..200
+
+    # recuperer une revison d'un fichier
+    bzr cat -r100 file.txt
+
+    # chercher les branch obsolete
+    bzr shelve --list
+    bzr missing
+    bzr missing --mine-only
+
+    # voir historique des messages de commits
+    bzr log
+    bzr log -r numrevision
+    bzr log -r ..numrevision
+    bzr log -r ..numrevision..
+    bzr log -r numrev1..numrev2
+
+    # located branch and branch related (parent branch / submit branch).
+    bzr info
+
+INITIALISE
+==========
+
+::
+
+    ##### creation projet bzr :
+    bzr init-repo sample
+    cd sample
+
+    bzr init trunk
+    cd trunk
+
+EDIT LOCAL
+==========
+
+::
+
+    # ajout un fichier ou un repertoire
+    bzr add test1.txt
+
+    # detruire fichier
+    bzr remove test1.txt # elimine sur le disque seulement si il est versionne et qu'il y a pas de changement depuis le dernier commit
+    bzr remove --keep test1.txt # elimine seulement dans bzr
+    bzr remove --force test1.txt # elimine egalement dans system file
+
+    # renommer
+    bzr mv test1.txt test2.txt
+
+    # deplacer
+    bzr mv oldpath/test1.txt newpath/test1.txt
+    bzr revert test1.txt # recupere le fichier eliminé
+
+    # commit modif (avec edition commentaire interactive) 
+    bzr commit
+    # commit avec commentaire dans la ligne de commande
+    bzr commit -m "my explain"
+
+    bzr commit file.txt
+    bzr commit --fixes <tracker>:<id>
+
+    # si on travail sur un checkout et que l'on est offline.
+    bzr commit --local
+
+Revisions et TAGS
+=================
+
+::
+
+    # voir les tags
+    bzr tags
+    # retourner a une version :
+    bzr revert -r 100
+    # retourner a un tag :
+    bzr revert -r tag:toto
+
+MERGE
+=====
+
+::
+
+    # merger  launchpad sur son local :
+    bzr merge
+    bzr merge URL
+
+    # merger un autre repository
+    cd NEWDIR
+    bzr merge --uncommitted OLDDIR
+
+    #peut engendrer des conflits !
+    # une fois traiter, marquer les fichiers resolus :
+    bzr resolve file
+    bzr resolve 
+
+
+UPLOAD / PUBLISH
+================
+
+::
+
+    # creer sa branch sur lauchpad
+    bzr push lp:~xavinsky/+junk/myproject
+    (+junk is for experimental)
+    ou 
+    bzr branch lp:~xavinsky/+junk/myproject
+
+    # revoyer ses modif sur un repository
+    bzr push bzr+ssh://servername.com/path/to/directory
+
+    # creer un patch mail
+    bzr send 
+    bzr send -o ../project.patch
+
+    # exporter bzr to folder
+    bzr export ../folder_result
+    # exporter bzr to zip
+    bzr export ../folder_result.zip
+
+
+FIX DATAS
+=========
+
+::
+
+    # Format BZR :
+    bzr check : check a repository, branch or tree for data integrity errors
+    bzr reconcile : fix data integrity errors
+    bzr upgrade : migrate data to a different format.
+
+URL supported
+=============
+
+    * file (default)
+    * bzr / bzr+ssh
+    * http / https
+    * aftp / sftp
+
+REFERENCES
+==========
+
+    * doc : http://doc.bazaar.canonical.com/bzr.dev/en/
+    * User guide http://doc.bazaar.canonical.com/bzr.dev/en/user-guide/index.html
+    * quickref http://doc.bazaar.canonical.com/bzr.dev/en/_static/en/bzr-en-quick-reference.png
+

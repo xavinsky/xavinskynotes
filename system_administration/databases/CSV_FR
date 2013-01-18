@@ -1,0 +1,13 @@
+###
+CSV
+###
+
+On utilise souvent des fichiers plats csv pour importer ou exporter des tables de bases de données.
+
+Reférences
+==========
+
+    * csv wikipedia en : http://en.wikipedia.org/wiki/Comma-separated_values
+    * csv wikipedia fr : http://fr.wikipedia.org/wiki/Comma-separated_values
+    * Norme csv ietf : http://tools.ietf.org/html/rfc4180
+

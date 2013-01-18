@@ -27,17 +27,74 @@ Chercher
 Transfert
 ---------
 
+scp ::
+
+    # copie via ssh
+    scp [-r] [[user@]machine:]/path/file [[user@]machine:]/path/file 
+    # -r pour recursif
+
+wget ::
+
+    # telechargement d'une url
+    wget  <url>
+    # -c : continue
+    # -P : folder destination
+
+
+curl ::
+
+    # les urls peuvent être http, https, ftp
+
+    # voir le contenu de l'url (sur la sortie standard)
+    curl <url>
+
+    # telecharger une url
+    curl -o <file> <url>
+    # ou
+    curl <url> > <file>
+
+    # Authentification (http/ftp)
+    curl -u <username>:<password> <url>
+
+
+    # utilisation de variables 
+    curl -o files_#1 http://domain/page?param=[1-100]
+    curl -o files_#1 http://domain/page?param=[a-z]
+
+    ## autres options :
+    # -L : permet de suivre les redirections.
+    # --head : affiche les headers seulements
+    # --dump-header <headers_file> : met les headers dans un fichier
+    # -d "<params>" : envoie un formulaire en POST (syntaxe d'un get)
+    # -e : referer
+    # -A : user agent
+    # -C : continue
+    # --limit-rate <nb>B : limitation vitesse en Byte par seconde
+    # -x <proxy>:<port> : utilisation d'un proxy
+    # --mail-from <from> --mail-rcpt <to> smtp://<smtpserver> : send a mail
+
+lftp ::
+
+    # exemple d'utilisation avec ssl
+    set ftp:ssl-force true
+    set ssl:verify-certificate no
+    set ftp:ssl-protect-data true
+    connect <server>
+    login <login>
+    put file.tgz
+
+
+sftp ::
+
+    sftp -v -b file user@serveursftp
+
 ::
 
     scp
-    wget
     curl
     rtorrent
     aria2
-    lftp
     ncftp
-    sftp
-
 
 Synchro
 -------
@@ -48,15 +105,6 @@ Synchro
     duplicity
     rsyncrypto
     backuppc
-
-Versions
---------
-
-::
-
-    diff
-    patch
-    git
 
 
 Outils

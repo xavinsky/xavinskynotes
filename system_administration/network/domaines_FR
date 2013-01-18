@@ -1,16 +1,3 @@
-Hostname
-========
-
-::
-
-    # voir son hostname
-    /bin/hostname
-    # changer son hostname
-    /bin/hostname nouveaunom
-    # fichier de config
-    /etc/hostname
-
-
 Who is
 ======
 

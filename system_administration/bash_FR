@@ -46,6 +46,48 @@ Carracteres spéciaux ::
     ``   : substitution de commande
     #    : commentaire
 
+fonctions et arguments
+
+    * $# : nombre d'argument
+    * $0 : tous les arguments
+    * $1 : premier argument 
+    * $2 : second argument 
+    * etc...
+
+exemple de test_params.sh ::
+
+    #!/bin/sh
+
+    # utilisation :
+    # chmod u+x test_params.sh
+    # ./test_params.sh argsh1 argsh2
+
+    function f
+    {
+        echo "Dans f"
+        echo "\$0 : $0"
+        echo "\$# : $#"
+        echo "\$1 : $1"
+    }
+ 
+    echo "start script"
+
+    echo "Avant appel de f"
+    echo "\$0 : $0"
+    echo "\$# : $#"
+    echo "\$1 : $1"
+
+    # appel de f
+    f argf1 argf2 argf3
+
+    echo "Apres appel de f"
+    echo "\$0 : $0"
+    echo "\$# : $#"
+    echo "\$1 : $1"
+
+    echo "end script"
+
+
 Gestion des taches ::
 
     jobs # liste des taches
@@ -88,6 +130,11 @@ racourcis clavier ::
 Quelques Commandes
 ==================
 
+determiner le shell utilisé ::
+
+    ps -p $$ | tail -1 | awk '{print $4}'
+
+
 Surveiller un fichier de log avec tail ::
 
     tail -f /var/log/syslog
@@ -96,6 +143,9 @@ Surveiller un fichier de log avec tail ::
 récuperer une colonne d'un tableau avec awk, exemple ::
 
     awk '{print $1}' file.txt
+
+    # spécification du délimiteur 
+    awk -F ';' '{print $4}' my_file.csv > my_file.txt
 
 récuperer le pid d'un processus avec ps ::
 
@@ -108,6 +158,13 @@ script perl pour replacement de texte dans plusieurs fichiers ::
     perl -i.save -pe s/windows/linux/g *.txt
     # ou
     perl -i.save -pe s#windows#linux#g *.txt
+
+    # autre exemple avec sed :
+    sed -i 's/€/ Euros /g' E*
+
+eliminer les lignes vides ::
+
+    sed '/^$/d' monFichier > tt
 
 passage d'une liste de fichier à une commande avec find et xargs ::
 
@@ -136,4 +193,47 @@ Utiliser un pipe pour éviter une limite de nombre d'argument ::
 
     ls | xargs rm
     find . -type f -print0 | xargs -0 rm
+
+Voir taille des fichier ou repertoire caché ::
+
+    du -sh .[A-Z0-9]*
+
+boucle infinie en une ligne ::
+
+    while [ 1 -lt 2 ];do echo 'boucle'; ls;sleep 1;done
+
+boucle sur des fichier ::
+
+    for element in */*.txt
+        cat $element
+    done
+
+lecture fichier par ligne ::
+    old_IFS=$IFS 
+    IFS=$'\n'
+    for ligne in $(cat fichier)  
+    do  
+        echo $ligne
+    done  
+    IFS=$old_IFS
+
+conversion saut de ligne dos to unix ::
+
+    dos2unix *
+
+conversion encodage avec iconv ::
+
+    # liste des encodages
+    iconv -l
+    # conversion 
+    iconv -f utf8 -t latin1 file_utf8.txt > file_latin1.txt
+    # option -c : ignore les carracteres non convertible
+    iconv -c -f utf8 -t latin1 file_utf8.txt > file_latin1.txt
+
+Références
+==========
+
+http://aral.iut-rodez.fr/fr/sanchis/enseignement/bash/ar01s14.html
+
+http://www.tldp.org/LDP/abs/html/io-redirection.html
 

@@ -7,6 +7,12 @@ VirtualBox
 
 Outil facile à prendre en main, le tout avec interface graphique.
 
+
+Convertion d'image virtualbox en image VMDK (compatible vmware) ::
+
+    VBoxManage clonehd image.vdi --format VMDK image.vmdk
+    VBoxManage clonehd image.vdi --variant Split2G --format VMDK image.vmdk
+
 qemu
 ====
 
@@ -15,6 +21,8 @@ Utilisation de qemu pour emuler un syteme debian dans un systeme debian.
 (me permet de tester des compilations a partir d'une install vierge de
 debian, ce qui m'assure de connaitre toutes les dépendances de paquets
 necessaires et me permet donc de faire des doc d'installation plus fiable)
+
+::
 
     # Installation de qemu :
     aptitutde install qemu
@@ -25,16 +33,3 @@ necessaires et me permet donc de faire des doc d'installation plus fiable)
     # puis pour relancer la debian, j'utilise :
     qemu deb.img -user-net
 
-
-VMWare
-======
-
-Outil propriétaire facile à prendre en main, le tout avec interface graphique.
-C'est le standard utilisé un peu partout.
-
-Astuce
-------
-
-pour que la vm demarre automatiquement, utiliser dans le fichier de config ::
-
-    autostart = "poweron"
