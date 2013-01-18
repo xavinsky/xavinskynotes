@@ -2,7 +2,120 @@
 WINDOWS
 #######
 
-Acceder a un windows via rdesktop ::
+Acces graphique distant
+=======================
 
-    rdesktop -d domain -u user -p password -k fr -f ipcible
+
+Sur des windows récents, on peut utiliser terminal serveur 
+(acces au bureau d'un windows distant) ::
+
+    tsclient 
+
+    # ou
+
+    rdesktop -d <domain> -u <user> -p <password> -k <lang> -f <ip_cible>
+    # exemple <lang> : fr
+
+Ou encore, si le poste windows est équipé de VNC ::
+
+    # creation du ficher de mot de passe :
+    vncpasswd .vnc/passwd
+
+    # se connecter a un windows :
+    vncviewer -passwd .vnc/passwd -fullscreen <ip_cible>
+
+
+Partage de fichier
+==================
+
+Utilisation de samba (smbclient, smbfs, smbclient)
+
+Pour utiliser samba avec konqueror ::
+
+    apt-get install samba-common smbclient smbfs
+
+Monter des acces windows :
+
+    smbmount //machiewindows/nompartage /mnt/samba -o username=loginwin,password=passwin
+
+Acces WINDOWS VIA smbclient ::
+
+    smbclient \\adc-centrino3\partage -U xmanach
+
+Partitions windows
+==================
+
+ACCES lecture seule PARTITION WINDOWS (ici hda1) ::
+
+    mount -t ntfs /dev/hda1 /mnt/windows
+
+A ajouter a smb.conf pour obtenir les fichiers avec accents
+(ne marche pas a tous les coups ??!! depends du windows !?)  ::
+
+    # obtenir la liste des charset connus ::
+    iconv -l
+
+    # définir le charset du windows...
+    dos charset = cp437
+    # ou
+    dos charset = 850
+
+    # définir le charset de votre debian
+    unix charset = ISO8859-1
+    # ou
+    unix charset = ISO8859-15
+
+récupérer une partition ntfs ::
+
+    apt-get install ntfs-3g fusesmb fuse-utils 
+    ntfsfix /dev/sda1
+    mount -t  ntfs-3g /dev/sda1 disk/ -o force
+
+Emulation
+=========
+
+Windows
+-------
+
+Utilisation de wine (marche souvent mieux si l'on a une partition windows native)
+
+
+Installation ::
+
+    aptitude install msttcorefonts wine cabextract
+
+
+Internet Explorer
+-----------------
+
+Preparer emulateur wine ::
+
+    aptitude install msttcorefonts wine cabextract libxxf86dga1 libxxf86vm1
+
+Installer IE5 IE5.5 IE6 IE7 ::
+
+    wget http://www.tatanka.com.br/ies4linux/downloads/ies4linux-latest.tar.gz
+    tar zxvf ies4linux-latest.tar.gz
+    cd ies4linux-*
+    ./ies4linux
+
+Liens symboliques
+=================
+
+Windows ne connait pas les liens symbolique.
+Mais on peut trouver un patch pour en faire.
+
+
+Telecharger "Windows 2003 Resource Kit" puis utiliser ::
+
+    linkd.exe c:\monliensymbolique d:\monrepertoirealinke
+
+Référence : http://www.jinzora.org/modules/jinzora/docs/french/symlinking.php
+
+
+Références
+==========
+
+Montage de disque dur externe NTFS :
+http://mjules.free.fr/NTFS_et_GNU_linux.htm#ntfsmount
 
