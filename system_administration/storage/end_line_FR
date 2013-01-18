@@ -2,6 +2,8 @@
 Saut de ligne
 #############
 
+.. contents:: Sommaire
+
 Version courte 
 ==============
 
@@ -23,6 +25,8 @@ Version courte
 
 Version longue 
 ==============
+
+::
 
     LF:    Multics, Unix and Unix-like systems (GNU/Linux, AIX, Xenix, Mac OS X, FreeBSD, etc.), BeOS, Amiga, RISC OS and others. Also, Microsoft Windows uses LF newlines in the "Windows Developer Preview,"[citation needed] a pre-beta version of Windows 8 freely available for developers.
     CR+LF: Microsoft Windows, DEC TOPS-10, RT-11 and most other early non-Unix and non-IBM OSes, CP/M, MP/M, DOS (MS-DOS, PC-DOS, etc.), Atari TOS, OS/2, Symbian OS, Palm OS

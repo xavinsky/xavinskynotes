@@ -2,6 +2,8 @@
 Systemes de fichiers
 ####################
 
+.. contents:: Sommaire
+
 Le système d'exploitation utilise des systemes de fichiers
 pour stoquers les fichiers sur les disques.
 

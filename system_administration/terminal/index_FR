@@ -1,0 +1,13 @@
+########
+Terminal
+########
+
+Le shell utilisé pas la plupart des distrubution actuelle : bash
+
+Outils pratique pour partager a distance l'affichage de la console : screen
+
+Autres commandes du genre de screen : dtach, tmux byobu.
+
+Outils d'enregistrement de ce qui se passe sur la console : ttyrec
+
+

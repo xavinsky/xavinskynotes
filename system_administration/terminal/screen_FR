@@ -1,9 +1,6 @@
-########
-Terminal
-########
-
+######
 Screen
-======
+######
 
 Partager son écran avec d'autres utilisateurs connectés en ssh avec screen.
 C-x signifie Control et touche x
@@ -32,12 +29,5 @@ C-x signifie Control et touche x
     # passer a la console suivante ou precedente :
     C-a n
     C-a p
-
-Autres
-======
-
-Autres commandes du genre de screen : dtach, tmux byobu.
-
-Outils d'enregistrement de ce qui se passe sur la console : ttyrec
 
 
