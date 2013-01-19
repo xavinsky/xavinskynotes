@@ -93,14 +93,9 @@ Ajouter dans : /etc/network/interfaces ::
         wireless_mode Managed
         wireless_key off 
 
-GetKeyWep
-=========
 
-J'ai mis quelques scripts utilitaire pour la connection WEP et recuperer des clef WEP.
+Securité
+========
 
-Documentation française ici : https://github.com/xaviermanach/getkeywep/blob/master/README_FR.TXT
-
-Recuperation des scripts ::
-
-    git clone https://github.com/xaviermanach/getkeywep.git
+Voir la page de sécurité pour les infos sur le cassage de clef wep avec aircrack.
 

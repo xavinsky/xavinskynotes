@@ -61,3 +61,26 @@ Ouvrir une console puis taper ::
 
 eteindre le live cd linux, et c'est bon...
 
+Wifi
+====
+
+::
+
+    # recuperer aircrack-ng-1.1.tar.gz
+    tar zxvf aircrack-ng-1.1.tar.gz 
+    cd aircrack-ng-1.1
+    cp ../common.mak .  # patch retire Werror ligne 70.
+    make sqlite=true unstable=true
+    make install
+
+GetKeyWep
+---------
+
+J'ai fait quelques scripts utilitaire  utilisant aircrack pour la connection WEP et recuperer des clef WEP.
+
+Documentation française ici : https://github.com/xaviermanach/getkeywep/blob/master/README_FR.TXT
+
+Recuperation des scripts ::
+
+    git clone https://github.com/xaviermanach/getkeywep.git
+

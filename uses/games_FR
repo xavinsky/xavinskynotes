@@ -6,6 +6,9 @@ Jeux
 Jeux sympas utilisable sous linux sans trop de pb de config : 
 Dofus, Spiral Knight, Winamax Poker.
 
+Andromeda9
+==========
+
 Anciennes notes install Andomeda9 ::
 
     Necessite de recompiler un python2.2
@@ -17,4 +20,42 @@ Anciennes notes install Andomeda9 ::
     puis suivre le install.txt
 
 
+0ad
+===
 
+::
+
+    #pour compilation de 0ad
+    aptitude install nasm libsdl-dev libwxgtk2.8-dev 
+    aptitude install libboost-dev libboost-signals-dev libboost-filesystem
+    aptitude install libopenal-dev libalut-dev libvorbis-dev libdevil-dev
+    aptitude install libxml2-dev libcurl4-gnutls-dev libenet-dev libfam-dev
+
+Poker
+=====
+
+fpdb
+----
+
+::
+
+    # pour fpdb
+    aptitude install git-core
+    aptitude install pkg-config
+
+    git clone git://git.assembla.com/fpdboz.git
+
+poker-eval
+----------
+
+    #python-numeric (sourceforge)
+    #python-pypoker-eval (?)
+
+    aptitude install libpoker-eval pokerth
+    aptitude install libpoker-eval-dev
+
+    wget http://download.gna.org/pokersource/pypoker-eval/gnulinux/debian/unstable/src/pypoker-eval_138.0.orig.tar.gz
+    tar zxvf pypoker-eval_138.0.orig.tar.gz
+    cd pypoker-eval_138.0
+    ./configure
+    make # => marche pas pour py2.7
