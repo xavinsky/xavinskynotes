@@ -2,8 +2,16 @@
 Graphisme
 #########
 
-http://www.allfreebackgrounds.com/background_select.html
+Polices de caractères
+=====================
 
-http://www.grsites.com/textures/
+ajout de polices ::
 
-http://alt-web.com/Backgrounds.shtml
+    aptitude install fonts-beteckna fonts-bpg-georgian fonts-breip fonts-century-catalogue fonts-cmu fonts-droid fonts-dustin fonts-ecolier-court fonts-ecolier-lignes-court fonts-evertype-conakry fonts-johnsmith-induni fonts-kanjistrokeorders fonts-konatu fonts-oldstandard fonts-pagul fonts-senamirmir-washra ttf-ancient-fonts ttf-freefont ttf-mscorefonts-installer ttf-unifont tv-fonts x-ttcidfont-conf x11proto-fonts-dev x11proto-xf86bigfont-dev xfont-nexus xfonts-100dpi xfonts-100dpi-transcoded xfonts-75dpi xfonts-75dpi-transcoded xfonts-a12k12 xfonts-base xfonts-bitmap-mule xfonts-biznet-100dpi xfonts-biznet-75dpi xfonts-biznet-base xfonts-efont-unicode xfonts-efont-unicode-ib xfonts-encodings xfonts-intl-european xfonts-intl-phonetic xfonts-jmk xfonts-kapl xfonts-kappa20 xfonts-knickers xfonts-mathml xfonts-mona xfonts-nexus xfonts-scalable xfonts-terminus xfonts-terminus-dos xfonts-terminus-oblique xfonts-tipa xfonts-unifont xfonts-utils 
+
+Sites de ressources
+===================
+
+    * http://www.allfreebackgrounds.com/background_select.html
+    * http://www.grsites.com/textures/
+    * http://alt-web.com/Backgrounds.shtml

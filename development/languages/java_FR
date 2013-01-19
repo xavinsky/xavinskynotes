@@ -3,6 +3,59 @@ JAVA
 ####
 
 
+Installation
+============
+
+Doc a remettre à jour...
+
+jre
+---
+
+Le jre est l'environement d'execution (la machine virtuelle) (java runtime environement)
+
+version archive
+~~~~~~~~~~~~~~~
+
+::
+
+    tar zxvf jre-7u7-linux-x64.tar.gz
+    mv jre1.7.0_07 /opt
+    update-alternatives --install /usr/bin/java java java /opt/jre1.7.0_07/bin/java 1
+    update-alternatives --install /usr/lib/mozilla/plugins/libjavaplugin.so mozilla-javaplugin.so /opt/jre1.7.0_07/lib/amd64/libnpjp2.so 1
+    update-alternatives --set java /opt/jre1.7.0_07/bin/java
+    update-alternatives --set mozilla-javaplugin.so /opt/jre1.7.0_07/lib/amd64/libnpjp2.so
+
+Ou encore :
+
+Download : j2re-1_4_2_11-linux-i586.bin sur le site : http://java.com/en/download/
+
+::
+
+    chmod u+x j2re-1_4_2_11-linux-i586.bin
+    ./j2re-1_4_2_11-linux-i586.bin
+    rm j2re-1_4_2_11-linux-i586.bin
+    mv j2re1.4.2_11/ /usr/local/share/
+    cd /usr/local/bin
+    ln -s /usr/local/share/j2re1.4.2_11/bin/java java
+    chown -R xavinsky:xavinsky /usr/local/share/j2re1.4.2_11
+
+
+jdk
+---
+
+Le jdk est l'environement de developpement (contient la jre).
+
+Install java sun a revoir car sun-java6-jdk n'existe plus ? libmozjs5d-dbg => 5 to 10...
+
+::
+
+    aptitude install sun-java6-jdk ant fastjar jarwrapper junit junit4
+    aptitude install libcommons-codec-java libcommons-el-java libasm3-java
+    aptitude install libcommons-httpclient-java libecj-java libjasper-java
+    aptitude install libjetty-java libjsch-java sat4j
+    aptitude install libmozjs5d-dbg
+
+
 Precompilation et Execution
 ===========================
 

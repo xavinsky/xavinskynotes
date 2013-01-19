@@ -1,0 +1,13 @@
+#########
+MultiArch
+#########
+
+Afin de pouvoir utiliser des paquets 32bit sur une debian 64bits, on peut mettre en place le multiarch.
+
+::
+
+    dpkg --add-architecture i386
+    aptitude update
+    aptitude dist-upgrade
+    aptitude upgrade
+

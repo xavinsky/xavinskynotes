@@ -1,0 +1,223 @@
+############
+Installation
+############
+
+Indispensable
+=============
+
+::
+
+    aptitude update
+    aptitude upgrade
+    aptitude install emacs23-nox tree apt-file 
+    apt-file update
+    updatedb
+
+Config bash, sudo, network, terminal
+====================================
+
+:: 
+
+    cd /home/xavinsky/install/config
+    #Modif xavinsky :
+    # config gnome-terminal color (copy config file) and shorcut
+    mkdir -p home/xavinsky/.gconf/apps/gnome-terminal/profiles/Default/
+    cp home/xavinsky/.gconf/apps/gnome-terminal/profiles/Default/%gconf.xml /home/xavinsky/.gconf/apps/gnome-terminal/profiles/Default/
+    cp -r home/xavinsky/.gconf/apps/gnome-terminal/keybindings /home/xavinsky/.gconf/apps/gnome-terminal
+
+    # config bashrc 
+    cp home/xavinsky/.bashrc /home/xavinsky
+    chown -R xavinsky:xavinsky /home/xavinsky
+
+    #modir systeme and root.
+    # config sudoer
+    cp etc/sudoers /etc
+    sudo -v
+
+    # config bashrc root
+    cp root/.bashrc /root
+
+    # conflict with debian installation by wpa and interfaces file must be clean.
+    cp etc/network/interfaces /etc/network
+
+    # prendre en compte les modifs
+    /etc/init.d/networking restart
+    /etc/init.d/network-manager restart
+
+    #divers scripts utiles
+    cp usr/local/bin/* /usr/local/bin
+
+Hardware 
+========
+
+::
+
+    # Sensors 
+    aptitude install lm-sensors xsensors 
+    sensors-detect
+    xsensors (gui failed !!?)
+    # senseur detection OK
+
+    # sound record :
+    aptitude install gstreamer0.10-gconf
+    # sound record OK  mais son pourrav.
+      
+    # graphic card : need fglrx driver.
+    aptitude install linux-headers-$(uname -r) fglrx-control fglrx-driver
+    aticonfig --initial
+    # reboot for graphic card driver.
+    shutdown -r now 
+
+    # webcam
+    aptitude install v4l-conf v4l-utils v4l2ucp dov4l dv4l
+
+    aptitude install fancontrol
+    # fan detecteur KO
+
+Autre outils
+============
+
+::
+
+    # dev tools 
+    aptitude install gcc cmake build-essential
+    aptitude install git subversion subversion-tools mercurial
+    aptitude install python-dev python-setuptools python-pip
+
+    #### Debug
+    aptitude install strace
+
+    tar zxvf eclipse-jee-indigo-linux-gtk-x86_64.tar.gz
+    mv eclipse /opt/eclipse-jee-indigo
+
+    tar zxvf android-sdk_r12-linux_x86.tgz
+    mv android-sdk-linux_x86 /opt/android-sdk
+    cd /opt/android-sdk
+    tools/android update sdk
+    (choose accept all... and click install)
+
+    aptitude install libmono-winforms2.0-cil
+
+    aptitude install ia32-libs libc6-dev-i386 lib32z1-dev ia32-libs-dev
+    aptitude install flex bison
+    tar zjvf wine-1.3.28.tar.bz2
+    cd wine-1.3.28
+    ./configure
+    make
+    make install
+    aptitude install winetricks
+
+    # with standard user 
+    winetricks mfc42
+
+    aptitude install libsqlite3 libsqlite3-dev
+
+    # drivers tools 
+    aptitude install ndiswrapper-common ndiswrapper-utils-1.9
+
+    # french tools
+    aptitude install task-french
+
+    # outil rar (proprio)
+    rar_2.80.orig.tar.gz
+    tar zxvf rar_2.80.orig.tar.gz
+    cd rar_2.80
+    chmod u+x rarlnx28.sfx
+    ./rarlnx28.sfx
+    mv rar /usr/local/lib
+    ln -s /usr/local/lib/rar/rar /usr/local/bin/
+    ln -s /usr/local/lib/rar/unrar /usr/local/bin/
+    cd ..
+    rm -Rf rar_2.80
+
+    # time and date
+    # update
+    # date --set 12:53:20
+    # update timezone 
+    dpkg-reconfigure tzdata
+    # synchronisation time avec un server 
+    aptitude install ntpdate
+    ntpdate 1.debian.pool.ntp.org
+    # automatisation synchronisation
+    aptitude install ntp
+
+    aptitude install virtualbox virtualbox-fuse 
+    aptitude install virtualbox-guest-additions virtualbox-guest-additions-iso 
+    aptitude install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
+
+
+
+Lecteurs
+========
+
+::
+
+    # readers pdf
+    aptitude install xpdf
+
+    # plugins flash via packet :
+    aptitude install flashplugin-nonfree
+    # ou via isntaller adobe 
+    tar zxvf install_flash_player_11_linux.x86_64.tar.gz
+    mv libflashplayer.so /usr/lib/mozilla/plugins
+    # install tools config flash :
+    cd usr/bin
+    mv flash-player-properties /usr/local/bin/
+    # le reste peut être detruit.
+    cd ../..
+    rm -Rf usr
+    rm -f readme.txt
+
+    # Adobe Air (v6.0)
+    ln -s /usr/lib/x86_64-linux-gnu/libgnome-keyring.so.0 /usr/lib/libgnome-keyring.so.0
+    ln -s /usr/lib/x86_64-linux-gnu/libgnome-keyring.so.0.2.0 /usr/lib/libgnome-keyring.so.0.2.0
+    chmod u+x AdobeAIRInstaller.bin
+    ./AdobeAIRInstaller.bin
+
+    # video
+    aptitude install vlc
+
+    # reconnaissance optique de caractere 
+    aptitude install gocr  xsane tesseract-ocr  tesseract-ocr-fra ocropus
+
+    # capture ecran 
+    aptitude install rsnapshot
+
+    # pour Video DownloadHelper plugin firefox.
+    aptitude install ffmpeg mencoder
+
+
+Autres Programmes
+=================
+
+::
+
+    # prepa skype
+    aptitude install lib32stdc++6 lib32asound2 ia32-libs lib32gcc1 ia32-libs-gtk
+    cd /home/xavinsky/install/download
+    dpkg -i skype-debian_2.2.0.35-1_amd64.deb
+    #Status Skype OK
+
+    # pidgin
+    aptitude install pidgin  pidgin-otr             
+    # config pidgin for account google app, Connect server = talk.google.com
+    # active bu GUI otr in modules pidgin.
+    # copy otr key 
+    cd private
+    mkdir -p /home/xavinsky/.purple
+    cp -r home/xavinsky/.purple/* /home/xavinsky/.purple
+
+    # openoffice french
+    aptitude install openoffice.org-l10n-fr openoffice.org-spellcheck-fr-fr openoffice.org-help-fr 
+    aptitude install openoffice.org-hyphenation-fr openoffice.org-thesaurus-fr
+
+    aptitude install language-env
+
+    #### Gnome 3 
+    aptitude install gnome-tweak-tool
+    aptitude install hibernate
+
+    aptitude install python-tz python-matplotlib  python-mysqldb python-psycopg2
+
+
+

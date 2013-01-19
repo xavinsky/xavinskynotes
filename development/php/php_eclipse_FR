@@ -7,19 +7,7 @@ PHP Eclipse
 Install du jre
 ==============
 
-jre =  java runtime environement
-Download : j2re-1_4_2_11-linux-i586.bin
-sur le site : http://java.com/en/download/
-
-Installation ::
-
-    chmod u+x j2re-1_4_2_11-linux-i586.bin
-    ./j2re-1_4_2_11-linux-i586.bin
-    rm j2re-1_4_2_11-linux-i586.bin
-    mv j2re1.4.2_11/ /usr/local/share/
-    cd /usr/local/bin
-    ln -s /usr/local/share/j2re1.4.2_11/bin/java java
-    chown -R xavinsky:xavinsky /usr/local/share/j2re1.4.2_11
+Voir page sur java
 
 Installation du sdk Eclipse
 ===========================
