@@ -1,0 +1,70 @@
+######################
+Debut de script python
+######################
+
+Intro Script Python
+===================
+
+De maniere generale, un script commence par trois éléments (tous optionels) :
+
+    * l'interpreteur de script (comme tout script)
+    * l'encodage (permet de definir l'encodage utiliser pour le script)
+    * la licence (protege le document legalement)
+
+Exemple complet ::
+
+   #!/usr/bin/env python
+   # -*- coding: utf-8 -*-
+
+   # Copyright © 2012 Xavier Manach <xav@tekio.org>
+
+   # This file is part of Xavinsky's Notes.
+
+   # Webinrest is free software: you can redistribute it and/or modify
+   # it under the terms of the GNU General Public License as published by
+   # the Free Software Foundation, either version 3 of the License, or
+   # (at your option) any later version.
+
+   # Webinrest is distributed in the hope that it will be useful,
+   # but WITHOUT ANY WARRANTY; without even the implied warranty of
+   # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   # GNU General Public License for more details.
+
+   # You should have received a copy of the GNU General Public License
+   # along with Webinrest. If not, see <http://www.gnu.org/licenses/>.
+
+L'intepreteur de script
+-----------------------
+
+Ceci permet a un script (quelque soit le language) avec des droits executable 
+d'indiquer quel interpreteur il doit utiliser pour l'executer.
+
+
+Celui conseillé pour python ::
+
+    #!/usr/bin/env python
+
+On peut egalement spécifier un python particuler ::
+
+    #!/usr/bin/python2.6
+
+encodage
+--------
+
+Par default l'encodage est ascii en python 2.x .
+Mais pour l'international, l'utf-8 est bien plus pratique.
+
+::
+
+   # -*- coding: utf-8 -*-
+
+Bien sur vous pouvez en utilsez d'autre mais je le déconseille fortement.
+
+License
+-------
+
+Je conseille GPLv3 ou Apache 2.0.
+J'utilise GPLv3 pour la plupart de mes travaux.
+Mais Apache 2.0 est conseillé lorsque vous désirez que vos modifications
+soient inclues ou reprise dans python ou ses modules.
+Voir ma page sur les licences pour plus de details.

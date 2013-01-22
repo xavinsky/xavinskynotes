@@ -1,0 +1,72 @@
+############
+Easy_install
+############
+
+C'est un outil lié avec un depot de module (Pypy) qui permet d'installer de nouveau modules.
+C'est comme un gestionnaire de paquet pour python.
+
+::
+
+    #install
+    easy_install <namepackage> 
+    easy_install <url>
+    easy_install <path/file.egg>
+    #install source directory
+    easy_install .
+
+    #install or upgrade from url (add url to search links)
+    easy_install -f <url> <namepackage> 
+
+    #upgrade
+    easy_install -U <namepackage> 
+
+    #install a specific version
+    easy_install "namepackage==version"
+    #install a minimal version
+    easy_install "namepackage>version"
+
+    # Download in ~/project/<packagename-lowercase> 
+    # without install
+    easy_install --editable --build-directory . SQLObject
+
+    # install sans le zip file.
+    easy_install -Z <namepackage>
+
+    # desinstall
+    easy_install -mxN <namepackage>
+
+    # install for all version of python ??
+    easy_install -m <namepackage>
+
+    ## howto install 2 version
+    # install v1
+    easy_install -m <namepackage>==v1
+    # rename the namepackage to namepackagev1 in site-packages or equivalent
+    # install v2
+    easy_install -m docutils==0.3.10
+
+    # restriction url download in 
+    pydistutils.cfg 
+    [easy_install]
+    allow_hosts = *.mynetwork.org # rectriction download.
+
+
+    # Make a egg from setup.py :
+    python setup.py bdist_egg
+
+    # create a tample of module
+    # use pastescript / PasteScript
+    paster create --list-templates
+    paster create -t basic_package
+
+    option easy install 
+    -v : verbose
+    -b : build dir
+    -d : install dir
+    -s : script dir
+    -x : no script
+    -n : test only (not install)
+    -O <level> : optimisation 0,1 ou 2
+
+    --ignore-conflicts-at-my-risk
+

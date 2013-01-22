@@ -1,0 +1,26 @@
+####
+PEP8
+####
+
+La Pep 8 contient des recommandations de codage pour python.
+Il existe des outils pour verifier la prise en compte de ces recommandations.
+
+Installation
+============
+
+::
+
+    aptitude install pep8
+
+Utilisation
+===========
+
+::
+
+    # voir toutes les erreurs
+    pep8 <name_file>
+    # premiere occurence de chaque type d'erreur
+    pep8 --first <name_file>
+    # voir toutes les erreur d'un type d'erreur
+    pep8 <name_file> | grep <code_erreur>
+

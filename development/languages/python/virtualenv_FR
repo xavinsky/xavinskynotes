@@ -1,0 +1,27 @@
+##########
+Virtualenv
+##########
+
+Environement virtuel pour python.
+
+Permet de créer un environement dédié et customisable de python.
+On l'utilise generalement pour un utilisateur executeur dédié a une application.
+
+Installation ::
+
+    aptitude install python-virtualenv
+
+
+Syntaxes ::
+
+    # creation d'un virtualenv :
+    python virtualenv.py <PATH_ENV>
+
+    # Passage dans le virtual env :
+    source <PATH_ENV>/bin/activate && cd <PATH_ENV>
+
+On défini souvent un alias dans le ~/.bash_rc ou ~/.bash_profile ::
+
+    #sample environement alias
+    alias env_sample='source <PATH_ENV>/bin/activate && cd <PATH_ENV>'
+
