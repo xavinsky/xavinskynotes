@@ -15,7 +15,7 @@ Installation ::
 Syntaxes ::
 
     # creation d'un virtualenv :
-    python virtualenv.py <PATH_ENV>
+    virtualenv <PATH_ENV>
 
     # Passage dans le virtual env :
     source <PATH_ENV>/bin/activate && cd <PATH_ENV>
