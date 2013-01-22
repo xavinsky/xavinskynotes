@@ -1,0 +1,37 @@
+###
+NAS
+###
+
+
+NAS : Systeme de stockage accessible via le réseau.
+
+configuration smbfs pour nas
+============================
+
+Acceder au smbfs sur un nas :
+
+::
+
+    # creer /etc/samba/cifspwd :
+    username=<your_username>
+    password=<your_password>
+
+    # /etc/fstab,  ajouter ligne :
+    <NOMNAS>/<path_partage> /<path_local> cifs user,uid=<nomuser>,gid=<nomgroup>,rw,suid,credentials=/etc/samba/cifspwd 0 0
+
+
+version plus simple mais avec le mot de passe dans le fichier fstab (peu recommandé)
+
+::
+    
+    # /etc/fstab,  ajouter ligne :
+    <NOMNAS>/<path_partage> /<path_local> cifs user=<your_username>,pass=<your_password> 0 0
+
+
+Config utilisé
+==============
+
+Pour une petite entreprise, synology fait l'affaire (5 disk raid 5).
+
+Pour un particulier, un petit DNS 320 link fait l'affaire (2 disques raid 1).
+

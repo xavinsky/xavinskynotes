@@ -7,26 +7,35 @@ C-x signifie Control et touche x
 
 ::
 
-    # Le detachement de console avec screen.
-    ssh machinecible
+    # Lancer un nouveau screen
     screen
-    # nous somme dans une nouvelle console
-    # detachement de cette nouvelle console :
-    C-A d
+    # detruire la session en cours.
     exit
 
-    # se reconnecter a la console :
-    ssh machinecible
-    screen -r
+    # detachement de la session en cours.
+    C-A d
 
-    # se connecter a la console deja ouverte ailleur
-    # (controle a plusieur de la console) :
-    ssh machinecible
-    screen -x
+    # ratachement a l'unique session detaché
+    screen -r 
+
+    # voir les sessions en cours avec leur identifiant
+    screen -list
+
+    # Remarque seul le pid sera necessaire comme identifiant.
+
+    # ratachement a une session detaché
+    screen -r <id_session>
+
+    # se connecter sur l'unique session deja attaché
+    screen -x 
+
+    # se connecter sur une des sessions deja attaché
+    screen -x <id_session>
 
     # Ajouter une console dans screen :
     C-a c
-    # passer a la console suivante ou precedente :
+
+    # passer a la console suivante ou precedente su screen :
     C-a n
     C-a p
 
