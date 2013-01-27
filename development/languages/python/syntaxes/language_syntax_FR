@@ -11,6 +11,8 @@ Utilisation de yield pour creer des itérateurs.
 
 ::
 
+    import random
+
     def table_random(nb_elem, value_max):
         for i in range(nb_elem):
             yield random.randint(1, value_max)

@@ -36,8 +36,8 @@ Les methodes a connaître sont :
     class myThread (threading.Thread):
         def __init__(self, name):
             """ exemple surcharge du constructeur (facultatif) """
-            self.name = name
             threading.Thread.__init__(self)
+            self.name = name
         def run(self):
             """ exemple surcharge run """
             print "Start " + self.name
@@ -77,7 +77,6 @@ Ses methodes principales sont :
 
     * put(item) : ajoute un objet dans la queue. 
     * get() : prend un objet de la queue.
-
     * qsize() : nb d'objet dans la queue
     * empty() : retourne True si la queue est vide.
     * full(): retourne True if queue is full; otherwise, False.
@@ -89,64 +88,59 @@ Exemple ::
     import Queue
     import threading
     import time
+    import random
 
+    # un thread qui vide une queue.
     class myThread (threading.Thread):
         def __init__(self, name, my_queue):
-            """ exemple surcharge du constructeur (facultatif) """
+            threading.Thread.__init__(self)
             self.name = name
             self.my_queue = my_queue
-            threading.Thread.__init__(self)
         def run(self):
-            """ exemple surcharge run """
-            print "Start " + self.name
             vide_queue(self.my_queue)
-            print "End " + self.name
 
-
+    # vidage d'une queue (qui peut être lancé par plusieurs threads)
     def vide_queue(the_queue):
-        the_queue.acquire()
-        while the_queue.empty():
-            data = the_queue.get()
-            print "processing %s" % data
-            the_queue.release()
-            time.sleep(0.1)
-            the_queue.acquire()
+        while True:
+            try:
+                data = the_queue.get(False)
+                time.sleep(0.1)
+            except Queue.Empty:
+                return
+            except:
+                print 'Erreur'
+                return
+
+    # creation d'une queue et remplissage
+    def create_queue(nb_elems):
+        my_queue = Queue.Queue()
+        for i in range(nb_elems):
+            my_queue.put(random.randint(1, 1000))
+        return my_queue
 
 
-threadList = ["Thread-1", "Thread-2", "Thread-3"]
-nameList = ["One", "Two", "Three", "Four", "Five"]
+    def test_queue(nb_elems, nb_thread):
+        time_start = time.time()
+        # création de la queue
+        the_queue =  create_queue(nb_elems)
+        # creation des threads.
+        threads = []
+        for i in range(nb_thread):
+            threads.append(myThread("Thread %s" % i, the_queue))
+        # Demarre les threads
+        for t in threads:
+            t.start()
+        # Attend que les threads soient termines
+        for t in threads:
+            t.join()
+        time_stop = time.time()
+        print "%s elems traites par %s thread en %0.2f secondes" % \
+              (nb_elems, nb_thread, time_stop-time_start)
 
-the_queue.acquire()
-workQueue = Queue.Queue(10)
-threads = []
-threadID = 1
-
-# Create new threads
-for tName in threadList:
-    thread = myThread(threadID, tName, workQueue)
-    thread.start()
-    threads.append(thread)
-    threadID += 1
-
-# Fill the queue
-queueLock.acquire()
-for word in nameList:
-    workQueue.put(word)
-queueLock.release()
-
-# Wait for queue to empty
-while not workQueue.empty():
-    pass
-
-# Notify threads it's time to exit
-exitFlag = 1
-
-# Wait for all threads to complete
-for t in threads:
-    t.join()
-print "Exiting Main Thread"
-
-
+    nb_elems = 40
+    test_queue(nb_elems, 5)
+    test_queue(nb_elems, 10)
+    test_queue(nb_elems, 20)
 
 
 Semaphore
