@@ -1,0 +1,177 @@
+##############
+MultiThreading
+##############
+
+Threads
+=======
+
+Juste un thread
+---------------
+
+Vous avez besoin de lancer un unique traitement en parrelle, sans avoir a le surveiller.
+
+::
+
+    thread.start_new_thread ( function, args[, kwargs] )
+
+Threading Module
+----------------
+
+Pour lancer plusieurs threads et les controler plus finement.
+
+On utilisera la classe Thread.
+
+Les methodes a connaître sont :
+
+    * start() : creer un thread et lui fait executer run()
+    * run() : A surcharger : Ce que va faire le thread.
+    * join([time]) : Attend la fin d'un thread.
+
+
+::
+
+    import threading
+    import time
+
+    class myThread (threading.Thread):
+        def __init__(self, name):
+            """ exemple surcharge du constructeur (facultatif) """
+            self.name = name
+            threading.Thread.__init__(self)
+        def run(self):
+            """ exemple surcharge run """
+            print "Start " + self.name
+            time.sleep(0.1)
+            print "End " + self.name
+
+    # Create new threads
+    thread1 = myThread(1, "Thread-1", 1)
+    thread2 = myThread(2, "Thread-2", 2)
+    threads = [thread1, thread2]
+
+    # Start new Threads
+    thread1.run()
+    thread2.run()
+
+    # Attent la fin des threads
+    for t in threads:
+        t.join()
+
+
+Quelques fonction utiles ::
+
+    # Nombre de thread actifs
+    threading.activeCount()
+
+    # Nombre de thread actuellement controlés.
+    threading.currentThread()
+
+    # Liste des thread actifs
+    threading.enumerate()
+
+Queue
+=====
+
+Queue est une classe de Pile de Stockage que l'on utilise souvent entre les threads.
+Ses methodes principales sont :
+
+    * put(item) : ajoute un objet dans la queue. 
+    * get() : prend un objet de la queue.
+
+    * qsize() : nb d'objet dans la queue
+    * empty() : retourne True si la queue est vide.
+    * full(): retourne True if queue is full; otherwise, False.
+
+Exemple ::
+
+    #!/usr/bin/python
+
+    import Queue
+    import threading
+    import time
+
+    class myThread (threading.Thread):
+        def __init__(self, name, my_queue):
+            """ exemple surcharge du constructeur (facultatif) """
+            self.name = name
+            self.my_queue = my_queue
+            threading.Thread.__init__(self)
+        def run(self):
+            """ exemple surcharge run """
+            print "Start " + self.name
+            vide_queue(self.my_queue)
+            print "End " + self.name
+
+
+    def vide_queue(the_queue):
+        the_queue.acquire()
+        while the_queue.empty():
+            data = the_queue.get()
+            print "processing %s" % data
+            the_queue.release()
+            time.sleep(0.1)
+            the_queue.acquire()
+
+
+threadList = ["Thread-1", "Thread-2", "Thread-3"]
+nameList = ["One", "Two", "Three", "Four", "Five"]
+
+the_queue.acquire()
+workQueue = Queue.Queue(10)
+threads = []
+threadID = 1
+
+# Create new threads
+for tName in threadList:
+    thread = myThread(threadID, tName, workQueue)
+    thread.start()
+    threads.append(thread)
+    threadID += 1
+
+# Fill the queue
+queueLock.acquire()
+for word in nameList:
+    workQueue.put(word)
+queueLock.release()
+
+# Wait for queue to empty
+while not workQueue.empty():
+    pass
+
+# Notify threads it's time to exit
+exitFlag = 1
+
+# Wait for all threads to complete
+for t in threads:
+    t.join()
+print "Exiting Main Thread"
+
+
+
+
+Semaphore
+=========
+
+Suite a mon utilisation partagé de la mémoire avec des threads,
+je doit protéger certains accès avec des semaphore.
+
+Rien de plus facile avec python.
+
+On défini quelque part en global ::
+
+    import threading
+    mysemaphore=threading.Semaphore()
+
+On utilise ainsi ::
+
+    mysemaphore.acquire()
+    # code protégé
+    mysemaphore.release()
+
+    # On peut aussi gérer des accès non bloquant :
+    if mysemaphore.acquire(false):
+        # code protégé
+        mysemaphore.release()
+    else:
+        # ressourse occupé, on ne fait rien.
+

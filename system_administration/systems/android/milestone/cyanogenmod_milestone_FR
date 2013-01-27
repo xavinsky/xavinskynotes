@@ -1,0 +1,80 @@
+###########################
+cyanogenmod 7 sur milestone
+###########################
+
+HOWTO Install cyanogenmod 7 sur milestone
+
+Tutorial a suivre pour cyanogenmod-7 sur milestone.
+===================================================
+
+Reference ::
+
+    http://www.mrmuh.com/2012/01/update-a-motorola-milestone-from-motorola-firmware-to-cyanogenmod-7/
+
+Telechargements necessaires
+===========================
+
+Fichiers ::
+
+    # sbf_flash 1.24 : outil linux pour flasher les firmware android.
+    db8afd24f7a0dc6d3d78556dec811694  sbf_flash
+    http://db.tt/5RtCaENz
+    # firmware vulnerable recovery milestone
+    02adc6275a555a3c7dafda399998b109  vulnerable_recovery_only_RAMDLD90_78.sbf
+    http://db.tt/zyry8s8A
+    # 2nd boot Avec OpenRevovery tool.
+    dfc3bbac9245ab60f8b72358be99ccf7  OpenRecovery_2ndbootOR_v1_1.zip
+    http://cyanogenmod4milestone.googlecode.com/files/OpenRecovery_2ndbootOR_v1_1.zip
+    # ROM cyanogen 7
+    ec00c92d8a39fcba9ae3268a614a8ff9  cm-7.2.4b-umts_sholes.zip
+    https://github.com/downloads/nadlabak/android/cm-7.2.4b-umts_sholes.zip
+    # google market
+    c7fa405e4359a5424e20b3029625dc3f  gapps-gb-20111216-signed.zip
+    http://db.tt/U9vDBrOJ
+    (remarque initial > 2.2 donc pas besoin de plus d'appli)
+
+Resume du tutorial
+==================
+
+::
+
+    Sur la sdcard :
+    remove update.zip
+    Extact dans le root de la sdcard OpenRecovery_2ndbootOR_v1_1.zip
+
+    Demarrer le bootloader milestone  (Power + pad up)
+    Brancher l'usb, et lancer depuis debian
+
+    chmod +x sbf_flash
+    ./sbf_flash vulnerable_recovery_only_RAMDLD90_78.sbf
+
+    puis lors du reboot, passer en mode recovery (Power + Camera)
+
+    Selectionner -> Console
+    rm -f /system/etc/install-recovery.sh   
+    umount /sdcard
+    parted /dev/block/mmcblk0
+    resize 1 0MB 6800MB
+    mkpartfs primary ext2 6800MB 7973MB
+    quit
+    tune2fs -j /dev/block/mmcblk0p2
+    exit
+    Selectionner -> Nandroid -> Backup -> Backup All
+    Selectionner -> Root Phone
+    Selectionner -> Reboot System
+
+    Copier ROM cyanogene et apk market dans OpenRecovery/updates de la sdcard.
+    cm-7.2.4b-umts_sholes.zip
+    gapps-gb-20111216-signed.zip
+
+    Selectionner ->  Wipe Dalvik Cache
+    Selectionner ->  Wipe Data / Factory Reset
+    Selectionner ->  Wipe Cache Partition
+    Selectionner -> Apply Update
+     -> cm7
+     -> market
+    Reboot 
+
+    Cyanogen doit être utilisable.
+
+

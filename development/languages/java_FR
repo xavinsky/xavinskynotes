@@ -55,6 +55,27 @@ Install java sun a revoir car sun-java6-jdk n'existe plus ? libmozjs5d-dbg => 5 
     aptitude install libjetty-java libjsch-java sat4j
     aptitude install libmozjs5d-dbg
 
+IDE
+===
+
+Eclipse
+-------
+
+::
+
+    #install eclipse avec android framework
+    aptitude install eclipse-cdt
+    aptitude install ia32-libs
+    aptitude install libmono-winforms2.0-cil
+
+    # lancer eclipse
+    eclipse
+
+    # Interface eclipse :
+    # Help -> Install New Software -> "Add"
+    # "http://dl-ssl.google.com/android/eclipse"
+    # install all plugins androids
+    # get sdk via eclipse
 
 Precompilation et Execution
 ===========================

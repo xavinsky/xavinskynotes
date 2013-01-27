@@ -1,0 +1,57 @@
+#######
+ANDROID
+#######
+
+Root
+====
+
+::
+    # Application pour obtenir le root du milestone :
+    Universal Androot
+    (avant j'ai utilisé z4root.1.3.0.apk).
+
+SDK
+===
+
+::
+
+    # detecter un device :
+
+    cd /opt/android-sdk/plateform-tools
+    ./adb devices
+    570045820ba9    device
+
+    # installer un apk
+
+    ./adb install myfile.apk
+
+    test root
+    ./adb shell
+    prompt must be # and not $
+
+UDEV
+====
+
+Config udev la connection usb sur le milestone :
+http://developer.android.com/tools/device.html#setting-up
+
+::
+
+    # milestone motorola
+    echo 'SUBSYSTEM=="usb", ATTR{idVendor}=="22b8", MODE="0666", GROUP="plugdev"' >> /etc/udev/rules.d/51-android.rules
+    # spica
+    echo 'SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="plugdev"' >> /etc/udev/rules.d/51-android.rules
+    #echo 'SUBSYSTEM=="usb", SYSFS{idVendor}=="04e8", OWNER="root" GROUP="root"' >> /etc/udev/rules.d/51-android.rules
+
+    chmod a+r /etc/udev/rules.d/51-android.rules
+    /etc/init.d/udev restart
+    lsusb
+    ls -l /dev/bus/usb/0xx/0xx (xx depend de lsusb)
+
+    # verification du device :
+    lsusb
+    # milestone :
+    ID 22b8:41da Motorola PCS
+    # spica :
+    ID 04e8:681c Samsung Electronics Co., Ltd Galaxy Portal/Spica/S
+

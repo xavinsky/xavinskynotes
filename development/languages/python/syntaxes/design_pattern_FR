@@ -1,0 +1,32 @@
+##############
+Design Pattern
+##############
+
+Singleton
+=========
+
+::
+
+    #  definition singleton from PEP318
+    def singleton(cls):
+        instances = {}
+        def getinstance():
+            if cls not in instances:
+                instances[cls] = cls()
+            return instances[cls]
+        return getinstance
+
+    # sample define Singleton class : 
+    @singleton
+    class MySingletonClass:
+        def __init__(self):
+            print "Unique initalisation"
+            self.value = 0
+
+    # Using sample
+    >>> A = MySingletonClass()
+    Unique initalisation
+    >>> B = MySingletonClass()
+    >>> A.value = 100
+    >>> print B.value
+    100

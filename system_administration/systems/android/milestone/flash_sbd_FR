@@ -1,0 +1,30 @@
+#########
+FLASH SBD
+#########
+
+mise d'une nouveau firmware sbd avec sbd_flash
+
+sbf_flash 1.24 ::
+
+    # sbf_flash 1.24 : outil linux pour flasher les firmware android.
+    db8afd24f7a0dc6d3d78556dec811694  sbf_flash
+    http://db.tt/5RtCaENz
+
+listes firmware sbd, Vulnerable recovery firmware pour Milestone.
+
+    * http://www.droid-developers.org/wiki/SBF_Milestone
+    * http://and-developers.com/sbf
+    * http://sbf.droid-developers.org/umts_sholes/list.php
+
+
+::
+
+    # plug motorola.
+    # shutdown motorola.
+    # up motorola with power + Up D pad
+
+    ./sbf_flash myfirmware.sbf
+
+    # exemple :
+
+    ./sbf_flash SHOLS_U2_05.26.0_SIGNED_UCASHLSMR2EMEAB1B806E.0R_PDS003_USAMS1FRYORTAZFR_P009_A006_HWp2a_WIG145011_1FF.sbf

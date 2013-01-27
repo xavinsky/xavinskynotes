@@ -1,0 +1,251 @@
+##########################
+Syntaxe du language Python
+##########################
+
+Some basic usefull syntax.
+
+Iterateur
+=========
+
+Utilisation de yield pour creer des itérateurs.
+
+::
+
+    def table_random(nb_elem, value_max):
+        for i in range(nb_elem):
+            yield random.randint(1, value_max)
+
+    for valeur_de6 in table_random(4, 6):
+        print("valeur de = %s " valeur_de6)
+
+
+
+
+Lambda, map, filter, reduce
+===========================
+
+Lambda
+------
+
+Definition d'une fonction en une ligne avec le mot clef lambda.
+
+::
+
+    f = lambda x, y : x + y
+ 
+    # equivalent à 
+
+    def f(x,y):
+        return x+y
+
+map
+---
+
+Applique une fonction a chaque membre d'un liste
+
+::
+
+    final_list = map(f, initial_list)
+
+    # equivalent à
+
+    final_list = []
+    for x in initial_list:
+        final_list.append(f(x))
+
+
+filter
+------
+
+Filtre une liste selon une fonction.
+
+::
+
+    final_list = filter(f, initial_list)
+
+    # equivalent à
+
+    final_list = []
+    for x in initial_list:
+        if f(x):
+            final_list.append(x)
+
+reduce
+------
+
+Un peu plus complexe a comprendre en voyant le code.
+L'idée de lancer le fonction sur les deux premiers elements,
+puis entre le resultat et l'element suivant, ainsi de suite jusqu'a avoir fait tous les elements.
+
+Cas particulier : 0 element => erreur, 1 element retourne l'element sans traitement.
+
+
+::
+
+    result = reduce(f, initial_list)
+
+    # equivalent à
+
+    final_list = []
+    if len(inital_list) == 0:
+        raise Exception('Empty sequence with no initial value')
+    elif len(inital_list) == 0:
+        result = inital_list[0]
+    else:
+        result = f(inital_list[0], inital_list[1])
+        for elem in initial_list[:2]:
+            result = f(result, elem)
+
+
+List comprehesions
+==================
+
+C'est une syntaxe en une ligne pour faire une liste a partir d'un simple boucle avec eventuelement un test.
+
+
+Simple boucle
+-------------
+
+::
+
+    my_list =  [x for x in xrange(10)]
+
+    # equivalent à
+
+    my_list = []
+    for x in range(10):
+        new_list.append(x)
+
+Ajout d'une fonction de traitement
+----------------------------------
+
+::
+
+    my_list =  [f(x) for x in xrange(10)]
+
+    # equivalent à
+
+    my_list = []
+    for x in range(10):
+        new_list.append(f(x))
+
+
+Ajout d'un test
+---------------
+
+Ce test est appelé "predicate" en anglais.
+
+::
+
+    my_list =  [f(x) for x in xrange(10) if x%2 == 0 ]
+
+    # equivalent à
+
+    my_list = []
+    for x in range(10):
+        if x%2 == 0 :
+            new_list.append(f(x))
+
+
+Decorator
+=========
+
+Permet de rajouter des capacités à une fonction en la surchargeant.
+
+Syntaxe decorateur ::
+
+    ### sans parametre : 
+
+    @decoration
+    def ma_fonction():
+        pass
+
+    # La ligne de decoration est équivalente à
+
+    ma_fonction = decoration(ma_fonction)
+
+    ### Avec parametre : 
+
+    @decoration(param)
+    def ma_fonction():
+        pass
+
+    # La ligne de decoration est équivalente à
+    ma_fonction = decoration(param)(ma_fonction)
+
+    # Les multiples decorations sont possibles :
+    @deco1('blabla')
+    @deco2
+    def ma_fonction(x, y):
+        pass
+
+    # Les lignes de decoration sont équivalente à
+    ma_fonction = deco1('blabla')(deco2(ma_fonction))
+
+    
+Exemple sans parametre  ::
+
+    # definition du decorateur.
+ 
+    def mon_decorateur(fonction_initiale):
+        print "A = Je decore ma fonction"
+        def fonction_remplacante(*args, **kwargs):
+            print "B = J'utilise ma fonction décorée"
+            value = fonction_initiale(*args, **kwargs)
+            print "C = J'ai utilise ma fonction décorée"
+	    return value
+        return fonction_remplacante
+
+   # decoration d'une fonction
+
+    @mon_decorateur
+    def ma_fonction_decoree(param1, param2 = None):
+        print 'mon param pricipal %s' % param1
+        if param2:
+            print 'mon param secondaire %s' % param2
+            return "%s %s" % (param1, param2)
+        return "%s" % param1
+    # lorsque python decore cette fonction il affiche la ligne A
+
+    # exemple utilisation.
+    # pour chaque appel de la fonction decoree,
+    # affiche la ligne B 
+    # execute la fonction normalement
+    # affiche la ligne C
+    # renvoie la valeur resultat.
+    print ma_fonction_decoree('test')
+    print ma_fonction_decoree('test1', 'test2')    
+
+
+Exemple avec parametre  ::
+
+    def decore_affichage(toprint='decoration'):
+        def decorated(f):
+            def wrapper(*args, **kwargs):
+                print toprint
+                response = f(*args, **kwargs)
+                return response
+            return wrapper
+        return decorated
+
+    @decore_affichage("j'affiche Hello Decorate")
+    def exemple1():
+        pass
+
+    @decore_affichage()
+    def exemple2():
+        pass
+
+    # l'exemple ci dessous provoque une erreur car le decorateur doit
+    # maintenant doit etre appelé avec les parenthese suite au parametre
+    # Attention il metterai une erreur lors de l'appel de exemple3
+    # et pas lors de la definition donc attention.
+    # @decore_affichage
+    # def exemple3():
+    #     pass
+
+    exemple1()
+    exemple2()
+
+Une reference en français sur les décorateurs :
+http://gillesfabio.com/blog/2010/12/16/python-et-les-decorateurs/
