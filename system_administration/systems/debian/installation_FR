@@ -2,6 +2,49 @@
 Installation
 ############
 
+Installation
+============
+
+Tester
+------
+
+Utiliser un livecd pour verifier à l'avance la compatibilité.
+
+Classique
+---------
+
+Telecharger un cd ou une image usb pour faire une installation classique.
+
+Modifier un CD d'install
+------------------------
+
+http://wiki.debian.org/?DebianInstallerModify
+
+Custom Debian Distributions : 
+http://wiki.debian.org/?CustomDebian
+
+Faire son liveCD : 
+http://wiki.debian.org/LiveCD
+
+PXE
+---
+
+Deployer debian par le reseau
+
+http://lea-linux.org/cached/index/Install-install-debian-reseau.html
+
+FAI (full automatic install) ::
+
+    http://www.informatik.uni-koeln.de/fai/
+    http://www.debian.org/releases/stable/i386/ch04s07
+    http://www.debian.org/releases/stable/i386/apcs01
+    http://wiki.debian.org/?DebianInstallerPreseed
+    http://fai-project.org/
+
+m23 : free software distribution system ::
+
+    http://m23.sourceforge.net/PostNuke-0.750/html/index.php
+
 Indispensable
 =============
 

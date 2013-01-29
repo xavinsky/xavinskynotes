@@ -1,0 +1,93 @@
+###############
+Permission Unix
+###############
+
+
+Droits Standards UNIX
+=====================
+
+Voir les droits ::
+
+    ls -l [<nomfichier>]
+
+Descripteur de droit :
+
+    TUUUGGGAAA
+
+    T : type de fichier 
+     - standard
+     d repertoire
+     l lien symbolique
+     c caractere (system)
+     b bloc (system)
+     p fifo
+     s socket
+
+    UUU : droits pour l'utilisateur a qui appartient le fichier.
+    GGG : droits pour les membres du groupe a qui appartient le fichier.
+    AAA : droits pour tous les autres.
+
+    UUU / GGG / AAA : rwx ou - qui remplace une lettre signifie pas de droit.
+    r : droit de lecture 
+    w : droit d'ecriture
+    x : droit d'execution pour un fichier / droit de parcours pour un repertoire
+    Autres spécial :
+    s : Droit SUID (peut remplacer x dans le UUU)
+    s : Droit GUID (peut remplacer x dans le GGG)
+    t : Sticky Bit (peut remplacer x dans le AAA)
+
+Flags spéciaux : 
+
+  * Droit SUID : Si un fichier à le flag SUID, surant l'execution de celui ci, 
+    l'utilisateur obtient les droits du propriétaire du fichier. 
+    Ceci est un risque pour la sécurité, il convient d'être prudent lorsque l'on utilise SUID.
+  * Droit GUID : La même chose que SUID mais donne les droit du groupe du fichier.
+  * Sticky Bit sur un repertoire : permet la modification d'un fichier, mais pas sa suppression.
+    Permet la creation de fichier si le repertoire a également positionner le droit d'ecriture.
+  * Sticky Bit sur un fichier : (un peu obsolete de nos jours) le fichier doit rester en mémoire vive après son exécution.
+
+
+changer les droits ::
+
+    chmod [-R] u|g|a +|- r|w|x <destination> :
+    # -R recursif
+    # exemple : 
+    chmod g-w toto  # enleve le droit d'ecriture au groupe sur toto
+
+Changer le proprietaire ::
+
+    chown [-R] <user>[:<group>] <destination>
+    # -R recursif
+
+
+Access Control List (ACL)
+=========================
+
+La mise en place des ACL dans le systeme de fichier se fait au mount, ou dans le fstab (option : "acl"). ::
+
+    mount -o acl,<autres options> <autres paramettres>
+
+    # Exemple ligne dans /etc/fstab :
+    /dev/sda6 /var/specialacl ext3 defaults,acl 0 0 
+
+Commandes ::
+
+    # voir les acl
+    getfacl
+
+    # modifier les acl
+    setfacl [-m|-x] [m|u|g]:<name>:<rwx>
+    # -m : ajout ou modifie un droit acl
+    # -x : enleve un droit acl
+    # m : masque
+    # u : user
+    # g : group
+    # name : nom systeme de l'utilisateur ou du groupe (vide si masque)
+    # rwx : identique droit standard unix
+
+    # Exemple ajout du droit de lecture pour toto
+    setfacl -m u:toto:r-- mon_fichier.txt
+
+    # Enlever tous les droits acl.
+    setfacl -b mon_fichier.txt
+

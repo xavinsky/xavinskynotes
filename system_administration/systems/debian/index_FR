@@ -4,24 +4,67 @@ DEBIAN
 
 .. contents:: Sommaire
 
-PXE
----
 
-Deployer debian par le reseau
 
-http://lea-linux.org/cached/index/Install-install-debian-reseau.html
 
-FAI (full automatic install) ::
 
-    http://www.informatik.uni-koeln.de/fai/
-    http://www.debian.org/releases/stable/i386/ch04s07
-    http://www.debian.org/releases/stable/i386/apcs01
-    http://wiki.debian.org/?DebianInstallerPreseed
-    http://fai-project.org/
 
-m23 : free software distribution system ::
+Gestion des Paquets
+===================
 
-    http://m23.sourceforge.net/PostNuke-0.750/html/index.php
+Les programmes sont gérés par paquets qui ont des dépendances.
+Les paquets sont generalement disponibles sur des serveurs (appelés repository)
+
+Repository
+----------
+Il y a 3 repository principaux (avec beaucoup de miroirs pour chacun d'entre eux) :
+
+    * Stable : utilisé pour des poste de travail pro ou des serveurs. 
+      Avantage : stabilité.
+    * Testing : utilisé pour les poste personnels (multimédia)
+      Avantage : derniere versions des logiciels.
+    * Experimental : utilisé par les developeurs pour tester le system.
+      Avantage : permet d'effectuer l'integration continue des paquets.
+
+De base, les repository contienne des logiciels libres.
+Mais chaque répository il existe des options : contrib et non-free.
+Contrib contient des logiciels libres servent a des systemes non libres.
+non-free contient des logiciels privateur (licence non libre)
+
+Attention Gratuit ne veux pas dire libre (voir page sur les licences)
+
+Aptitude et apt tools
+--------------------- 
+
+Aptitude est le programme qui permet de gerer les paquets du repository.
+apt-file permettera de chercher des fichiers dans les paquets.
+dpkg est le programme de gestion des paquets independant des repository.
+
+
+Quelque commandes ::
+
+    # Aller chercher la liste des programme mis a jour.
+    aptitude update
+    apt-file update
+
+    # Mettre a jour
+    aptitude upgrade
+
+    # Installer un logiciel
+    aptitude install <nomlogiciel>
+
+    # Chercher un logiciel
+    aptitude search <nomlogiciel>
+    apt-cache search <info1> <info2>
+    apt-file search <nomfichier>
+
+    # Enlever un logigiel
+    aptitude remove [--purge] <nomlogiciel>
+    # --purge : elimine aussi les fichiers de configurations
+
+    # Reinstaller un logiciel
+    aptitude reinstall [--purge] <nomlogiciel>
+
 
 
 
@@ -31,17 +74,6 @@ proxy pour apt
 apt-proxy
 apt-proxy-import
 
-
-Modifier un CD d'install
-------------------------
-
-http://wiki.debian.org/?DebianInstallerModify
-
-Custom Debian Distributions : 
-http://wiki.debian.org/?CustomDebian
-
-Faire son liveCD : 
-http://wiki.debian.org/LiveCD
 
 Creation d'un paquet debian
 ---------------------------
@@ -54,7 +86,7 @@ Creation d'un paquet debian
 
 
 Communauté
-----------
+==========
 
 liste diffusion (inscriptions / desinscriptions / archives) :
 

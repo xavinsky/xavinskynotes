@@ -1,0 +1,15 @@
+###
+CSS
+###
+
+Quelque astuces
+===============
+
+Ombre et css
+------------
+
+Le probleme : IE et la transparence
+http://www.wikistuce.info/doku.php/incompatibilite_avec_internet_explorer
+
+background: url(shadowAlpha.png) no-repeat bottom right !important;
+background: url(shadow.gif) no-repeat bottom right;

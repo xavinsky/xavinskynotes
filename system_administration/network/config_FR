@@ -2,6 +2,10 @@
 Configuration réseaux
 #####################
 
+Requete manuelle du dhcp pour obtenir une adresse ip sur le reseau ::
+
+    dhclient
+
 Exemple de config réseau : /etc/network/interfaces ::
 
     #interface locale
@@ -52,7 +56,6 @@ configuration reseau ::
     # ajouter une passerelle (ou la changer)
     route add default gw 192.168.3.100
 
-
 Configuration de carte réseau ::
 
     ethtool
@@ -60,6 +63,8 @@ Configuration de carte réseau ::
 Detection adresse mac ::
 
     ifconfig -a | grep HWaddr | awk '{print $1 "  :  " $5}'
+
+
 
 
 

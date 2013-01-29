@@ -1,0 +1,54 @@
+#######################
+Fichiers et Repertoires
+#######################
+
+
+Nommage special ::
+
+    .  : le repertoire ou je suis
+    .. : le repertoire de dessus
+    /  : le repertoire racine
+    ~  : mon repertoire 
+         exemple :
+           /root pour le root 
+           /home/<nomuser> pour les autres)
+    *  : wildcard correspond a n'importe quel chaine de carractere 
+         exemple
+           ls *.txt : motre tout les fichier *.txt
+           rm * : detruit tous les fichiers
+    ?  : wildcard correspond a n'importe quel carractere 
+
+
+Commande de manipulation des fichiers ::
+
+    # voir les fichiers.
+    ls [-l] [-a]
+    (-a fichier cacher)
+    (-l description)
+    tree
+
+    # Se deplacer :
+    cd <nomrepertoire>
+
+    # Copier
+    cp [-r] <origine> <destination>
+    # -r : pour copier un repertoire
+
+    # Renomer ou deplacer
+    mv <orgine> <destination>
+
+    # Detruire 
+    rm [-R][-f] <fichiers>
+    -R : Repertoire
+    -f : sans confirmer par Y ou O
+
+    # Creer un repertoire
+    mkdir <nouveaurepertoire>
+
+    # Creer un fichier vide
+    touch <nomfichier>
+
+    # Creer un lien symbolique
+    ln -s <fichier_a_lier> <nom_du_lien>
+
+

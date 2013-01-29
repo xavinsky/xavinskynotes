@@ -25,7 +25,7 @@ Monitoring
     netstat -ln --tcp # ports en ecoute TCP (numeric)
     lsof -i :nbport   # indique le processus ecoutant sur ce port.
 
-    ## Checks
+    ## Checks domain access
     ping google.com
     traceroute google.com
 

@@ -84,3 +84,30 @@ Recuperation des scripts ::
 
     git clone https://github.com/xaviermanach/getkeywep.git
 
+
+Droits execution
+================
+
+Voir la partie sur les permissions d'execution, en particulier le SUID et GUID.
+Attention a l'escalade de droits.
+
+SUDO
+====
+
+capacite d'avoir des droits suplémentaire pour un user (ou groupe) sur une serie ou toutes les commandes.
+
+Quelques commandes ::
+
+    # changer d'utilisateur standard
+    su [<user>] 
+
+    # faire une commande en root
+    sudo commande
+
+    #Configuration de sudo (en root) :
+    chmod u+w /etc/sudoer
+    #editer le fichier pour ajouter les droits du user
+    chmod u-w /etc/sudoer
+    /etc/init.d/sudo restart
+
+

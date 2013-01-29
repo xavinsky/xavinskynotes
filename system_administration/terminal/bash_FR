@@ -37,14 +37,6 @@ Carracteres spéciaux ::
     &    : execution en arriere plan
     ()   : sous shell
     {}   : bloc de commande
-    |    : tube
-    >    : redirection de la sortie standard
-    2>   : redirection de la sortie erreur
-    2>&1 : redirection de la sortie erreur vers standard
-    >>   : redirection de la sortie standard (ajout au fichier)
-    >&   : duplication de la sortie standard
-    >&~  : ferme  la sortie standard
-    <    : redirection de l'entrÃ© standard
     ``   : substitution de commande
     #    : commentaire
 
@@ -127,6 +119,31 @@ racourcis clavier ::
     M-u : met la fin du mot en majuscule
     M-l : met la fin du mot en minuscule
     M-c : Met un majuscule sous le curseur et la fin du mot en minuscule
+
+Entrées/Sorties, Pipe, Redirection
+==================================
+
+Les commandes on une entrée standard, une sortie standard et une sortie erreur.
+
+Il est possible de modifier cela par ligne de commandes ::
+
+    >    : redirection de la sortie standard
+    2>   : redirection de la sortie erreur
+    2>&1 : redirection de la sortie erreur vers standard
+    >>   : redirection de la sortie standard (ajout au fichier)
+    >&   : duplication de la sortie standard
+    >&~  : ferme  la sortie standard
+    <    : redirection de l'entrÃ© standard
+
+Il est egalement de faire des flux en passant la sortie de la premiere commande,
+comme entrer de la seconde. Ce mecanisme est appelé tupe (pipe) ::
+
+    |    : tube
+
+Exemples ::
+
+    ls > ls.txt
+    ls -l | grep txt
 
 
 Quelques Commandes

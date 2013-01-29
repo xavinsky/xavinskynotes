@@ -12,7 +12,26 @@ Chercher
 
 ::
 
-    grep
+    # Affichier la liste des fichier
+    ls
+
+    # Affichier la liste des fichier y compris ceux des sous repertoires
+    find .
+
+    # Affiner la recherche avec un grep
+    find . | grep toto
+
+    # mise a jour de la base de recherche des fichiers
+    updatedb
+    # Recherche dans la base des fichiers
+    locate <nomfichier>
+
+    # Recherche dans les fichiers
+    grep [-r][-i][-l] <fichierconcerner> <textarechercher>
+    # -r recursif
+    # -i insensible a la casse
+    # -l retourne la liste des fichier et non pas les lignes correspondantes
+
     awk
     ack
     sed
@@ -23,14 +42,84 @@ Chercher
     multitail
 
 
+Taille
+======
+
+::
+
+    # voir la liste des fichiers avec leur tailles
+    ls -l
+
+    # calcul la taille d'un repertoire
+    du -sh <repertoire>
+
+    # voir le remplissage des partitions
+    df -h
+
+Gestion des processus
+---------------------
+
+::
+
+    # Liste des processus avec details
+    ps -auwwx
+
+    # Liste des processus en temps reel
+    top 
+
+    # Liste des processus afficher en arbre
+    pstree -p
+
+    # <pid> = numero du processus
+    # Demander a un processus de s'arreter
+    kill <pid>
+    # Tuer un processus (violent)
+    kill -9 <pid>
+    # Tuer toutes les instances d'un programme
+    killall <nomprogramme>
+
+Changer la priorite du processus :
+plus le chiffre est grand, plus le processus es gentil,
+et laisse les autres processus agir en priorite.
+On utilise ceci pour un processus gourmand non prioritaire.
+
+::
+
+    renice <nouvelle_priorite> -p <pid>
+
+Tache de fonds ::
+
+    # lancer une commade en tache de fond :
+    <commade> &
+    # voir les commandes en tache de fond :
+    jobs
+    # ReEntrer dans une commande en tache de fond :
+    fg
+
+    # Detacher un processus de son pere :
+    nohup <command> &
+    # utilite : on peut eteindre la console, sans arreter le processus.
+
+
+Connexion distante
+------------------
+
+ssh :
+
+    # se connecter en ssh sur une machine distante (port par default 22)
+    ssh [-P <port>] [user@]machine
+
+
 Transfert
 ---------
 
 scp ::
 
     # copie via ssh
-    scp [-r] [[user@]machine:]/path/file [[user@]machine:]/path/file 
+    scp [-r] [-P <port>][ [user@]machine:]/path/file [[user@]machine:]/path/file 
     # -r pour recursif
+    # <port> : port de la machine distante (22 par defaut)
+
 
 wget ::
 
