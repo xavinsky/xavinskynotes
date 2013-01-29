@@ -9,7 +9,8 @@ preferer join au '+'.
 '+' creer une nouvelle chaine a chaque addition,
 ce qui cause une alocation memoire et une recopie.
 
-Simple bench ::
+Voici un simple bench : ::
+
     import time
     a = [str(i) for i in range(100000)]
     t1 = time.time()

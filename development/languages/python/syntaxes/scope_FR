@@ -6,6 +6,8 @@ Visibilité des Variables
 Variables globales et fonctions
 ===============================
 
+::
+
     # utilisation comme constante
     # marche mais deconseillé
     i = 1

@@ -2,7 +2,7 @@
 Erreurs Classique
 #################
 
-  Je ne parlerai pas ici des erreurs de syntaxes simple
+Je ne parlerai pas ici des erreurs de syntaxes simple
 qui font que le programme plante au départ, mais plutôt des
 code qui font autre chose que ce qui est attendu, ou qui planterons
 dans certains cas.
