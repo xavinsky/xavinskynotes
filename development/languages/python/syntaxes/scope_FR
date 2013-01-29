@@ -1,0 +1,69 @@
+########################
+Visibilité des Variables
+########################
+
+
+Variables globales et fonctions
+===============================
+
+    # utilisation comme constante
+    # marche mais deconseillé
+    i = 1
+    def f():
+        print i
+
+    # utilisation comme variable 
+
+    # ecris correctement
+    i = 1
+    def f():
+        global
+        i = i + 1
+
+    # plantage i non défini
+    i = 1
+    def f():
+        i = i + 1
+
+
+    # variable locale et globale avec le meme nom
+    # autre plantage similaire
+    i = 1
+    def f():
+        print i
+        i = 2
+
+    # usage correct
+    i = 1
+    def f():
+        i = 2 # on defini o local différent de la variable i globale
+        print i
+
+    print i # affiche i global : 1
+    f()     # affiche i local  : 2
+    print i # affiche i global : 1
+
+
+Pseudo private et protected
+===========================
+
+Des conventions de languages utilise les prefixe '__' pour privé et '_' pour protegé. Mais cela n'est que conventionnel.
+
+L'interêt est donc assez limité.
+
+Exemple ::
+
+    class A:
+        __prive = 'secret'
+
+    exemple = A()
+
+    # impossible de faire cela.
+    A.__prive 
+
+    # mais possible de recuperer comme cela :
+    A._A__prive
+
+
+
+

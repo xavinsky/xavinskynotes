@@ -1,0 +1,31 @@
+###########
+Performance
+###########
+
+Concatenation des chaines.
+
+preferer join au '+'.
+
+'+' creer une nouvelle chaine a chaque addition,
+ce qui cause une alocation memoire et une recopie.
+
+Simple bench ::
+    import time
+    a = [str(i) for i in range(100000)]
+    t1 = time.time()
+    s = ''
+    for e in a:
+        s += e
+    t2 = time.time()
+    print t2 - t1
+    t1 = time.time()
+    s = ''.join(a)
+    t2 = time.time()
+    print t2 - t1
+
+Resultats ::
+
+    0.0174679756165
+    0.00216913223267
+
+

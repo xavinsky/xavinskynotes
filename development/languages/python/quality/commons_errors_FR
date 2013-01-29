@@ -1,0 +1,137 @@
+#################
+Erreurs Classique
+#################
+
+  Je ne parlerai pas ici des erreurs de syntaxes simple
+qui font que le programme plante au départ, mais plutôt des
+code qui font autre chose que ce qui est attendu, ou qui planterons
+dans certains cas.
+
+Divers
+======
+
+Mixage de tabulation et espace dans le code.
+
+
+la commande import ne charge le module que la premiere fois,
+il faut utiliser reload si vous voulez réexecuter le chargement du module.
+ 
+
+La division entre entier donne un entier et non un nombre a virgule.
+
+::
+
+    a = 1 / 2 
+    # a = 0
+    a = 1. / 2
+    # a = 0.5
+
+surcharge de mot du language ::
+
+    # ceci va tout casser dans votre programme :
+    int = 5
+    str = 'toto'
+
+Mix chaine avec accent et chaine unicode ::
+
+    ok_1 =  "toto" +  "tête"  
+    ok_2 = u"toto" + u"tête"  
+    ok_3 =  "toto" + u"tête"  
+    ok_4 =  "toto" + u"toto"  
+
+    erreur_1 = "tête" + u"toto" 
+    erreur_2 = "tête" + u"tête"  
+    # en effet la conversion implicite de "tête" en unicode ne fonctionne pas.
+
+    # Il faut faire : 
+    ok_final = "tête".decode('utf-u') + u"toto" 
+
+
+Structure recursive ::
+
+    # erreur de conception.
+    L = []  
+    L.append(L) 
+    print L
+ 
+Confusion entre references et copies ::
+
+    A = [1,2,3]
+    B = A # reference la même liste que A
+    B.append(4) # affecte A
+
+    A = [1,2,3]
+    B = A[:] # copie indépendante de A
+    B.append(4) # n'affecte pas A
+
+La liste en paramettres de fonction est partagée entre les instances ::
+
+    def f(test,L=[]):
+        L.append(test)
+        print L
+
+    f('un')   # affiche ['un']
+    f('deux') # affiche ['un', 'deux']
+
+    # Syntaxe pour liste par default comme parametres de fonction :
+    def f(test, L=None):
+        if not L: L = []
+        L.append(test)
+        print L
+
+    f('un')   # affiche ['un']
+    f('deux') # affiche ['deux']
+
+Le même probleme appliquer au classes ::
+
+    class A:
+        tab = []
+
+    a = A()
+    b = A()
+    a.tab.append(1) # affecte b.tab !!!
+
+    # Afin d'eviter cela on fera : 
+
+    class A:
+        def __init__(self):
+            self.tab = []
+    a = A()
+    b = A()
+    a.tab.append(1) # n'affecte pas b.tab.
+
+
+        
+
+Tuple increment composant bug ::
+
+    tup = ([1,2],)
+    tup[0] += [3,4]
+    # provoque une erreur, mais tup[0] a bien été modifié !!!
+
+    # Pour éviter cela la syntaxe correcte serait :
+    tup = ([1,2],)
+    tup[0].extend([3,4])
+   
+
+
+Multiples exception syntaxes ::
+
+    # correct :
+    except (NameError, OverflowError): 
+
+    # incorrect :
+    except NameError, OverflowError: 
+    # OverflowError va être modifié lors de l'exception NameError.
+
+Utilisation de open : Chemin relatif pour open(filename) 
+utilise le repertoire courrant, pas de recherche dans le PATH. 
+
+
+Detecteurs d'erreur
+===================
+
+Deux outils pour cherchers des erreurs :
+
+  * pychecker : http://pychecker.sourceforge.net/
+  * pylint : http://www.logilab.org/857
