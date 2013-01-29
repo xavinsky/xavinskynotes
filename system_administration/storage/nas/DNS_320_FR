@@ -1,0 +1,108 @@
+#######
+DNS-320
+#######
+
+Petit NAS avec deux disque.
+
+
+FunPlug
+=======
+
+Hack DNS-320 avec funplug.
+
+Mise en place du ssh et du mot de passe root.
+
+les package funpkg sont dans /ffp/pkg/packages /ffp/pkg/additional ::
+
+    cd /ffp/pkg/
+    ./updater.sh
+
+References :
+
+    * http://nas-tweaks.net/40/installation-of-the-fonz-funplug-0-5-for-ch3snas-ch3mnas-dns-323-and-many-more/
+    * http://www.inreto.de/dns323/fun-plug/0.7/README.txt
+    * http://nas-tweaks.net/40/installation-of-the-fonz-funplug-0-5-for-ch3snas-ch3mnas-dns-32
+    * http://nas-tweaks.net/113/store-passwd-sh-for-the-d-link-dns-320-sharecenter-pulse/
+    * http://nas-tweaks.net/82/installing-and-uninstalling-packages-and-activation-and-deactivation-of-daemons-in-fonz-fun_plug/
+    * http://inreto.de/dns323/fun-plug/0.7/arm/
+
+Downloads :
+
+    * fun flug 0.7 :
+      http://inreto.de/dns323/fun-plug/0.7/arm/fun_plug
+      http://inreto.de/dns323/fun-plug/0.7/arm/fun_plug.tgz
+    * paquages : 
+      http://inreto.de/dns323/fun-plug/0.7/arm/packages/
+
+Ventilateur
+===========
+
+Je trouve le nas bruillant, j'aimerai reduire l'usage des ventilos...
+
+De base fonctionne ainsi. (inittab => /etc/rc.sh =>)
+/usr/local/modules/script/system_init
+contient une partie fan_control ::
+
+    fan_control b c
+    FAN=`xmldbc -g '/system_mgr/power_management/fan'`
+    if [ "$FAN" == "0" ]; then
+        fan_control 0 c&
+    elif [ "$FAN" == "1" ]; then
+        fan_control 1 c&
+    elif [ $FAN == "2" ]; then
+        fan_control 2 c&
+    fi
+
+ce script n'est pas modifiable directement :
+/usr/local/tmp/image.cfs on /usr/local/modules type squashfs 
+il faudrait refaire l'image cfs...
+
+J'ai selectionner la config off/lower/high dans l'interface ce qui donne ::
+ 
+    xmldbc -g '/system_mgr/power_management/fan' 
+    => 0
+    # et donc
+    fan_control 0 c&
+
+fan_control est un binaire...
+
+L'idée est de remplacer ce fan_control par un control plus fin.
+
+References :
+
+    * http://forum.dsmg600.info/viewtopic.php?id=6522
+    * https://github.com/johny-mnemonic/Scripts/tree/fancontrol_v1/DNS-320
+
+Je recupere les commandes utiles suivantes ::
+
+    # detect temp.
+    smartctl -d marvell --all /dev/sda |grep -e ^194 | head -c 40 | tail -c 2
+    smartctl -d marvell --all /dev/sdb |grep -e ^194 | head -c 40 | tail -c 2
+    FT_testing -T | tail -c 3 | head -c 2
+
+    # tuer fan_control.
+    killall fan_control
+
+    # je remarque un script fanspeed qui permet de controler le fan.
+    fanspeed [param]
+    # h	high speed
+    # l low speed
+    # s stop 
+    # g status
+
+Mise en place.
+
+ajout à la fin de /etc/rc.sh ::
+
+    /etc/rc.d/rc.finalize.sh
+
+creation de /etc/rc.d/rc.finalize.sh ::
+
+    #!/bin/sh
+    killall -9 fan_control 2>/dev/null
+    /opt/fan_control_xav/fan_control_xav
+
+creation de /opt/fan_control_xav/fan_control_xav qui regle le fan en fonction de la temperature.
+
+pb... eliminé apres reboot !!!
+
