@@ -1,0 +1,23 @@
+############
+Architecture
+############
+
+Architecture logicielle
+=======================
+
+Indispensable
+-------------
+
+    * documenter l'architecture
+    * mettre un element imature en production.
+      (forcant des patchs dans les autres composants et/ou rendant difficiles les modifications a venir.)
+
+
+Erreur à ne pas faire
+---------------------
+
+    * sur-design qui se retrouve être lourd et inadapté 
+    * Marteau doré : utiliser le meme outils pour tous les pb, meme quand ce n'est pas adapté
+    * utiliser une techno non utile (pour la reference, pour la nouveauté, pour l'image)
+
+

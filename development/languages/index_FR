@@ -4,8 +4,11 @@ Les langages de programmation
 
 .. contents:: Sommaire
 
+Les languages
+=============
+
 Python
-======
+------
 
 Mon préféré.
 `Voir ici <python>`_
@@ -22,7 +25,7 @@ Ce language s'adapte tres bien à la plupart des situations,
 et est souvent le plus rentable.
 
 C
-=
+-
 
 Deux cas ou il est utile de programmer en C :
 
@@ -41,9 +44,12 @@ Default :
   * Non portable.
 
 Java
-====
+----
 
 Java est beaucoup utilisé.
+
+Personnelement, java a un interet pour les applications androids seulements.
+Et dans de tres rares cas, des applets java peuvent également être envisagés.
 
 Avantage : 
 
@@ -61,7 +67,7 @@ Defaut :
   * moins performant que le C++
 
 C++
-===
+---
 
 C++ est un autre classique. C'est l'extension objet du language C.
 
@@ -77,8 +83,30 @@ Defaut :
   * non portable.  
 
 autres
-======
+------
 
   * ruby : C'est un autre language tres proche de python. 
     Plus inovant que python, mais possede moins de librairies.
+
+Concepts
+========
+
+Protection ou Abstraction inverse
+---------------------------------
+
+Certains language objets (java, c++) mettent en avant les capacités 
+de limiter l'utilisation des méthodes ou propriété d'un objet.
+
+C'est a dire l'utilisation de private ou protected :
+
+    * private : n'authorise pas d'utilisation à l'exterieur de l'objet.
+    * protected : n'authorise l'utilisation qu'au classe hertitées.
+
+Certain appelle cela de la sécurité (cela permet de sécuriser l'utilisation d'un objet)
+et y voient un avantage, d'autre appelle cela de l'Abstraction inverse.
+C'est à dire que cela risque de causer des difficultés supplémentaires pour l'utilisation 
+des objets alors que l'on aurai pu faire plus simple autrement.
+
+Python permet des mecanismes de contournement des elements privé et protégés,
+ils ne sont donc que des conventions, et non une sécurité.
 

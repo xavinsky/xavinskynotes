@@ -1,0 +1,74 @@
+##############
+Implementation
+##############
+
+
+Codage
+======
+
+Bonne pratiques importantes
+---------------------------
+
+    * réutiliser l'existant, ne pas reinventer la roue.
+    * diviser les composants au maximum. 
+      Ne pas avoir de composant sur lequel
+      trop de choses différentes reposent.
+    * factoriser le code. 
+      Cela evite de devoir réécrire les modifications,
+      Ne pas le faire peux causer l'oubli d'une modification... 
+
+Erreurs a ne pas faire
+----------------------
+
+    * utilisation abusive de variable globale 
+    * garder du code qui sert plus dans le programme.
+    * programmation spaghetti (modifier un element oblige a tout modifier)
+    * implementer quelque chose dont on a pas besoin en pensant 
+      que ce sera utile plus tard.
+
+Performance
+===========
+
+Tunning
+-------
+
+Il faut déja coder le programme en utilisant une architecture propre
+et simple. Ensuite detecter les problemes de performances et 
+les éliminers.
+
+En aucun cas, il ne faut coder une amélioration de performance
+parce que l'on pense intuitivement que le probleme sera la.
+La performance logiciel est un probleme complexe, qui s'étudie
+dans la pratique et non dans la théorie. (lois de Knuth) 
+
+Multithread
+===========
+
+Utilisation
+-----------
+Ceci permet de parraleliser les traitements,
+ce qui améliore la latence des programmes.
+Le principe est de ne pas perdre les temps d'attente 
+des traitements en faisant faire plusieurs choses en même temps
+à la machine, afin qu'elle soit utilisé optimalement.
+
+Interblocage
+------------
+
+Attention a l'erreur classique d'interblocage.
+Il faut bien architecturé ces spinlocks afin
+que l'on ne se retrouve pas bloqué avec chacun des threads
+attendants la libération d'une ressource de l'autre threads.
+On évite généralement cela en ordonnant correctement les ressources.
+
+Boucle d'attente
+----------------
+
+Il faut eviter les boucles qui teste la disponibilité d'une
+ressource géré par un autre programme ou autre threads.
+Cela coute en performance. On préferera utiliser des 
+spinlocks (ou la programmation evenementielle). 
+En d'autre mots, il y a toujours des elements du languages 
+qui permettent d'attendre un element, plus efficasse que de faire une
+boucle dans votre programme.
+
