@@ -100,6 +100,8 @@ que l'objet référencé ait été détruit.
 Proxy
 =====
 
+::
+
     import weakref
 
     class A:
@@ -150,7 +152,6 @@ Exemple WeakSet
 ::
  
     from weakref import WeakSet
-
 
     class Exemple:
         def __init__(self,value):
