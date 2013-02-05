@@ -2,10 +2,23 @@
 Design Pattern
 ##############
 
+.. contents:: Sommaire
+
 Bonnes pratiques.
 
 Singleton
 =========
+
+Lors de l'appel du constructeur d'un singleton
+
+    * si aucune instance de cette classe n'existe (la premiere fois), 
+      il le crée et retourne l'instance
+    * si l'instance de cette classe existe déja, il retourne cette même instance.
+
+Pour faire simple, cette classe ne produira qu'une seule instance.
+
+ATTENTION : cette instance n'est pas safe thread, il sera necessaire de mettre les mécanismes
+de protections des données (semaphore, etc...)
 
 ::
 
@@ -32,3 +45,88 @@ Singleton
     >>> A.value = 100
     >>> print B.value
     100
+
+Prototype
+=========
+
+Certain objets ont une phase d'initialisation longue 
+qui est identique quelque soit les objets.
+Dans ce cas, on creer une instance initialisé (appelé prototype), 
+et plutôt que de réinitialiser cette instance, on copiera le prototype.
+
+Implementation Python :
+
+Copier un objet python peut être sources d'erreur, car on pourrait ne copier que les références
+et non pas le contenu des donnés. (par exemple la reference d'une liste et pas son contenu)
+Pour copier également les références, il faut utiliser copy.deepcopy.
+
+
+::
+
+    from copy import deepcopy
+
+
+    # Implementation du design pattern prototype
+    class Prototype:
+        def __init__(self, instance_base):
+            self.instance = instance_base
+        def clone(self):
+            return deepcopy(self.instance)
+
+    # exemple utilisation
+    class MaClasse:
+        def __init__(self):
+            #traitement tres long
+            pass
+        def personalise(self, data):
+            self.data = data
+        def action(self, param):
+            pass
+
+    proto_MaClasse = Prototype(MaClasse())
+    instance_1 = proto_MaClasse.clone()
+    instance_2 = proto_MaClasse.clone()
+    instance_1.personalise(['mes','datas','1'])
+    instance_2.personalise(['autres','datas','2'])
+    instance_1.action('blabla')
+    instance_2.action('blabla')
+
+
+poids-mouche (flyweight)
+========================
+
+Lorsque l'on veux stoquer un grand nombre de petits objets,
+dont beaucoup sont identique. On veux éviter d'avoir a stoquer 
+des objets dupliquer.
+
+Implementation python
+
+On utilisera alors une variable de classe (_Pool) dans le quel on stockera un dictionnaire de reference faible.
+Les éléments qui ne seront plus utilisés n'aurons plus de references fortes et seront donc alors automatiquement éliminés.
+Ensuite nous allons surcharger le constructeur __new__ pour ne creer l'objet que si il n'existe pas dans le pool. 
+
+::
+
+    import weakref
+
+    class MonPoidsMoucheText(object):
+        _Pool = weakref.WeakValueDictionary()
+        def __new__(cls, value):
+            obj = MonPoidsMoucheText._Pool.get(value, None)
+            if not obj:
+                obj = object.__new__(cls)
+                obj.value = value
+                MonPoidsMoucheText._Pool[value] = obj
+            return obj
+        
+    a = MonPoidsMoucheText("Paris")
+    b = MonPoidsMoucheText("Oxford")
+    c = MonPoidsMoucheText("Oxford")
+    print id(a), a.value
+    print id(b), b.value
+    print id(c), c.value  # c est identique a b
+    print MonPoidsMoucheText._Pool.items() # on affiche a et b(=c)
+    del(a)
+    del(b)
+    print MonPoidsMoucheText._Pool.items() # on affiche c
+

@@ -4,25 +4,7 @@ Syntaxe du language Python
 
 .. contents:: Sommaire
 
-Some basic usefull syntax.
-
-Iterateur
-=========
-
-Utilisation de yield pour creer des itérateurs.
-
-::
-
-    import random
-
-    def table_random(nb_elem, value_max):
-        for i in range(nb_elem):
-            yield random.randint(1, value_max)
-
-    for valeur_de6 in table_random(4, 6):
-        print("valeur de = %s " valeur_de6)
-
-
+Some basic usefull concept and syntax.
 
 
 Lambda, map, filter, reduce
@@ -253,3 +235,22 @@ Exemple avec parametre  ::
 
 Une reference en français sur les décorateurs :
 http://gillesfabio.com/blog/2010/12/16/python-et-les-decorateurs/
+
+Iterateur
+=========
+
+Utilisation de yield pour creer des itérateurs.
+
+::
+
+    import random
+
+    def table_random(nb_elem, value_max):
+        for i in range(nb_elem):
+            yield random.randint(1, value_max)
+
+    for valeur_de6 in table_random(4, 6):
+        print("valeur de = %s " valeur_de6)
+
+
+

@@ -1,0 +1,174 @@
+##########
+References
+##########
+
+
+La variable est une reference forte vers l'espace mémoire qui contient la donnée.
+
+::
+
+    a = [1, 2, 3]
+    # La variable a est une reference vers une liste contenant les valeurs 1,2,3.
+
+Plusieurs pointeurs peuvent pointer vers le même espace memoire.
+
+::
+
+    b = a
+    # les deux variables vont référencer le même espace memoire.
+
+Observer et comparer les references avec id ::
+
+    id(a)
+    id(b)
+    id(a) == id(b)
+
+Eliminer la référence ::
+
+    b = None
+
+L'espace mémoire est libéré lorsque toutes les reférences fortes vers cet
+espace sont éliminer.
+
+Référence faible
+================
+
+Les références sont par default forte.
+On peut définir des références faible avec le module weakref.
+Attention tout ne peux pas avoir de référence faible (voir doc python).
+
+Le principe de la reference faible, c'est qu'elle ne suffit pas
+a garder l'espance memoire. C'est donc utiliser pour acceder
+a une memoire sans affecter son cycle de vie.
+
+Il sera donc favoriser lors de l'utilisation de reférence cyclique,
+afin de liberer la mempoire correctement.
+
+::
+
+    import weakref
+    import sys
+
+    class A:
+        dico = [1,2,3]
+        def __del__(self):
+            print 'Destruction de %s' % self
+
+    exemple_1 = A()
+    w_ref = weakref.ref(exemple_1)
+    exemple_2 = w_ref()
+
+    # exemple_1 et exemple_2 sont des reférences fortes
+    # w_ref est une reference faible (point vers l'espace memoire)
+
+    id(exemple_1) == id(exemple_2)
+
+    del(exemple_1)
+    del(exemple_2)
+    print w_ref
+    # lorsque l'on détruit les exemples,
+    # la reference faible ne pointe plus sur rien. (dead)
+
+Callback des référence faible
+=============================
+
+Il est possible de mettre un callback sur une reference faible.
+Ce callback est une fonction qui sera executé juste apres 
+que l'objet référencé ait été détruit. 
+
+::
+
+    import weakref
+    import sys
+
+    class A:
+        dico = [1,2,3]
+        def __del__(self):
+            print 'Destruction de %s' % self
+
+    def mon_callback(reference):
+        print reference        
+
+    exemple_1 = A()
+    w_ref = weakref.ref(exemple_1, mon_callback)
+
+    del(exemple_1)
+    # ici callback est executé et affiche
+    # la reference qui pointe vers Dead.
+
+
+Proxy
+=====
+
+    import weakref
+
+    class A:
+        dico = [1,2,3]
+        def __del__(self):
+            print 'Destruction de %s' % self
+
+    exemple_1 = A()
+    proxy_1 = weakref.proxy(exemple_1)
+
+    print proxy_1.dico # on peut utiliser le proxy comme l'objet.
+    print proxy_1 # mais il n'est pas une reference forte vers l'objet.
+
+    del(exemple_1)
+    print proxy_1 # le proxy pointe vers null et n'est plus utilisable.
+
+
+Liste des references faible
+===========================
+
+::
+
+    # recuperer la liste des references faible
+    weakref.getweakrefs(object)
+
+    # compter les references faible
+    weakref.getweakrefcount(object)
+
+
+Liste et Dictionnaires Weak
+===========================
+
+Le module weakref possede deux structure de dictionnaires 
+(WeakKeyDictionary, WeakValueDictionary) et une structure de liste WeakSet :
+
+    * WeakKeyDictionary stockent des references faibles pour ses clef.
+    * WeakValueDictionary stockent des references faibles pour ses valeurs.
+    * WeakSet est liste de références faibles.
+
+Pour chacune de ces structures, si la reférence faible pointe vers un objet dead,
+la référence est retirée automatiquement.
+La manipulation retournera les 
+
+
+Exemple WeakSet
+---------------
+
+::
+ 
+    from weakref import WeakSet
+
+
+    class Exemple:
+        def __init__(self,value):
+            self.value = value
+
+    s = WeakSet()
+    a = Exemple([1,2,3])
+    s.add(a)
+    print len(s)
+    print s.data       # affiche les references
+    a in s # renvoie True
+    for i in s:
+        print i        # affiche l'objet
+        print i.value  # affiche sa valeur
+
+    del(a) # destructions des references forte a l'objet.
+    del(i) # ne pas oublier d'éliminer egalement la référence forte i
+    print len(s)
+    # la référence faible a été automatiquement éliminée du WeakSet.
+
+
