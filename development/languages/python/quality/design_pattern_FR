@@ -142,3 +142,37 @@ Ensuite nous allons surcharger le constructeur __new__ pour ne creer l'objet que
     del(b)
     print MonPoidsMoucheText._Pool.items() # on affiche c
 
+
+Chaine de responsabilité
+========================
+
+L'idée ici est de creer un suite d'objet ordoné
+pouvant devant traiter un element.
+L'element est donc traité par chaque objet de la liste
+jusqu'a qu'il y en ai un qui reussisse. 
+
+Exemple implementation python :
+Dans l'exemple suivant on defini une structure 
+pour définit une chaine de responsabilité.
+
+::
+
+    class Chain_Responsability:
+        def __init__(self, actors, name_method = "execute"):
+            """ On initialise la chaine avec la liste des acteurs.
+                On indique quelle sera la methode utiliser pour traiter
+                l'element """
+            self.actors = actors
+            self.name_methode = name_methode
+        def execute_chain(self, *arg, **dico):
+            """
+            On lancera execute_chain pour lancer le traitement de la chaine.
+            Le traitement s'arretera lorque la premiere methode d'objet 
+            renvera autre chose que None
+            """ 
+            for actor in self.actors:
+                action = getattr(actor,self.name_methode)
+                value =  action(*arg, **dico)
+                if value != None :
+                    return value
+            return None
