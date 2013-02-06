@@ -92,6 +92,18 @@ Pour copier également les références, il faut utiliser copy.deepcopy.
     instance_2.action('blabla')
 
 
+decorateur
+==========
+
+Une decoration est une modification que l'on pourra appliquer a divers objets ou fonctions.
+
+Implementation en Python.
+
+Il existe une syntaxe pour le decorateur qui permet de modifier une methode ou une classe.
+Voir la syntaxe python pur plus d'info.
+
+
+
 poids-mouche (flyweight)
 ========================
 

@@ -1,0 +1,193 @@
+#########
+Decorator
+#########
+
+Decorateur de fonction
+======================
+
+Permet de rajouter des capacités à une fonction en la surchargeant.
+
+Sytaxes
+-------
+
+::
+
+    ### sans parametre : 
+
+    @decoration
+    def ma_fonction():
+        pass
+
+    # La ligne de decoration est équivalente à
+
+    ma_fonction = decoration(ma_fonction)
+
+    ### Avec parametre : 
+
+    @decoration(param)
+    def ma_fonction():
+        pass
+
+    # La ligne de decoration est équivalente à
+    ma_fonction = decoration(param)(ma_fonction)
+
+    # Les multiples decorations sont possibles :
+    @deco1('blabla')
+    @deco2
+    def ma_fonction(x, y):
+        pass
+
+    # Les lignes de decoration sont équivalente à
+    ma_fonction = deco1('blabla')(deco2(ma_fonction))
+
+    
+Exemple sans parametre
+----------------------
+
+::
+
+    # definition du decorateur.
+ 
+    def mon_decorateur(fonction_initiale):
+        print "A = Je decore ma fonction"
+        def fonction_remplacante(*args, **kwargs):
+            print "B = J'utilise ma fonction décorée"
+            value = fonction_initiale(*args, **kwargs)
+            print "C = J'ai utilise ma fonction décorée"
+	    return value
+        return fonction_remplacante
+
+   # decoration d'une fonction
+
+    @mon_decorateur
+    def ma_fonction_decoree(param1, param2 = None):
+        print 'mon param pricipal %s' % param1
+        if param2:
+            print 'mon param secondaire %s' % param2
+            return "%s %s" % (param1, param2)
+        return "%s" % param1
+    # lorsque python decore cette fonction il affiche la ligne A
+
+    # exemple utilisation.
+    # pour chaque appel de la fonction decoree,
+    # affiche la ligne B 
+    # execute la fonction normalement
+    # affiche la ligne C
+    # renvoie la valeur resultat.
+    print ma_fonction_decoree('test')
+    print ma_fonction_decoree('test1', 'test2')    
+
+
+Exemple avec parametre
+----------------------
+
+::
+
+    def decore_affichage(toprint='decoration'):
+        def decorated(f):
+            def wrapper(*args, **kwargs):
+                print toprint
+                response = f(*args, **kwargs)
+                return response
+            return wrapper
+        return decorated
+
+    @decore_affichage("j'affiche Hello Decorate")
+    def exemple1():
+        pass
+
+    @decore_affichage()
+    def exemple2():
+        pass
+
+    # l'exemple ci dessous provoque une erreur car le decorateur doit
+    # maintenant doit etre appelé avec les parenthese suite au parametre
+    # Attention il metterai une erreur lors de l'appel de exemple3
+    # et pas lors de la definition donc attention.
+    # @decore_affichage
+    # def exemple3():
+    #     pass
+
+    exemple1()
+    exemple2()
+
+Une reference en français sur les décorateurs de fonction :
+http://gillesfabio.com/blog/2010/12/16/python-et-les-decorateurs/
+
+Decorateur de classe
+====================
+
+Plus rarement utiliser, on peut egalement decorer une classe avec les memes principes.
+Souvent on preferera des mecanisme d'heritage ou de metaclasse, mais la decoration 
+est également possible.
+
+
+Syntaxe
+-------
+
+    ### sans parametre : 
+
+    @decoration
+    class ma_class:
+        pass
+
+    # La ligne de decoration est équivalente à
+
+    ma_classe = decoration(ma_classe)
+
+    ### Avec parametre : 
+
+    @decoration(param)
+    class ma_classe:
+        pass
+
+    # La ligne de decoration est équivalente à
+    ma_class = decoration(param)(ma_class)
+
+
+Exemple sans parametres
+-----------------------
+
+    # definition du decorateur
+    def decore_classe(cls):
+        old_init = cls.__init__
+        def new_init(self, *arg, **dico):
+            print "Je decore %s" % cls.__name__
+            return old_init(self, *arg, **dico)
+        cls.__init__ = new_init 
+        return cls 
+
+    # decoration d'un classe
+    @decore_classe
+    class A:
+        def __init__(self, value):
+            self.value = value
+
+    # utilisation d'une instance décorée
+    mon_instance = A('test')
+    print mon_instance.value
+
+Exemple avec parametres
+-----------------------
+
+    # definition du decorateur
+    def decore_classe_with_text(my_text):
+        def decore_classe(cls):
+            old_init = cls.__init__
+            def new_init(self, *arg, **dico):
+                print "Je decore %s avec %s" % (cls.__name__, my_text)
+                return old_init(self, *arg, **dico)
+            cls.__init__ = new_init
+            return cls
+        return decore_classe
+
+    # decoration d'un classe
+    @decore_classe_with_text('exemple param')
+    class A:
+        def __init__(self, value):
+            self.value = value
+
+    # utilisation d'une instance decoree
+    myinstance = A('test2')
+    print myinstance.value
+
