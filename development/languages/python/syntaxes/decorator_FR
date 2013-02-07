@@ -125,6 +125,8 @@ est également possible.
 Syntaxe
 -------
 
+::
+
     ### sans parametre : 
 
     @decoration
@@ -148,6 +150,8 @@ Syntaxe
 Exemple sans parametres
 -----------------------
 
+::
+
     # definition du decorateur
     def decore_classe(cls):
         old_init = cls.__init__
@@ -169,6 +173,8 @@ Exemple sans parametres
 
 Exemple avec parametres
 -----------------------
+
+::
 
     # definition du decorateur
     def decore_classe_with_text(my_text):
