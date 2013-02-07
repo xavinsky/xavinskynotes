@@ -2,6 +2,7 @@
 References
 ##########
 
+.. contents:: Sommaire
 
 La variable est une reference forte vers l'espace mémoire qui contient la donnée.
 
