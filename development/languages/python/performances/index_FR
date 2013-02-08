@@ -2,14 +2,19 @@
 Performance
 ###########
 
-Concatenation des chaines.
+.. contents:: Sommaire
 
-preferer join au '+'.
+Concatenation des chaines
+=========================
 
-'+' creer une nouvelle chaine a chaque addition,
+Test effectué en python 2.7
+
+preferer utiliser la methode "join" à l'opérateur '+'.
+
+Le problème : l'opérateur '+' creer une nouvelle chaine à chaque addition,
 ce qui cause une alocation memoire et une recopie.
 
-Voici un simple bench : ::
+Simple benchmark : ::
 
     import time
     a = [str(i) for i in range(100000)]
@@ -29,4 +34,37 @@ Resultats ::
     0.0174679756165
     0.00216913223267
 
+Gestion des erreurs
+===================
+
+Test effectué en python 2.7
+
+Préferer tester plutôt que d'attraper une exception.
+Le problème est que la levé d'un exception (qui ne fera rien) est couteuse en python (calcul du traceback...)
+
+Simple benchmark : ::
+
+    import time
+    d = {}
+    t1 = time.time()
+    for i in xrange(1000000):
+        if 'toto' in d:
+            pass
+        else:
+            pass
+    t2 = time.time()
+    print t2 - t1
+    t1 = time.time()
+    for i in xrange(1000000):
+        try:
+            d['toto']
+        except:
+            pass
+    t2 = time.time()
+    print t2 - t1
+
+Résultat ::
+
+    0.0767540931702
+    0.676504850388
 
