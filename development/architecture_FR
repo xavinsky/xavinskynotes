@@ -1,9 +1,9 @@
-############
-Architecture
-############
-
+#######################
 Architecture logicielle
-=======================
+#######################
+
+Concepts de base
+================
 
 Indispensable
 -------------
@@ -20,4 +20,64 @@ Erreur à ne pas faire
     * Marteau doré : utiliser le meme outils pour tous les pb, meme quand ce n'est pas adapté
     * utiliser une techno non utile (pour la reference, pour la nouveauté, pour l'image)
 
+MVC
+===
 
+Séparation dans l'architecture des données (Modele), de l'interface (Vue) et du traitement (Control).
+
+Agiles
+======
+
+Cycle court
+-----------
+
+A l'oposé des anciennes methodes traditionnelles, on privilegie les cycles courts, avec integration continue.
+
+SOLID
+-----
+
+SOLID est un Accromyme de 5 principes : 
+
+  * S Single responsibility : un seule responsabilité par objet.
+  * O Open-closed : On doit pouvoir etendres le comportement sans toucher au code.
+  * L Liskov substitution : On doit pouvoir remplacer des objets du code par des objets herités
+  * I Interface segregation : Mieux vaux plusieurs interfaces simples qu'une unique complexe.
+  * D Dependency inversion : Les objets doivent dépendre d’interfaces pas de leur implémentations.
+
+Pratiques Agiles
+----------------
+
+  * Conceptions :
+
+    * Doit être simple (Simple Design)
+    * Relecture du code
+    * Réingénirie (Refactoring)
+
+  * Travail en equipe :
+
+    * Sessions de conception rapide (Quick Design Sessions)
+    * Partage du code
+    * Programmation en binôme (Pair Programming)
+
+  * Le test : 
+
+    * Intégration continue (Continuous Integration)
+    * TDD (Test Driven Development)
+    * Automatisation des tests
+
+GRASP
+=====
+
+General Responsibility Assignment Software Patterns.
+
+Ensemble de design pattern :
+
+  * Controller
+  * Creator
+  * High Cohesion
+  * Indirection
+  * Information Expert
+  * Low Coupling
+  * Polymorphism
+  * Protected Variations
+  * Pure Fabrication
