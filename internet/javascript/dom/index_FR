@@ -1,0 +1,70 @@
+###
+DOM
+###
+
+Document Object Modele.
+
+Les objets manipulables via javascript du navigateur.
+
+Basic
+=====
+
+
+Les fonctions javascript de base pour recuperer les objets sont :
+
+::
+
+    # recuperation de l'objet désiré grace à :
+    getElementById
+    getElementsByTagName
+
+    # exemple
+    my_obj = document.getElementById('my_id')
+    my_divs = document.getElementByTagName('div')
+
+Navigation dans les noeuds :
+
+::
+
+    # parent
+    my_obj.parentNode
+    # enfants
+    my_obj.childNodes
+
+Manipulation classique de l'affichage de l'objet :
+
+::
+
+    # changement de classe css
+    my_obj.className = "new_css_name";
+
+    # changement d'un attribut css unique
+    my_obj.style.left = '0px';
+
+    my_obj.style.visibility = 'visible';
+    my_obj.style.visibility = 'hidden';
+
+    # retirer ou remettre un element.
+    my_obj.style.display = 'none';
+    my_obj.style.display = 'block';
+
+
+Specifiques
+===========
+
+changer le texte ::
+
+    my_div.innerHTML = new_html;
+
+changer d'image ::
+
+    my_img.src = new_url_image;
+
+changer le lien ::
+
+    my_link.href = new_url;
+
+
+References
+==========
+http://www.w3schools.com/dom/default.asp

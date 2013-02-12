@@ -23,3 +23,42 @@ tentative enregistrement de canal
 
 /msg channserv register #<canal>
 
+
+irssi
+=====
+
+Config de base de irssi
+
+::
+
+    aptitude install irssi
+
+    # definir votre nom. (utile à savoir si vous voulez être annonyme)
+    /set real_name Xavier Manach
+    /set user_name xavinsky
+    /set nick xavinsky
+    /set alternate_nick xavinsky___
+
+    /network add -autosendcmd "wait -oftc 2000" OFTC
+    /server add -auto -SSL -network EUROPNET irc.europnet.org 6660
+    /network add -autosendcmd "/msg NickServ identify *****;" EUROPNET
+    /connect -SSL irc.europnet.org 6660
+    /connect irc.debian.org
+    /channel add -auto #debian OFTC
+    /channel add -auto #reflets EUROPNET
+
+utile
+::
+
+    # aller dans un chan
+    /join #reflets
+
+    # voir la liste des utilisateur du chan
+    /names
+
+    # quitter le chan
+    /part
+
+    # quitter irssi
+    /quit
+

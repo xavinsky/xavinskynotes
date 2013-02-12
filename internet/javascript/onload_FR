@@ -1,0 +1,51 @@
+######
+onload
+######
+
+Basic
+=====
+
+onload permet d'executer une fonction apres le chargement d'une page.
+
+On peut soit l'indiquer en javascript 
+
+::
+
+    window.onload = nom_fonction
+
+Soit utiliser l'attribut onload dans la balise body
+
+::
+
+    <body onload="nom_fonction">
+
+Avancé
+======
+
+Comment lancer une fonction javascript àpres le chargement de la page.
+Le tout sans affecter d'autres fonctions déja configurer dans le onload.
+
+Solution :
+Soit utilisant le gestionnaire d'evenement (addEventListener ou attachEvent)
+Sinon en utilisant window.onload (en englobant la fonction initiale si necessaire)
+
+::
+
+    function add_onload_js(my_onload_js){
+        if(window.addEventListener){
+            window.addEventListener("focus", my_onload_js, false);
+        } else if(window.attachEvent) {
+            window.attachEvent('onload', my_onload_js);
+        } else {
+            if(window.onload) {
+                var prev_onload = window.onload;
+                var new_onload = function() {
+                    prev_onload();
+                    my_onload_js();
+                };
+                window.onload = new_onload;
+            } else {
+                window.onload = my_onload_js;
+            }
+        }
+    }

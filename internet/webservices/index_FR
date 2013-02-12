@@ -1,0 +1,15 @@
+############
+Web Services
+############
+
+Protocoles et normes pour les services web.
+
+Exemples :
+
+ * WSDL (Web Services Description Language)
+ * SOAP (Simple Object Access Protocol)
+ * UDDI (Universal Description, Discovery and Integration)
+
+References
+==========
+http://www.w3schools.com/webservices/default.asp
