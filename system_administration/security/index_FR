@@ -1,0 +1,64 @@
+########
+Securité
+########
+
+La sécurité est un processus complet, pas une solution logicielle.
+La sécurité a un coût et des conséquences (restrictions).
+Elle implique donc une strategie et des choix.
+
+Quelques points importants pour la sécurités :
+
+* L'authentification et les droits d'acces.
+* La sécurité physique.
+* L'architecture réseau.
+* La redondance des données, le multi site.
+* Intégrité
+* Disponibilité.
+* La sécurité d'un serveur.
+* La sécurité d'un poste de travail.
+* La privacité, l'anonymas.
+
+Securite de server
+==================
+
+Le minimum : 
+
+* Systeme mis à jour régulierement.
+* Config SSH (avec clef)
+
+Quelques basics :
+
+* redondance disques et partitions  : raid
+* backups : 
+* firewall : iptables, TCPWrappers
+* eviter le scan de ports : portsentry
+* denis service, force-brut : fail2ban 
+* detection d'intrusion : snort
+* detection rootkit et backdoors : rkhunter
+* analyse de logs : logwatch; logcheck
+
+Basic infra :
+
+* acces physique
+* gestion de l'energie
+* gestion du reseau
+
+Plus complexes :
+
+* recompilation des binaires.
+* test de corruption des fichiers.
+* gestion fine des droits : SELinux
+* systeme : /etc/sysctl.conf Hardening
+* cryptographie (disk, communication...)
+
+Apres c'est du spécifique aux logiciels.
+
+Test securité.
+
+* scanner port : nmap
+* scanner vulerabilité : nessus, HTTPCS, OpenVAS, metasploit ...
+
+Suivre les RSS de sécurité : 
+
+* http://www.debian.org/security/
+* http://www.linuxsecurity.com/
