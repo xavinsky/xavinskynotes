@@ -7,6 +7,9 @@ Connaître la version du systeme
 
 :: 
 
+    # version generique :
+    lsb_release -a
+
     # connaitre la version de debian
     cat /etc/debian_version
 
