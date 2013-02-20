@@ -12,12 +12,30 @@ dans certains cas.
 Divers
 ======
 
+Indentation
+-----------
+
 Mixage de tabulation et espace dans le code.
 
+Import
+------
 
 la commande import ne charge le module que la premiere fois,
 il faut utiliser reload si vous voulez réexecuter le chargement du module.
- 
+
+::
+
+    # Ne utiliser de wilcard dans les imports. 
+    # Exemple a ne pas faire :
+    from module_a import *
+    from module_b import *
+    ma_fonction()       
+    # ici on ne sait pas d'ou vient ma_fonction.
+    # elle peux venir de module_a ou de module_b
+    # il devient donc difficile de remonter le code.
+
+Math
+----
 
 La division entre entier donne un entier et non un nombre a virgule.
 
@@ -28,11 +46,17 @@ La division entre entier donne un entier et non un nombre a virgule.
     a = 1. / 2
     # a = 0.5
 
-surcharge de mot du language ::
+mots reservé
+------------
+
+surcharge de certain mot du language est possible ce qui peut être catastrophique ::
 
     # ceci va tout casser dans votre programme :
     int = 5
     str = 'toto'
+
+chaine de caracteres
+--------------------
 
 Mix chaine avec accent et chaine unicode ::
 
@@ -48,6 +72,13 @@ Mix chaine avec accent et chaine unicode ::
     # Il faut faire : 
     ok_final = "tête".decode('utf-u') + u"toto" 
 
+references
+----------
+
+Il faut bien comprendre que variables 
+des tableaux et des dictionnaires sont des references.
+C'est un peu comme si on utilisait des pointeurs.
+Il faut donc faire attention a leurs usages.
 
 Structure recursive ::
 
@@ -102,9 +133,6 @@ Le même probleme appliquer au classes ::
     b = A()
     a.tab.append(1) # n'affecte pas b.tab.
 
-
-        
-
 Tuple increment composant bug ::
 
     tup = ([1,2],)
@@ -115,7 +143,8 @@ Tuple increment composant bug ::
     tup = ([1,2],)
     tup[0].extend([3,4])
    
-
+Exceptions
+----------
 
 Multiples exception syntaxes ::
 
@@ -125,6 +154,9 @@ Multiples exception syntaxes ::
     # incorrect :
     except NameError, OverflowError: 
     # OverflowError va être modifié lors de l'exception NameError.
+
+lecture de fichier
+------------------
 
 Utilisation de open : Chemin relatif pour open(filename) 
 utilise le repertoire courrant, pas de recherche dans le PATH. 
