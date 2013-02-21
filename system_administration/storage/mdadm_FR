@@ -1,0 +1,59 @@
+#####
+MDADM
+#####
+
+mdadm est un utilitaire de raid logiciel.
+
+Commandes
+=========
+
+::
+
+    aptitude install mdadm
+
+    ## creation du volume logique md0 a partir de  
+    mdadm --create <dev_raid> --level=<type_raid> [<options>] <dev_disk1> [<dev_disk2>] 
+    # exemples de param :
+    # <dev_raid> : /dev/md0
+    # exemples de param :
+    # <type_raid> : 0, 1, 5 
+    # <dev_disk*> : /dev/sda1
+    # <options> : 
+    # --assume-clean : permet de ne pas synchroniser les disques au depart
+    # car on prevoie de formater.
+    
+
+    # formater le volme RAID
+    mkfs.ext3 -j <dev_raid>
+
+    # monter le raid
+    mkdir -p <mount_raid>
+    mount <dev_raid> <mount_raid>
+
+    # on rend la config permanente
+    mdadm --daemonise <dev_raid>
+    # ajouter au fstab :
+    <dev_raid>  <mount_raid>	ext3	defaults	0	1
+
+
+    # voir tous les volumes y compris les RAID :
+    sudo fdisk -l
+    # voir les infos sur un volumes RAID
+    mdadm --detail <dev_raid>
+    
+    # ajouter un disque (raid 0 ou 5)
+    mdadm --manage <dev_raid> --add <dev_disk3>
+    mdadm --grow <dev_raid> --raid-devices=<nb_active_dev>
+    resize2fs <dev_raid>
+    # nb_active_dev = nb de disque actuelement utilisé.
+
+    # eliminer un disque hors service (raid 1 ou 5)
+    mdadm --manage <dev_raid> --set-faulty <dev_disk3>
+    mdadm --manage <dev_raid> --remove <dev_disk3>
+
+    # tenter de reparer un volume
+    e2fsck -f <dev_raid>
+    resize2fs <dev_raid>
+
+    # verifier un volume
+    /usr/share/mdadm/checkarray <dev_raid>
