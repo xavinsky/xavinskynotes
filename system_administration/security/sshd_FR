@@ -1,0 +1,118 @@
+###########
+Serveur SSH
+###########
+
+ATTENTION DANGER
+================
+
+Ceci peux vous faire perdre le controle de votre machine si vous vous planter, donc attention.
+
+Apres avoir creer un sudoer sans password, le tester.
+
+Pour tout changement de config ssh ::
+
+    # sauvegarde config sshd
+    cp /etc/ssh/sshd_config /etc/ssh/sshd_config-`date +%G-%m-%d_%H-%M-%S`
+
+    # faire ces changements .....
+
+    # restart ssh
+    /etc/init.d/ssh restart
+
+    #### Ne surtout pas etteindre la console courrante
+    #### si la config ne marche pas seule elle pourra vous aider.
+
+    # tenter une connection ssh a partir d'une autre console.
+    # si elle ne fonctionne pas,
+    # revenez a l'ancienne config 
+    cp /etc/ssh/sshd_config-<le_dernier_qui_marche> /etc/ssh/sshd_config
+    /etc/init.d/ssh restart
+
+
+Changer le port SSH
+===================
+
+Afin d'eviter les attaques basique, changer le port ssh.
+
+Attention a changer les regles iptables au cas ou.
+
+::
+
+    # change port ssh
+    #generate a number
+    python -c 'import random; print random.randint(0,35000)+5000'
+    # retourne par exemple 2222
+
+    # verifier qu'il n'est pas utilisé :
+    echo >/dev/tcp/localhost/2222
+
+    # sauvegarde config sshd
+    cp /etc/ssh/sshd_config /etc/ssh/sshd_config-`date +%G-%m-%d_%H-%M-%S`
+    # Changer la config sshd
+    sed -ie 's/Port.*[0-9]$/Port 2222/gI' /etc/ssh/sshd_config
+
+    # activer les nouveaux acces iptables en cas de besoin.
+    iptables -A INPUT  -i eth0 -p tcp --dport 2222 -m state --state NEW,ESTABLISHED -j ACCEPT
+    iptables -A OUTPUT -o eth0 -p tcp --sport 2222 -m state --state ESTABLISHED -j ACCEPT
+
+    # restart sshd
+    /etc/init.d/ssh restart
+
+    # eliminer les anciennes iptables au cas ou, par exemple :
+    iptables -D INPUT  -i eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+    iptables -D OUTPUT -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+
+
+Configurer le serveur ssh avec clef uniquement
+==============================================
+
+Les principes de la connection par clef
+---------------------------------------
+
+Vous avez un meme utilisateur avec un acces sur le poste client et serveur 
+(avec de preference le meme login pour simplifier).
+
+Sur le poste client vous avez votre utilisateur avec sa clef prive et public.
+Sur le poste serveur vous deposer une copie de la clef public (via ssh-copy-id).
+
+Si le serveur est configurer pour accepter les clefs ssh, vous vous connecterez alors 
+au serveur sans mot de passe.
+
+L'objectif est d'avoir un utilisateur sudoer (sans password),
+et de ne plus se connecter en root.
+
+Creation des users et clefs
+---------------------------
+
+Si il n'existe pas encore, creer le user sudoer sur le serveur : ::
+
+    # vous aurez besoin d'un password pour la premiere connexion
+    adduser xavinsky
+    passwd xavinsky
+    chmod u+w /etc/sudoers
+    echo "xavinsky ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+    chmod u-w /etc/sudoers
+
+Si il n'existe pas encore, creer le user et ses clef sur le client : ::
+
+    adduser xavinsky
+    su - xavinsky
+    ssh-keygen -t dsa
+
+Depuis le poste client envoyer la clef public : ::
+
+    ssh-copy-id <host_serveur>
+    ssh <host_serveur>
+
+Changer la configuration du serveur ::
+
+    # sauvegarde config sshd
+    cp /etc/ssh/sshd_config /etc/ssh/sshd_config-`date +%G-%m-%d_%H-%M-%S`
+    # interdir la connexion en root
+    sed -ie 's/PermitRootLogin yes/PermitRootLogin no/gI' /etc/ssh/sshd_config
+    # interdir la connexion avec mot de passe
+    sed -ie 's/#PasswordAuthentication yes/PasswordAuthentication no/gI' /etc/ssh/sshd_config
+    # restart sshd
+    /etc/init.d/ssh restart
+
+
