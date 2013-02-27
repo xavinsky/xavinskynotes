@@ -101,6 +101,7 @@ Si il n'existe pas encore, creer le user et ses clef sur le client : ::
 
 Depuis le poste client envoyer la clef public : ::
 
+    #ssh-copy-id "<user>@<host> -p <port>"
     ssh-copy-id <host_serveur>
     ssh <host_serveur>
 
