@@ -29,7 +29,7 @@ Lecture DVD : (/PATH/DVD/VIDEO_TS) ::
     xine /PATH/DVD
     mplayer dvd://1 -dvd-device /PATH/DVD
 
-Lecture iso
+Lecture iso ::
 
     xine dvd:/chemin/file.iso
     mplayer -dvd-device file.iso mplayer  dvd://1 

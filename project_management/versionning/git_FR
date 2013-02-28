@@ -328,6 +328,16 @@ Initialiser un depot github ::
     git push -u origin master
 
 
+Travailler dans un branche github ::
+
+    # creer la branch dans github.
+
+    git branch --track newbranch
+    git checkout newbranch
+    # git checkout origin/newbranch
+
+
+
 ========
 Syntaxes
 ========
