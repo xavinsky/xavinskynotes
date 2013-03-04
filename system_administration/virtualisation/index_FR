@@ -2,17 +2,6 @@
 Emulation
 #########
 
-VirtualBox
-==========
-
-Outil facile à prendre en main, le tout avec interface graphique.
-
-
-Convertion d'image virtualbox en image VMDK (compatible vmware) ::
-
-    VBoxManage clonehd image.vdi --format VMDK image.vmdk
-    VBoxManage clonehd image.vdi --variant Split2G --format VMDK image.vmdk
-
 qemu
 ====
 

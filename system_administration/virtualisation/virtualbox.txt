@@ -1,0 +1,133 @@
+##########
+VirtualBox
+##########
+
+Syntaxes
+========
+
+Obtenir les syntaxes
+
+::
+
+    VBoxManage > helpVBoxSyntax.txt
+
+List virtual machines
+---------------------
+
+Only the vms of the current user can be see.
+
+::
+
+    # see All vms registred
+    VBoxManage list vms
+    # see vms running
+    VBoxManage list runningvms
+    # see details
+    VBoxManage list vms -l
+
+Start Stop Pause
+----------------
+
+::
+
+     # Start with Xorg
+     VBoxManage startvm my_vm
+
+     # Stop
+     VBoxManage controlvm "my_vm" poweroff
+
+     # Reset -restart- the virtual machien
+     VBoxManage controlvm "my_vm" reset
+
+     # Pause / Resume 
+     VBoxManage controlvm "my_vm" pause
+     VBoxManage controlvm "my_vm" resume
+
+Without Xorg
+------------
+
+::
+
+     # start without remote desktop
+     VBoxHeadless --startvm my_vm --vrde off
+
+     # start with remote desktop 
+     # sample with port 5012
+     VBoxManage modifyvm my_vm --vrde on --vrdeport 5012 –vrdeaddress <iphost>
+     VBoxHeadless --startvm my_vm --vrde on
+
+     # acces with remote desktop
+     # sample with port 5012
+     rdesktop -a 16 -N <iphost>:5012
+
+     # start with vnc :
+     VBoxHeadless --startvm my_vm --vnc --vncport <port> --vncpass <pw>
+
+
+NAT and port forwarding
+-----------------------
+
+::
+
+    # add a rule
+    # sample : host 2222 to guest 22 tcp, for access ssh
+    VBoxManage modifyvm my_vm --natpf1 "guestssh,tcp,,2222,,22"
+    # remove aa rule
+    VBoxManage modifyvm my_vm --natpf1 delete guestssh
+
+
+Create
+------
+
+::
+
+    cd "~/VirtualBox VMs"
+    # create vm and register it.
+    VBoxManage createvm --name my_vm --register
+    cd my_vm
+    # change RAM and CPU
+    VBoxManage modifyvm my_vm --memory 1000
+    VBoxManage modifyvm my_vm --cpus 1
+    # Configure the networkk type (here NAT)
+    VBoxManage modifyvm my_vm --nic1 nat --nictype1 virtio
+    # Create disl 8G
+    VBoxManage createhd --filename my_vm.vdi --size 8000 
+    # Attache the disk
+    VBoxManage storagectl my_vm --name "IDE Controller" \
+        --add ide --controller PIIX4
+    VBoxManage storageattach my_vm --storagectl "IDE Controller" \
+        --port 0 --device 0 --type hdd --medium my_vm.vdi
+
+    # define a cd (sample here with ubuntu server 64)
+    VBoxManage storageattach my_vm --storagectl "IDE Controller" \
+        --port 0 --device 1 --type dvddrive --medium ubuntu-12.04.2-server-amd64.iso
+
+
+    # Unregister
+    VBoxManage unregistervm my_vm
+
+    # Unregister and delete files
+    VBoxManage unregistervm my_vm --delete
+
+Import / Export
+---------------
+
+VOA format virtualbox 
+
+::
+
+    # import export VM :
+    VBoxManage export my_vm --output my_vm.ova
+
+    # see option for import :
+    VBoxManage import -n my_vm.ova
+
+    # sample import
+    VBoxManage import my_vm.ova --vsys 0 --vmname my_vm2 --unit 11 --disk my_vm2/my_vm2.vdi
+
+Convertion d'image virtualbox en image VMDK (compatible vmware) ::
+
+::
+
+    VBoxManage clonehd image.vdi --format VMDK image.vmdk
+    VBoxManage clonehd image.vdi --variant Split2G --format VMDK image.vmdk

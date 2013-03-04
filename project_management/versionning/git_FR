@@ -330,13 +330,8 @@ Initialiser un depot github ::
 
 Travailler dans un branche github ::
 
-    # creer la branch dans github.
-
-    git branch --track newbranch
-    git checkout newbranch
-    # git checkout origin/newbranch
-
-
+    # passer sur une nouvelle branche github 
+    git checkout -t origin/newbranch
 
 ========
 Syntaxes
@@ -579,6 +574,9 @@ Branches
 
     # détruit une branche mémé si elle a pas été mergé.
     git branch -D <id_branche>
+
+    # détruire un branche dans le depot distant :
+    git push origin --delete <branchName>
 
 Réserve
 -------
