@@ -11,8 +11,21 @@ Reglage ponctuelle de l'heure
 
     date --date "28 Oct 2005 02:13"
 
-Demon de synchronisation
-========================
+ntp deamon
+==========
+::
+
+    # installation
+    aptitude install ntp
+
+    # first fast synchro
+    /etc/init.d/ntp stop
+    ntpdate 0.fr.pool.ntp.org
+    /etc/init.d/ntp start
+
+
+Old Way ntpdate
+===============
 
 ::
 
@@ -22,6 +35,11 @@ Demon de synchronisation
     tzconfig 
     # choisir serveur de temps sur lequel se synchro
     ntpdate ntp-p1.obspm.fr
+
+
+References
+==========
+
 
 Doc ntpdate : http://lne-syrte.obspm.fr/gen/ntp_infos.html
 Doc debian : http://wiki.debian.net/?DebFrNTP
