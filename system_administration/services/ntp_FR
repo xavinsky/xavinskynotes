@@ -16,25 +16,24 @@ ntp deamon
 ::
 
     # installation
-    aptitude install ntp
+    aptitude install ntp ntpdate
 
     # first fast synchro
     /etc/init.d/ntp stop
     ntpdate 0.fr.pool.ntp.org
     /etc/init.d/ntp start
 
+    # show server connected and offsets
+    ntpq -p
 
-Old Way ntpdate
-===============
+
+Old Way fuseau horaire
+======================
 
 ::
 
-    # installation
-    aptitude install ntpdate
     # choisir fuseau horaire
     tzconfig 
-    # choisir serveur de temps sur lequel se synchro
-    ntpdate ntp-p1.obspm.fr
 
 
 References
