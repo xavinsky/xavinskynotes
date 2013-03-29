@@ -9,10 +9,10 @@ Configuration
 
 fichier de configuration ::
 
-    /etc/profile : valable pour tous Ã  la connection.
-    ~/.bash_profile : Ã  la connection.
+    /etc/profile : valable pour tous à la connection.
+    ~/.bash_profile : à la connection.
     ~/.bashrc : au demarrage du bash
-    ~/.bash_logout : Ã  la deconnection.
+    ~/.bash_logout : à la deconnection.
     ~/.bash_history : historique.
 
 Utilisation
@@ -20,7 +20,7 @@ Utilisation
 
 Méta Carractere ::
 
-    * : 0 Ã  x caracteres.
+    * : 0 à x caracteres.
     ? : 1 caractere.
     [a-dGh1-3] : un caractere a,b,c,d,G,h, 1, 2 ou 3.
     [!abc] [^abc] : un caractere different de a, b et c.
@@ -129,7 +129,9 @@ Il est possible de modifier cela par ligne de commandes ::
 
     >    : redirection de la sortie standard
     2>   : redirection de la sortie erreur
+    &>   : redirection de la sortie standard et erreur 
     2>&1 : redirection de la sortie erreur vers standard
+    1>&2 : redirection de la sortie standard vers erreur 
     >>   : redirection de la sortie standard (ajout au fichier)
     >&   : duplication de la sortie standard
     >&~  : ferme  la sortie standard
