@@ -40,8 +40,6 @@ Creation des iptables et mise en place :
     # allow out 21 20 1024+ tcp for ftp/ftp-data
     iptables -A OUTPUT -o eth0 -p tcp --dport 21  -m state --state NEW,ESTABLISHED -j ACCEPT
     iptables -A INPUT  -i eth0 -p tcp --sport 21  -m state --state ESTABLISHED -j ACCEPT
-    iptables -D OUTPUT -o eth0 -p tcp --dport 20  -m state --state NEW,ESTABLISHED -j ACCEPT
-    iptables -D INPUT  -i eth0 -p tcp --sport 20  -m state --state ESTABLISHED -j ACCEPT
     iptables -A OUTPUT -o eth0 -p tcp --dport 20  -m state --state ESTABLISHED,RELATED -j ACCEPT
     iptables -A INPUT  -i eth0 -p tcp --sport 20  -m state --state ESTABLISHED -j ACCEPT
     iptables -A OUTPUT -o eth0 -p tcp --dport 1024:  -m state --state ESTABLISHED,RELATED -j ACCEPT
