@@ -9,6 +9,10 @@ Securiser un serveur
 Automatisation iptables au demarrages :
 
     echo '#!/bin/sh' > /etc/network/if-pre-up.d/iptables
+# I don't know if it's usefull
+#    echo 'modprobe ip_conntrack_ftp' >> /etc/network/if-pre-up.d/iptables
+#    echo 'modprobe ip_conntrack' >> /etc/network/if-pre-up.d/iptables
+#    echo 'modprobe ip_nat_ftp' >> /etc/network/if-pre-up.d/iptables
     echo '/sbin/iptables-restore < /etc/iptables.up.rules' >> /etc/network/if-pre-up.d/iptables
     chmod u+x /etc/network/if-pre-up.d/iptables
 
@@ -33,9 +37,17 @@ Creation des iptables et mise en place :
     # allow out 53 udp for dns
     iptables -A OUTPUT -o eth0 -p udp --dport 53  -m state --state NEW,ESTABLISHED -j ACCEPT
     iptables -A INPUT  -i eth0 -p udp --sport 53  -m state --state ESTABLISHED -j ACCEPT
-    # allow out 21 80 443 tcp for http/https/ftp
+    # allow out 21 20 1024+ tcp for ftp/ftp-data
     iptables -A OUTPUT -o eth0 -p tcp --dport 21  -m state --state NEW,ESTABLISHED -j ACCEPT
     iptables -A INPUT  -i eth0 -p tcp --sport 21  -m state --state ESTABLISHED -j ACCEPT
+    iptables -D OUTPUT -o eth0 -p tcp --dport 20  -m state --state NEW,ESTABLISHED -j ACCEPT
+    iptables -D INPUT  -i eth0 -p tcp --sport 20  -m state --state ESTABLISHED -j ACCEPT
+    iptables -A OUTPUT -o eth0 -p tcp --dport 20  -m state --state ESTABLISHED,RELATED -j ACCEPT
+    iptables -A INPUT  -i eth0 -p tcp --sport 20  -m state --state ESTABLISHED -j ACCEPT
+    iptables -A OUTPUT -o eth0 -p tcp --dport 1024:  -m state --state ESTABLISHED,RELATED -j ACCEPT
+    iptables -A INPUT  -i eth0 -p tcp --sport 1024:  -m state --state ESTABLISHED -j ACCEPT
+
+    # allow out 80 443 tcp for http/https
     iptables -A OUTPUT -o eth0 -p tcp --dport 80  -m state --state NEW,ESTABLISHED -j ACCEPT
     iptables -A INPUT  -i eth0 -p tcp --sport 80  -m state --state ESTABLISHED -j ACCEPT
     iptables -A OUTPUT -o eth0 -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
@@ -46,5 +58,4 @@ Creation des iptables et mise en place :
     iptables -P OUTPUT DROP
 
     iptables-save > /etc/iptables.up.rules
-
 
