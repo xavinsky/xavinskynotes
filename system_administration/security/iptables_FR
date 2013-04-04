@@ -9,10 +9,7 @@ Securiser un serveur
 Automatisation iptables au demarrages :
 
     echo '#!/bin/sh' > /etc/network/if-pre-up.d/iptables
-# I don't know if it's usefull
-#    echo 'modprobe ip_conntrack_ftp' >> /etc/network/if-pre-up.d/iptables
-#    echo 'modprobe ip_conntrack' >> /etc/network/if-pre-up.d/iptables
-#    echo 'modprobe ip_nat_ftp' >> /etc/network/if-pre-up.d/iptables
+    echo 'modprobe ip_conntrack_ftp' >> /etc/network/if-pre-up.d/iptables
     echo '/sbin/iptables-restore < /etc/iptables.up.rules' >> /etc/network/if-pre-up.d/iptables
     chmod u+x /etc/network/if-pre-up.d/iptables
 
