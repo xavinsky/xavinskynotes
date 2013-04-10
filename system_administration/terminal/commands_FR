@@ -27,10 +27,16 @@ Chercher
     locate <nomfichier>
 
     # Recherche dans les fichiers
-    grep [-r][-i][-l] <fichierconcerner> <textarechercher>
+    grep [-r][-i][-E][-l] <textarechercher> <fichierconcerner> 
     # -r recursif
     # -i insensible a la casse
     # -l retourne la liste des fichier et non pas les lignes correspondantes
+    # -E expression reguliere
+
+    # exemple 
+    grep -E '(toto|tata)' file.txt # cherche les ligne avec toto ou tata dans file.txt
+    grep -ril 'toto' * # cherche les ligne avec toto dans tous les fichiers (et tous les fichiers des repertoires)
+
 
     awk
     ack

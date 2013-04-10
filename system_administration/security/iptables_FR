@@ -48,6 +48,10 @@ Creation des iptables et mise en place :
     iptables -A OUTPUT -o eth0 -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
     iptables -A INPUT  -i eth0 -p tcp --sport 443 -m state --state ESTABLISHED -j ACCEPT
 
+    # allow out 22 tcp for ssh
+    iptables -A OUTPUT -o eth0 -p tcp --dport 22  -m state --state NEW,ESTABLISHED -j ACCEPT
+    iptables -A INPUT  -i eth0 -p tcp --sport 22  -m state --state ESTABLISHED -j ACCEPT
+
     iptables -P INPUT DROP
     iptables -P FORWARD DROP
     iptables -P OUTPUT DROP
