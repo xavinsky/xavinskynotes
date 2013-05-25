@@ -106,6 +106,22 @@ Tache de fonds ::
     nohup <command> &
     # utilite : on peut eteindre la console, sans arreter le processus.
 
+    # Mettre en tache de fond le processus courrant du terminal : 
+    Touches [Ctr+Z]
+
+    # Detacher le jobs en tache de fond tu terminal
+    # <id> est l'identifiant indiqué par la commande jobs
+    disown %<id>
+
+    # recuperer un processus détaché sur un nouveau terminal
+    # need to be installed before
+    sudo aptitude install reptyr
+    # sur certain system besoin de permettre la recuperation
+    #    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+    reptyr <pid>
+    # remettre comme à l'origine
+    #    echo 1 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+
 
 Connexion distante
 ------------------

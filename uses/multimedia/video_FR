@@ -206,6 +206,8 @@ Vers ISO
 dvd to iso
 ~~~~~~~~~~
 
+::
+
     # Lancer le dvd avec vlc, puis lancer :
     dd if=/dev/dvd of=DVD.iso bs=2048
     # ou encore (selon le device cdrom)
@@ -277,6 +279,14 @@ flv (vidéo flash) en avi
     # version ffmpeg ::
     ffmpeg -i file.flv file.avi
 
+
+dvd to avi
+~~~~~~~~~~
+
+::
+
+    mencoder dvd:// -oac mp3lame -lameopts q=0:aq=0 \
+      -ovc xvid -xvidencopts fixed_quant=2:autoaspect -o video.avi
 
 iso dvd en avi vost
 ~~~~~~~~~~~~~~~~~~~
@@ -493,6 +503,9 @@ Documentation
     * Encodage mpeg4 :
       http://www.mplayerhq.hu/DOCS/HTML/fr/menc-feat-dvd-mpeg4.html
 
+    * Rip dvd with mencoder : 
+      http://savvyadmin.com/dvd-to-xvid-encoding-with-mencoder/
+
     * Gérer le téléciné et l'entrelacement des DVDs
       NTSChttp://www.mplayerhq.hu/DOCS/HTML/fr/menc-feat-telecine.html
 
@@ -503,4 +516,5 @@ Documentation
     * Encodage multi passe
       http://web.njit.edu/all_topics/Prog_Lang_Docs/html/mplayer/French/encoding.html
       http://forum.hardware.fr/hfr/VideoSon/Traitement-Video/topic-unique-mencoder-sujet_87558_1.htm
+
 
