@@ -143,6 +143,10 @@ scp ::
     # <port> : port de la machine distante (22 par defaut)
 
 
+    # If there is an interrupt in a transfert file
+    # you can use rsync for continue
+    rsync --partial --progress --rsh=ssh user@]machine:]/path/file /path/localfile 
+
 wget ::
 
     # telechargement d'une url
