@@ -251,6 +251,14 @@ conversion encodage avec iconv ::
     # option -c : ignore les carracteres non convertible
     iconv -c -f utf8 -t latin1 file_utf8.txt > file_latin1.txt
 
+
+ajouter la completion a un alias d'editeur a mettre dans le .bashrc ::
+
+    # mon alias pour emacs
+    alias xe='emacs -nw'
+    # mettre en place la completion avec complete
+    complete -F _filedir_xspec xe
+
 Références
 ==========
 

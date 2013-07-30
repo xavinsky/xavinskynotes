@@ -457,6 +457,9 @@ Introspection local
     # changement effectue sur la branche 2 depuis l'ancêtre commun aux deux branches.
     git diff <branch1>...<branch2>
 
+    # get a version for a file
+    git show <version>:<filename>
+
     # Historique des commits :
     git log
 
