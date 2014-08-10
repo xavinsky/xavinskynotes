@@ -183,6 +183,8 @@ script perl pour replacement de texte dans plusieurs fichiers ::
     # autre exemple avec sed :
     sed -i 's/€/ Euros /g' E*
 
+    find . -type f -print0 | xargs -0 sed -i 's/oldtext/newtext/g'
+
 eliminer les lignes vides ::
 
     sed '/^$/d' monFichier > tt
