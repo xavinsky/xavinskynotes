@@ -21,6 +21,9 @@ Chercher
     # Affiner la recherche avec un grep
     find . | grep toto
 
+    # Fichier modifie dans les 60 derniere minutes.
+    find .  -mmin -60
+
     # mise a jour de la base de recherche des fichiers
     updatedb
     # Recherche dans la base des fichiers
