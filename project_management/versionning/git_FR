@@ -332,6 +332,13 @@ Travailler dans un branche github ::
 
     # passer sur une nouvelle branche github 
     git checkout -t origin/newbranch
+    or
+    git checkout newbranch
+
+    # creer un branche en local et push it on github
+    git checkout -b mynewbranch
+    git push -u origin mynewbranch
+
 
 ========
 Syntaxes
@@ -380,7 +387,7 @@ Syntaxes simples ::
     # remove from working space all file and folder untracked
     git clean
 
-    # unstage file
+    # unstage file (cancel git add)
     git reset HEAD <file>
 
     # put in stage space the version before the last commit.
@@ -390,10 +397,8 @@ Syntaxes simples ::
     # revert to staged version if exist, or to last commit version.
     git checkout <source>
 
-    # Eliminate working space change for the source (file or folder). 
-    # revert to <id_commit> version.
+    # Revert / Come back to previous version (file or folder).
     git checkout <id_commit> <source>
-
 
     # Eliminate working space change for all files and folders tracked.
     # revert to staged version if exist, or to last commit version.
@@ -409,6 +414,11 @@ Syntaxes simples ::
     # Reverse commit specified and commit the result.
     git revert <id_commit>
 
+    # reverse to commit and push the revert on the repository.
+    # you will lose your change in the global repo.
+    git pull
+    git reset --soft <id_commit>
+    git push -f
 
 Amend est une option pratique lorsque 
 vous avez oublier quelque chose dans votre dernier
@@ -462,6 +472,9 @@ Introspection local
 
     # Historique des commits :
     git log
+
+    # chearcher un fichier detruit.
+    git log --diff-filter=D --summary
 
     Options de sélection des commits
     -<nb>    N'affiche que les n derniers commits
